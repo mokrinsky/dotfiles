@@ -4,6 +4,9 @@ set nocompatible
 filetype off
 filetype plugin indent on
 set backspace=indent,eol,start
+colorscheme monokai
+let g:molokai_original = 1
+let g:vimpager_passthrough = 0
 
 " Always show statusline
 source $PLPATH/powerline/bindings/vim/plugin/powerline.vim

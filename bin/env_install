@@ -1,4 +1,11 @@
 #!/bin/bash
 
+mkdir -p ~/.vim/bundle
+echo -e "\033[1;32m :: \033[0m Installing Vundle"
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+echo -e "\033[1;32m :: \033[0m Installing Powerline"
 pip install powerline-status
+echo -e "\033[1;32m :: \033[0m Installing Oh-My-Zsh"
+git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh.tmp
+cp -r ~/.oh-my-zsh.tmp/ ~/.oh-my-zsh/; rm -rf ~/.oh-my-zsh.tmp
+git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
