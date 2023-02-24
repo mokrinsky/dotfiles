@@ -1,0 +1,4 @@
+../.DS_Store
+# I have to untrack config for now cause I didn't like sops as a secret storage, so I'm looking for something else.
+config
+.pre-commit-config.yaml
