@@ -111,7 +111,6 @@
                 alejandra.enable = true;
                 editorconfig-checker.enable = true;
                 deadnix.enable = true;
-                shellcheck.enable = true;
                 statix.enable = true;
               };
               settings.deadnix = {

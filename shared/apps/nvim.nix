@@ -8,7 +8,7 @@
       owner = "mokrinsky";
       repo = "nvim-config";
       rev = "HEAD";
-      sha256 = "sha256-pSm4X3jR1g68IBTJLYyD4gsufFd5vEOPw1vHJYm9PDU=";
+      sha256 = "sha256-duYfzHofFknHxx6VCjkawRg8O/2qnDOlEWaPg+sVZ7A=";
     };
   };
 
