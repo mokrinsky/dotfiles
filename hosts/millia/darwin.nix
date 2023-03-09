@@ -7,8 +7,8 @@
 }: {
   imports = [];
 
-  users.users.yumi = {
-    home = "/Users/yumi";
+  users.users.${config.username} = {
+    home = "/Users/${config.username}";
     shell = "${pkgs.fish}/bin/fish";
   };
 
