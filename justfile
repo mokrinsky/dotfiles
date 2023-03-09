@@ -1,3 +1,6 @@
+default:
+  just -l
+
 secret-stage:
   git add -f config/default.nix
 

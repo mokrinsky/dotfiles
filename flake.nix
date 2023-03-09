@@ -112,6 +112,13 @@
                 editorconfig-checker.enable = true;
                 deadnix.enable = true;
                 statix.enable = true;
+                flake-check = {
+                  enable = true;
+                  types = ["nix"];
+                  language = "system";
+                  entry = "just check";
+                  pass_filenames = false;
+                };
               };
               settings.deadnix = {
                 noLambdaPatternNames = true;
@@ -124,6 +131,9 @@
           in
             pkgs.mkShell {
               inherit (self.checks.${system}.pre-commit-check) shellHook;
+              packages = [
+                pkgs.just
+              ];
             };
         }
       ))
