@@ -1,11 +1,61 @@
+---@see https://github.com/nekowinston
+-- this file was created by this guy i provided link to
+-- i have no idea how it works but somehow it does
+
 local wezterm = require 'wezterm'
 
 local DIVIDERS = {
+  -- selene: allow(undefined_variable)
+  ---@diagnostic disable-next-line: undefined-global
   LEFT = utf8.char(0xe0be),
   RIGHT = '', -- utf8.char(0xe0bc),
 }
 
+-- superscript/subscript
+local function numberStyle(number, script)
+  local scripts = {
+    superscript = {
+      '⁰',
+      '¹',
+      '²',
+      '³',
+      '⁴',
+      '⁵',
+      '⁶',
+      '⁷',
+      '⁸',
+      '⁹',
+    },
+    subscript = {
+      '₀',
+      '₁',
+      '₂',
+      '₃',
+      '₄',
+      '₅',
+      '₆',
+      '₇',
+      '₈',
+      '₉',
+    },
+  }
+  local numbers = scripts[script]
+  local number_string = tostring(number)
+  local result = ''
+  for i = 1, #number_string do
+    local char = number_string:sub(i, i)
+    local num = tonumber(char)
+    if num then
+      result = result .. numbers[num + 1]
+    else
+      result = result .. char
+    end
+  end
+  return result
+end
+
 -- custom tab bar
+-- selene: allow(unused_variable)
 ---@diagnostic disable-next-line: unused-local
 wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
   local colours = config.resolved_palette.tab_bar
@@ -28,7 +78,7 @@ wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_wid
 
   local i = tab.tab_index % 6
   local active_bg = rainbow[i + 1]
-  local active_fg = '#1e1e2e'
+  local active_fg = colours.background
   local inactive_bg = colours.inactive_tab.bg_color
   local inactive_fg = colours.inactive_tab.fg_color
   local new_tab_bg = colours.new_tab.bg_color
@@ -65,27 +115,25 @@ wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_wid
     e_fg = inactive_bg
   end
 
+  local tabi = wezterm.mux.get_tab(tab.tab_id)
+  local muxpanes = tabi:panes()
+  local count = #muxpanes == 1 and '' or tostring(#muxpanes)
   local index = tab.tab_index + 1 .. ': '
 
-  local function basename(s)
-    return string.gsub(s, '(.*[/\\])(.*)', '%2')
+  -- start and end hardcoded numbers are the Powerline + " " padding
+  local fillerwidth = 2 + string.len(index) + string.len(count) + 2
+
+  local tabtitle = tab.active_pane.title
+  if (#tabtitle + fillerwidth) > config.tab_max_width then
+    tabtitle = string.sub(tab.active_pane.title, 1, (config.tab_max_width - fillerwidth - 1)) .. '…'
   end
 
-  local title = function()
-    if string.len(tab.active_pane.title) > max_width then
-      return basename(tab.active_pane.foreground_process_name)
-    else
-      return tab.active_pane.title
-    end
-  end
+  local title = string.format(' %s%s%s ', index, tabtitle, numberStyle(count, 'superscript'))
 
   return {
     { Background = { Color = s_bg } },
     { Foreground = { Color = s_fg } },
-    {
-      -- Text = ' ' .. index .. string.sub(tab.active_pane.title, 1, max_width - 7) .. ' ',
-      Text = ' ' .. index .. title() .. ' ',
-    },
+    { Text = title },
     { Background = { Color = e_bg } },
     { Foreground = { Color = e_fg } },
     { Text = DIVIDERS.RIGHT },
@@ -102,7 +150,7 @@ local function arrContains(arr, val)
   return false
 end
 
-local nonpadded_apps = { 'nvim', 'btop', 'btm', 'vim' }
+local nonpadded_apps = { 'nvim', 'btop', 'btm' }
 
 wezterm.on('smartpadding', function(window, pane)
   local fgp = pane:get_foreground_process_info()
@@ -117,31 +165,4 @@ wezterm.on('smartpadding', function(window, pane)
       window_padding = wezterm.GLOBAL.smart_padding,
     }
   end
-end)
-
--- custom status
----@diagnostic disable-next-line: unused-local
-wezterm.on('update-status', function(window, pane)
-  if wezterm.GLOBAL.smart_padding ~= nil then
-    wezterm.emit('smartpadding', window, pane)
-  end
-
-  local palette = window:effective_config().resolved_palette
-  local first_tab_active = window:mux_window():tabs_with_info()[1].is_active
-
-  local leader_text = ''
-  if window:leader_is_active() then
-    leader_text = ''
-  end
-
-  local divider_bg = first_tab_active and palette.ansi[2] or palette.tab_bar.inactive_tab.bg_color
-
-  window:set_left_status(wezterm.format {
-    { Foreground = { Color = palette.background } },
-    { Background = { Color = palette.ansi[5] } },
-    { Text = leader_text },
-    { Background = { Color = divider_bg } },
-    { Foreground = { Color = palette.ansi[5] } },
-    { Text = DIVIDERS.RIGHT },
-  })
 end)

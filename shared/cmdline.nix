@@ -34,6 +34,7 @@
       SUDO_EDITOR = "$EDITOR";
       FZF_DEFAULT_OPTS = "--cycle --border --height=90% --preview-window=wrap --marker=\"*\"";
       EXA_ICON_SPACING = 2;
+      TERMINFO_DIRS = "/Users/yumi/.terminfo";
     };
 
     language.base = "en_US.UTF-8";
@@ -66,6 +67,8 @@
         ipcalc
         starship
         virt-viewer
+        gopass
+        yubikey-manager
         (nerdfonts.override {
           fonts = [
             "NerdFontsSymbolsOnly"
@@ -80,6 +83,7 @@
         cloak
         fd
         dogdns
+        just
         pkgs.nur.repos.yumi.fzf
       ]
       ++ lib.optionals pkgs.stdenv.isLinux [
@@ -124,6 +128,7 @@
     };
     htop.enable = true;
     home-manager.enable = true;
+    jq.enable = true;
     gpg = {
       enable = true;
       homedir = config.xdg.configHome + "/gnupg";

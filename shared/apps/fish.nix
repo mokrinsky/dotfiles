@@ -34,6 +34,9 @@
       fish_add_path /usr/local/opt/python@3.11/libexec/bin
 
       set -Ua fish_features ampersand-nobg-in-token qmark-noglob
+      set -x GPG_TTY (tty)
+      set -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+      gpgconf --launch gpg-agent
     '';
     plugins = [
       {

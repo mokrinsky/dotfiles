@@ -38,11 +38,16 @@
     fish.enable = true;
   };
 
+  # next line works fine, but MS Outlook cries each darwin-switch execution so i disabled it
   # time.timeZone = "Europe/Moscow";
 
+  # TODO: reinstall appliactions so they will be managed by brew (aka by nix as well)
   homebrew = {
     enable = true;
-    #cleanup = "zap";
+    onActivation = {
+      cleanup = "zap";
+      # upgrade = true;
+    };
     global = {
       brewfile = true;
     };
@@ -55,19 +60,35 @@
       "maven"
     ];
     casks = [
-      # "discord"
+      # "apache-directory-studio"
+      # "balenaetcher"
+      "cyberduck"
+      "discord"
+      # "displaycal"
+      "docker"
+      # "lulu"
+      # "mos"
+      "notion"
+      "sublime-text"
       "telegram-desktop"
+      # "transmission"
+      "tuntap"
+      # "virtualbox"
       "visual-studio-code"
       "vlc"
-      "docker"
-      "sublime-text"
-      "tuntap"
       "wezterm"
       "wireshark"
-      # "cyberduck"
-      # "notion"
       # "spotify"
     ];
-    masApps = {};
+    masApps = {
+      "Microsoft Remote Desktop" = 1295203466;
+      Xcode = 497799835;
+      Pages = 409201541;
+      Keynote = 409183694;
+      Mattermost = 1614666244;
+      "The Unarchiver" = 425424353;
+      WireGuard = 1451685025;
+      Numbers = 409203825;
+    };
   };
 }

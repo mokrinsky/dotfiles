@@ -4,12 +4,7 @@
   ...
 }: {
   xdg.configFile."nvim" = {
-    source = pkgs.fetchFromGitHub {
-      owner = "mokrinsky";
-      repo = "nvim-config";
-      rev = "HEAD";
-      sha256 = "sha256-duYfzHofFknHxx6VCjkawRg8O/2qnDOlEWaPg+sVZ7A=";
-    };
+    source = ./configs/nvim_config;
   };
 
   programs.neovim = {
@@ -23,6 +18,7 @@
     extraPackages = with pkgs; [
       # I prefer using Mason, but some packages are not present in here
       alejandra
+      tree-sitter
     ];
   };
 }

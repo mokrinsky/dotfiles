@@ -16,7 +16,12 @@ return {
   },
   debug_key_events = true,
   enable_scroll_bar = false,
-  font = wezterm.font_with_fallback { 'Berkeley Mono' },
+  font = wezterm.font_with_fallback {
+    {
+      family = 'Berkeley Mono',
+      harfbuzz_features = { 'calt=0', 'clig=1', 'liga=1' },
+    },
+  },
   font_size = 12,
   hyperlink_rules = hyperlink,
   initial_cols = 265,
@@ -24,6 +29,7 @@ return {
   scrollback_lines = 10000,
   swallow_mouse_click_on_window_focus = false,
   tab_max_width = 32,
+  underline_thickness = '1.5pt',
   use_fancy_tab_bar = false,
   use_ime = false,
   window_background_opacity = 0.95,
