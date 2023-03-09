@@ -63,12 +63,15 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.yumi = {
     isNormalUser = true;
+    group = "yumi";
     extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
     #   packages = with pkgs; [
     #     firefox
     #     thunderbird
     #   ];
   };
+
+  users.groups.yumi = {};
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
