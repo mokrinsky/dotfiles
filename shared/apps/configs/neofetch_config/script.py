@@ -1,3 +1,4 @@
+# pylint: disable=C0103
 """
 This file convert bbcode to shell color escape code
 """
@@ -334,7 +335,7 @@ def list_to_string(s):
 
 # take open first argument if not read stdin
 try:
-    with open(sys.argv[1]) as f:
+    with open(sys.argv[1], encoding="utf-8") as f:
         BBCode = f.read()
 except IndexError:
     BBCode = sys.stdin.read()

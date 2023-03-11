@@ -13,7 +13,11 @@
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     nur.url = "github:nix-community/NUR";
     flake-utils.url = "github:numtide/flake-utils";
-    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     yumi = {
       url = "github:mokrinsky/nix-packages";
@@ -121,6 +125,7 @@
                 stylua.enable = true;
                 pylint.enable = true;
               };
+              settings.pylint.binPath = "pylint";
               settings.deadnix = {
                 noLambdaPatternNames = true;
                 noLambdaArg = true;
