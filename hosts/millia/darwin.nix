@@ -55,7 +55,6 @@
     brews = [
       "squid"
       "openvpn"
-      "python@3.11"
       "openjdk@17"
       "maven"
     ];

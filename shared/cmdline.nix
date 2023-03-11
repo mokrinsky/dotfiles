@@ -5,7 +5,14 @@
   system,
   lib,
   ...
-}: {
+}: let
+  pythonPackages = p:
+    with p; [
+      pip
+      yt-dlp
+      numpy
+    ];
+in {
   # launchd = {
   #   enable = true;
   #   agents = {
@@ -72,6 +79,9 @@
         dogdns
         just
         pkgs.nur.repos.yumi.fzf
+        # python stuff
+        (python3.withPackages pythonPackages)
+        ansible
       ]
       ++ lib.optionals pkgs.stdenv.isLinux [
         wireshark
