@@ -61,6 +61,7 @@
         {
           nix = {
             registry.nixpgks.flake = nixpkgs;
+            nixPath = ["nixpkgs=${nixpkgs}"];
           };
         }
         (import ./config)
@@ -103,7 +104,12 @@
       };
     in
       (flake-utils.lib.eachDefaultSystem (
-        system: {
+        system: let
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = [nur-overlays];
+          };
+        in {
           checks = {
             pre-commit-check = pre-commit-hooks.lib.${system}.run {
               src = ./.;
@@ -112,13 +118,8 @@
                 editorconfig-checker.enable = true;
                 deadnix.enable = true;
                 statix.enable = true;
-                flake-check = {
-                  enable = true;
-                  types = ["nix"];
-                  language = "system";
-                  entry = "${nixpkgs.legacyPackages.${system}.just}/bin/just check";
-                  pass_filenames = false;
-                };
+                stylua.enable = true;
+                pylint.enable = true;
               };
               settings.deadnix = {
                 noLambdaPatternNames = true;
@@ -126,15 +127,12 @@
               };
             };
           };
-          devShells.default = let
-            pkgs = nixpkgs.legacyPackages.${system};
-          in
-            pkgs.mkShell {
-              inherit (self.checks.${system}.pre-commit-check) shellHook;
-              packages = [
-                pkgs.just
-              ];
-            };
+          devShells.default = pkgs.mkShell {
+            inherit (self.checks.${system}.pre-commit-check) shellHook;
+            packages = [
+              pkgs.just
+            ];
+          };
         }
       ))
       // (
