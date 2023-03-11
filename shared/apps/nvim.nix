@@ -9,7 +9,7 @@
 
   programs.neovim = {
     withRuby = false;
-    withPython3 = false;
+    withPython3 = true;
     enable = true;
     vimAlias = true;
     viAlias = true;
@@ -23,12 +23,8 @@
       statix
       selene
       stylua
-      yamllint
-      ansible-lint
       yamlfmt
       codespell
-      black
-      pylint
       # Language servers
       yaml-language-server
       gopls

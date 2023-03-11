@@ -5,14 +5,7 @@
   system,
   lib,
   ...
-}: let
-  pythonPackages = p:
-    with p; [
-      pip
-      yt-dlp
-      numpy
-    ];
-in {
+}: {
   # launchd = {
   #   enable = true;
   #   agents = {
@@ -80,8 +73,17 @@ in {
         just
         pkgs.nur.repos.yumi.fzf
         # python stuff
-        (python3.withPackages pythonPackages)
-        ansible
+        (python3.withPackages (p:
+          with p; [
+            pip
+            numpy
+            yt-dlp
+            black
+            ansible-lint
+            pylint
+            yamllint
+            ansible
+          ]))
       ]
       ++ lib.optionals pkgs.stdenv.isLinux [
         wireshark
