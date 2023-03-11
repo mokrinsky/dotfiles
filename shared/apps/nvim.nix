@@ -25,6 +25,7 @@
       stylua
       yamlfmt
       codespell
+      shellcheck
       # Language servers
       yaml-language-server
       gopls
