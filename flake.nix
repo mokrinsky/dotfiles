@@ -116,7 +116,7 @@
                   enable = true;
                   types = ["nix"];
                   language = "system";
-                  entry = "just check";
+                  entry = "${nixpkgs.legacyPackages.${system}.just}/bin/just check";
                   pass_filenames = false;
                 };
               };
