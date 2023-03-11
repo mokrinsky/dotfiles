@@ -42,42 +42,29 @@
     packages = with pkgs;
       [
         config.nix.package
-        kubectl
-        nix-tree
-        mc
-        mtr
-        nmap
-        openssh
-        openconnect
-        minicom
-        nodejs-16_x
-        man-db
-        # pulumi
+        cacert
+        coreutils
         findutils
         gawk
-        coreutils
-        cacert
+        gnugrep
+        gopass
+        inetutils
+        ipcalc
+        kubectl
+        man-db
+        mc
+        minicom
+        mtr
+        neofetch
+        nix-tree
+        nmap
+        openconnect
         p7zip
         rename
-        # yt-dlp # need to make nix-shell cause I don't use it very often
-        inetutils
         ripgrep
-        gnugrep
-        neofetch
-        ipcalc
-        starship
         virt-viewer
-        gopass
         yubikey-manager
-        (nerdfonts.override {
-          fonts = [
-            "NerdFontsSymbolsOnly"
-          ];
-        })
-        ubuntu_font_family
-        iosevka
         # rust replacements for some default console utilities
-        exa
         procs
         grex
         cloak
@@ -93,14 +80,36 @@
       ]
       ++ lib.optionals pkgs.stdenv.isDarwin [
         darwin.iproute2mac
-        yabai
-        sketchybar
         pkgs.nur.repos.yumi.pidof
         pkgs.nur.repos.yumi.squid
       ];
   };
 
   programs = {
+    exa.enable = true;
+    ssh = {
+      enable = true;
+      serverAliveInterval = 15;
+      includes = [
+        "config_job"
+        "config_personal"
+        "config_f5"
+      ];
+      matchBlocks = {
+        "*" = {
+          remoteForwards = [
+            {
+              bind.port = 3128;
+              host.address = "127.0.0.1";
+              host.port = 3128;
+            }
+          ];
+          extraOptions = {
+            PubkeyAcceptedKeyTypes = "+ssh-rsa,ssh-dss";
+          };
+        };
+      };
+    };
     go = {
       enable = true;
       goPath = "go";

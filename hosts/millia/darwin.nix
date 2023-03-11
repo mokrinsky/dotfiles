@@ -41,7 +41,7 @@
   # next line works fine, but MS Outlook cries each darwin-switch execution so i disabled it
   # time.timeZone = "Europe/Moscow";
 
-  # TODO: reinstall appliactions so they will be managed by brew (aka by nix as well)
+  # TODO: reinstall applications so they will be managed by brew (aka by nix as well)
   homebrew = {
     enable = true;
     onActivation = {

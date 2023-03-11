@@ -16,9 +16,24 @@
     vimdiffAlias = true;
     defaultEditor = true;
     extraPackages = with pkgs; [
-      # I prefer using Mason, but some packages are not present in here
-      alejandra
       tree-sitter
+      # Linters
+      alejandra
+      deadnix
+      statix
+      selene
+      stylua
+      yamllint
+      ansible-lint
+      yamlfmt
+      codespell
+      # Language servers
+      yaml-language-server
+      gopls
+      ansible-language-server
+      sumneko-lua-language-server
+      rnix-lsp
+      nodePackages.dockerfile-language-server-nodejs
     ];
   };
 }

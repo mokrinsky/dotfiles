@@ -1,7 +1,7 @@
 import numpy as np
 import sys
 
-# List of xterm colors and ther corresponding hex values
+# List of xterm colors and their corresponding hex values
 colorList = [
     [0, 0x00, 0x00, 0x00],
     [1, 0x80, 0x00, 0x00],
@@ -281,7 +281,7 @@ def hextoXterm(color="#000000"):
     for x in colorList:
         if closest_color[0] == x[1] and closest_color[1] == x[2] and closest_color[2] == x[3]:
             return x[0]
-    raise ValueError("chould not find color of " + color)
+    raise ValueError("could not find color of " + color)
 
 
    # convert hex to rgb
@@ -298,7 +298,7 @@ def hexToIntList(color="#000000"):
     return [int(color[1] + color[2], 16), int(color[3] + color[4], 16), int(color[5] + color[6], 16)]
 
 
-# Find the closest maching color
+# Find the closest matching color
 def closest(colorsList_closest, colorlist_closest):
     colors = np.array(colorsList_closest)
     color = np.array(colorlist_closest)

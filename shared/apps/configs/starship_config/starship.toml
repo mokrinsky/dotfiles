@@ -1,7 +1,7 @@
 # Configuration was influenced by https://github.com/dgox16/dotfiles
 
-format = "$git_branch$git_status$directory$character"
-right_format = "$golang$java$kotlin$nodejs$rust$python$docker_context$kubernetes$cmd_duration"
+format = "$golang$java$kotlin$nodejs$rust$python$docker_context$kubernetes$cmd_duration$git_branch$git_status\n$directory$character"
+right_format = ""
 
 # Disable the blank line at the start of the prompt
 # add_newline = false

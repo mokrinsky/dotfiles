@@ -21,6 +21,7 @@
       imports = [
         ./cmdline.nix
         ./configs.nix
+        ./fonts.nix
         ./apps
       ];
     };
