@@ -27,12 +27,15 @@
       ansible-lint
       yamlfmt
       codespell
+      black
+      pylint
       # Language servers
       yaml-language-server
       gopls
       ansible-language-server
       sumneko-lua-language-server
       rnix-lsp
+      pyright
       nodePackages.dockerfile-language-server-nodejs
     ];
   };
