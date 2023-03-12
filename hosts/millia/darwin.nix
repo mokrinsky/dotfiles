@@ -75,7 +75,6 @@
       # "virtualbox"
       "visual-studio-code"
       "vlc"
-      "wezterm"
       "wireshark"
       # "spotify"
     ];

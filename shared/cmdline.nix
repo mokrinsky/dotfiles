@@ -1,8 +1,6 @@
 {
   pkgs,
   config,
-  inputs,
-  system,
   lib,
   ...
 }: {
@@ -71,7 +69,7 @@
         fd
         dogdns
         just
-        pkgs.nur.repos.yumi.fzf
+        nur.repos.yumi.fzf
         # python stuff
         (python3.withPackages (p:
           with p; [
@@ -83,6 +81,7 @@
             pylint
             yamllint
             ansible
+            nur.repos.yumi.ovirt-engine-sdk-python
           ]))
       ]
       ++ lib.optionals pkgs.stdenv.isLinux [
@@ -92,8 +91,9 @@
       ]
       ++ lib.optionals pkgs.stdenv.isDarwin [
         darwin.iproute2mac
-        pkgs.nur.repos.yumi.pidof
-        pkgs.nur.repos.yumi.squid
+        nur.repos.yumi.pidof
+        nur.repos.yumi.squid
+        nur.repos.nekowinston.wezterm-nightly
       ];
   };
 

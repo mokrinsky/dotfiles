@@ -3,20 +3,35 @@
 
   nixConfig.trusted-public-keys = [
     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    "nekowinston.cachix.org-1:lucpmaO+JwtoZj16HCO1p1fOv68s/RL1gumpVzRHRDs="
+    "pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc="
   ];
   nixConfig.trusted-substituters = [
     "https://nix-community.cachix.org"
     "https://cache.nixos.org/"
+    "https://pre-commit-hooks.cachix.org"
+    "https://nekowinston.cachix.org"
   ];
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     nur.url = "github:nix-community/NUR";
     flake-utils.url = "github:numtide/flake-utils";
-    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
 
     yumi = {
       url = "github:mokrinsky/nix-packages";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nekowinston = {
+      url = "github:nekowinston/nur";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -35,6 +50,7 @@
     self,
     nur,
     yumi,
+    nekowinston,
     nixpkgs,
     darwin,
     home-manager,
@@ -45,7 +61,10 @@
       nur = import nur {
         nurpkgs = prev;
         pkgs = prev;
-        repoOverrides = {yumi = import yumi {pkgs = prev;};};
+        repoOverrides = {
+          yumi = import yumi {pkgs = prev;};
+          nekowinston = import nekowinston {pkgs = prev;};
+        };
       };
     };
     getLib = {lib, ...}: lib // import ./libs {inherit lib;};
