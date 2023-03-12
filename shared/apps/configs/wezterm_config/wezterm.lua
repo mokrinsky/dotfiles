@@ -29,7 +29,6 @@ return {
   scrollback_lines = 10000,
   swallow_mouse_click_on_window_focus = false,
   tab_max_width = 32,
-  underline_thickness = '1.5pt',
   use_fancy_tab_bar = false,
   use_ime = false,
   window_background_opacity = 0.95,
