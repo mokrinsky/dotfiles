@@ -24,7 +24,10 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-
+    mkAlias = {
+      url = "github:reckenrode/mkAlias";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     yumi = {
       url = "github:mokrinsky/nix-packages";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,7 +49,7 @@
     };
   };
 
-  outputs = {
+  outputs = inputs @ {
     self,
     nur,
     yumi,
@@ -56,6 +59,7 @@
     home-manager,
     flake-utils,
     pre-commit-hooks,
+    mkAlias,
   }: let
     nur-overlays = final: prev: {
       nur = import nur {
@@ -108,7 +112,7 @@
           else darwin.lib.darwinSystem;
       in {
         ${cfgs}.${hostname} = sys {
-          inherit pkgs system;
+          inherit pkgs inputs;
 
           modules =
             userModules

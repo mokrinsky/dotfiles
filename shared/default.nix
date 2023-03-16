@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }: {
   nix = {
@@ -14,6 +15,7 @@
     useUserPackages = true;
     # verbose = true;
     extraSpecialArgs = {
+      inherit inputs pkgs;
       configRoot = config;
     };
     users.${config.username} = {

@@ -59,6 +59,7 @@
       "maven"
     ];
     casks = [
+      "alfred"
       # "apache-directory-studio"
       # "balenaetcher"
       "cyberduck"

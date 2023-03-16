@@ -14,7 +14,7 @@ return {
       background = 'rgba(30, 30, 46, 0.05)',
     },
   },
-  debug_key_events = true,
+  debug_key_events = false,
   enable_scroll_bar = false,
   font = wezterm.font_with_fallback {
     {
