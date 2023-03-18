@@ -19,7 +19,7 @@
     fish = {
       enable = true;
       shellAliases = {
-        neofetch = "neofetch --ascii ${config.home.homeDirectory}/.config/neofetch/megurine.ascii --gap -670";
+        # neofetch = "neofetch --ascii ${config.home.homeDirectory}/.config/neofetch/megurine.ascii --gap -670";
         ls = "exa -alg --color=always --icons --group-directories-first --octal-permissions --no-permissions --git";
         cat = "bat --decorations never --paging never";
         ps = "procs";
