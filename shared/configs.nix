@@ -23,6 +23,14 @@ in {
     "wezterm" = {
       source = ./apps/configs/wezterm_config;
     };
+    "btop/themes" = {
+      source = pkgs.fetchFromGitHub {
+        owner = "catppuccin";
+        repo = "btop";
+        rev = "HEAD";
+        sha256 = "sha256-ovVtupO5jWUw6cwA3xEzRe1juUB8ykfarMRVTglx3mk=";
+      };
+    };
     "linters" = {
       source = linters;
     };
