@@ -17,18 +17,19 @@
       mouse_modifier = "off";
       window_animation_duration = "0.1";
       window_border = "on";
-      window_border_blur = "on";
+      window_border_blur = "off";
       window_border_width = "2";
       window_gap = "5";
+      window_topmost = "on";
       left_padding = "5";
       right_padding = "5";
       top_padding = "5";
       bottom_padding = "5";
       window_origin_display = "default";
       window_placement = "second_child";
-      window_shadow = "float";
-      active_window_border_color = "0xfff5c2e7";
-      normal_window_border_color = "0xffcba6f7";
+      window_shadow = "off";
+      active_window_border_color = "0xfff38ba8";
+      normal_window_border_color = "0xff000000";
       external_bar = "all:32:0";
     };
     extraConfig = let

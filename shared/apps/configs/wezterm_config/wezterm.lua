@@ -29,12 +29,12 @@ return {
   tab_max_width = 32,
   use_fancy_tab_bar = false,
   use_ime = false,
-  window_background_opacity = 0.9,
+  window_background_opacity = 0.8,
   window_decorations = 'RESIZE',
   window_padding = {
     bottom = 0,
-    left = 0,
-    right = 0,
+    left = 2,
+    right = 2,
     top = 0,
   },
 }
