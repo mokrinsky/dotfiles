@@ -4,5 +4,6 @@
     ./git.nix
     ./fish.nix
     ./sketchybar.nix
+    ./secure.nix
   ];
 }

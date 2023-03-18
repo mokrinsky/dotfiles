@@ -96,7 +96,6 @@
       Keynote = 409183694;
       Mattermost = 1614666244;
       "The Unarchiver" = 425424353;
-      WireGuard = 1451685025;
       Numbers = 409203825;
     };
   };

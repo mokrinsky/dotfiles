@@ -67,7 +67,6 @@ in {
         findutils
         gawk
         gnugrep
-        gopass
         inetutils
         ipcalc
         kubectl
@@ -78,12 +77,10 @@ in {
         neofetch
         nix-tree
         nmap
-        openconnect
         p7zip
         rename
         ripgrep
         virt-viewer
-        yubikey-manager
         # rust replacements for some default console utilities
         procs
         grex
@@ -122,29 +119,6 @@ in {
 
   programs = {
     exa.enable = true;
-    ssh = {
-      enable = true;
-      serverAliveInterval = 15;
-      includes = [
-        "config_job"
-        "config_personal"
-        "config_f5"
-      ];
-      matchBlocks = {
-        "*" = {
-          remoteForwards = [
-            {
-              bind.port = 3128;
-              host.address = "127.0.0.1";
-              host.port = 3128;
-            }
-          ];
-          extraOptions = {
-            PubkeyAcceptedKeyTypes = "+ssh-rsa,ssh-dss";
-          };
-        };
-      };
-    };
     go = {
       enable = true;
       goPath = "go";
@@ -173,13 +147,5 @@ in {
     htop.enable = true;
     home-manager.enable = true;
     jq.enable = true;
-    gpg = {
-      enable = true;
-      homedir = config.xdg.configHome + "/gnupg";
-      settings = {
-        no-emit-version = true;
-        no-greeting = true;
-      };
-    };
   };
 }
