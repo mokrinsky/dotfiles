@@ -13,6 +13,7 @@
       AppleMiniaturizeOnDoubleClick = 0;
       ApplePressAndHoldEnabled = 0;
       AppleReduceDesktopTinting = 0;
+      _HIHideMenuBar = false;
       "com.apple.mouse.scaling" = 1;
       "com.apple.sound.beep.feedback" = 1;
       "com.apple.sound.beep.flash" = 0;
@@ -27,7 +28,7 @@
       DSDontWriteUSBStores = true;
     };
     com.apple.dock = {
-      autohide = false;
+      autohide = true;
       largesize = false;
       magnification = false;
       mineffect = "genie";

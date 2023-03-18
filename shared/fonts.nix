@@ -10,6 +10,7 @@
     (nerdfonts.override {
       fonts = [
         "NerdFontsSymbolsOnly"
+        "JetBrainsMono"
       ];
     })
     ubuntu_font_family
