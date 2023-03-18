@@ -80,9 +80,7 @@ sketchybar	--add	item weather.moon q \
                     	background.padding_right=-7 \
                     	icon.color=0xff181926 \
                     	icon.font="$ICON_FACE:2048-em:22.0" \
-                    	label.drawing=off \
-                    	script="$PLUGIN_DIR/moon.sh" \
-            --subscribe weather.moon mouse.clicked
+                    	label.drawing=off
 
 sketchybar	--add	item weather q \
             --set	weather \
@@ -139,7 +137,7 @@ sketchybar --add item net right \
            --set net script="$PLUGIN_DIR/net.sh" \
                      icon= \
                      icon.color=0xffe0a3ad \
-                     icon.y_offset=1 \ 
+                     icon.y_offset=1 \
                      update_freq=10 \
                      updates=on
 

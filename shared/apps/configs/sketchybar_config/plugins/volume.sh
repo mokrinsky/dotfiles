@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
-echo $INFO
-
 case ${INFO} in
   [6-9][0-9]|100)
     ICON=""
@@ -15,4 +13,4 @@ case ${INFO} in
     ICON_PADDING_RIGHT=15
 esac
 
-sketchybar --set $NAME icon=$ICON icon.padding_right=$ICON_PADDING_RIGHT
+sketchybar --set "$NAME" icon="$ICON" icon.padding_right="$ICON_PADDING_RIGHT"

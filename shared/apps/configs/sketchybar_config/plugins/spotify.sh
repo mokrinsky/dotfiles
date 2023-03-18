@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Max number of characters so it fits nicely to the right of the notch
 # MAY NOT WORK WITH NON-ENGLISH CHARACTERS
@@ -28,7 +28,7 @@ update_track() {
 
     if [ $(( TRACK_LENGTH + ARTIST_LENGTH )) -gt $MAX_LENGTH ]; then 
       # If the total length exceeds the max
-      if [ $TRACK_LENGTH -gt $HALF_LENGTH ] && [ $ARTIST_LENGTH -gt $HALF_LENGTH ]; then
+      if [ "$TRACK_LENGTH" -gt "$HALF_LENGTH" ] && [ "$ARTIST_LENGTH" -gt "$HALF_LENGTH" ]; then
         # If both the track and artist are too long, cut both at half length - 1
         
         # If MAX_LENGTH is odd, HALF_LENGTH is calculated with an extra space, so give it an extra char

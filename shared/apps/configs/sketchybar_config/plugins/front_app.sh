@@ -22,5 +22,5 @@ case $INFO in
   *) ICON=﯂ ;;
 esac
 
-sketchybar --set $NAME icon=$ICON icon.padding_right=$ICON_PADDING_RIGHT
-sketchybar --set $NAME.name label="$INFO"
+sketchybar --set "$NAME" icon="$ICON" icon.padding_right="$ICON_PADDING_RIGHT"
+sketchybar --set "$NAME".name label="$INFO"

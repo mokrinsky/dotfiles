@@ -23,9 +23,9 @@ update_space() {
 
 case "$SENDER" in
   "mouse.clicked") 
-    # Reload sketchybar
     sketchybar --remove '/.*/'
-    source "$HOME"/.config/sketchybar/sketchybarrc
+    # shellcheck source=../sketchybarrc
+    . "$HOME"/.config/sketchybar/sketchybarrc
     ;;
   *)
     update_space

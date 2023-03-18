@@ -35,4 +35,4 @@ if [ "$CHARGING" != "" ]; then
   ICON_COLOR=0xffeed49f
 fi
 
-sketchybar --set "$NAME" icon="$ICON" label="${PERCENTAGE}%" icon.color=${ICON_COLOR}
+sketchybar --set "$NAME" icon="$ICON" label="${PERCENTAGE}%" icon.color="${ICON_COLOR}"
