@@ -26,11 +26,11 @@ in {
           PATH = "${lib.makeBinPath [
             sketchybarPkg
             pkgs.bash
-            pkgs.bc
             pkgs.coreutils
             pkgs.yabai
             pkgs.jq
-          ]}:/usr/bin";
+            pkgs.wireguard-tools
+          ]}:/usr/bin:/usr/sbin";
         };
       };
     };

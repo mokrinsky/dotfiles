@@ -121,11 +121,27 @@ sketchybar	--add	item	volume right \
                       script="$PLUGIN_DIR/volume.sh" \
            --subscribe volume volume_change
 
+sketchybar --add item bluetooth right \
+           --set bluetooth script="$PLUGIN_DIR/bluetooth.sh" \
+                           icon= \
+                           icon.y_offset=1 \
+                           update_freq=10
+
+sketchybar --add item wg right \
+           --set wg script="$PLUGIN_DIR/wg.sh" \
+                    icon=󰖂 \
+                    icon.y_offset=1 \
+                    update_freq=10 \
+                    updates=on \
+                    label.drawing=off
+
 sketchybar --add item net right \
            --set net script="$PLUGIN_DIR/net.sh" \
                      icon= \
                      icon.color=0xffe0a3ad \
-                     icon.y_offset=1
+                     icon.y_offset=1 \ 
+                     update_freq=10 \
+                     updates=on
 
 sketchybar  --add   item battery right \
             --set   battery \
@@ -134,28 +150,12 @@ sketchybar  --add   item battery right \
                         script="$PLUGIN_DIR/battery.sh" \
            --subscribe battery system_woke
 
-sketchybar --add alias "WireGuard,Item-0" right \
-           --set "WireGuard,Item-0" \
-                icon.padding_left=0 \
-                icon.padding_right=0 \
-                label.drawing=off \
-                padding_left=-5 \
-           --add alias "Control Centre,Bluetooth" right \
-           --set "Control Centre,Bluetooth" \
-                icon.padding_left=0 \
-                icon.padding_right=0 \
-                label.drawing=off \
-                padding_left=-5 \
-                padding_right=-5 \
-           --add alias "iStat Menus Status" right \
+sketchybar --add alias "iStat Menus Status" right \
            --set "iStat Menus Status" \
                 icon.padding_left=0 \
                 icon.padding_right=0 \
                 label.drawing=off \
-                padding_right=-5 \
-           --add bracket tray "WireGuard,Item-0" \
-                              "Control Centre,Bluetooth" \
-                              "iStat Menus Status"
+                padding_right=2 \
 
 ##### Finalizing Setup #####
 sketchybar --update
