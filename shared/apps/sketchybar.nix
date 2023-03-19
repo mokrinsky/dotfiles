@@ -5,16 +5,18 @@
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  sketchybarPkg = pkgs.sketchybar;
 in {
   home = lib.mkIf isDarwin {
-    packages = [sketchybarPkg];
+    packages = with pkgs; [
+      sketchybar
+      osx-cpu-temp
+    ];
   };
   launchd = lib.mkIf isDarwin {
     agents.sketchybar = {
       enable = true;
       config = {
-        ProgramArguments = ["${lib.getExe sketchybarPkg}"];
+        ProgramArguments = ["${lib.getExe pkgs.sketchybar}"];
         KeepAlive = true;
         RunAtLoad = true;
         ProcessType = "Interactive";
@@ -24,12 +26,13 @@ in {
         EnvironmentVariables = {
           LANG = "en_US.UTF-8";
           PATH = "${lib.makeBinPath [
-            sketchybarPkg
+            pkgs.sketchybar
             pkgs.bash
             pkgs.coreutils
             pkgs.yabai
             pkgs.jq
             pkgs.wireguard-tools
+            pkgs.osx-cpu-temp
           ]}:/usr/bin:/usr/sbin";
         };
       };
