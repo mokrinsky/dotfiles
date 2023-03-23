@@ -20,8 +20,11 @@ in {
     "procs" = {
       source = ./apps/configs/procs_config;
     };
-    "wezterm" = {
-      source = ./apps/configs/wezterm_config;
+    "wezterm/hyperlink.lua" = {
+      source = ./apps/configs/wezterm_config/hyperlink.lua;
+    };
+    "wezterm/tabbar.lua" = {
+      source = ./apps/configs/wezterm_config/tabbar.lua;
     };
     "btop/themes" = {
       source = pkgs.fetchFromGitHub {
@@ -37,8 +40,7 @@ in {
     "yamlfmt/.yamlfmt" = {
       source = linters + "/.yamlfmt";
     };
-    # There must be a better way to create something under home directory :D
-    "../bin/vpnc-script" = {
+    "${config.home.homeDirectory}/bin/vpnc-script" = {
       source = ./bin/vpnc-script;
     };
   };
