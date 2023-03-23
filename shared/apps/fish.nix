@@ -26,14 +26,12 @@
         dig = "dog";
       };
       shellInit = ''
-        starship init fish | source
         echo y | fish_config theme save mocha
 
         set -Ux fish_user_paths
         fish_add_path ${config.home.homeDirectory}/bin
         fish_add_path ${config.home.homeDirectory}/go/bin
         fish_add_path ${config.home.profileDirectory}/bin
-        fish_add_path /usr/local/opt/python@3.11/libexec/bin
 
         set -Ua fish_features ampersand-nobg-in-token qmark-noglob
         set -x GPG_TTY (tty)
