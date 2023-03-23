@@ -13,7 +13,7 @@
       AppleMiniaturizeOnDoubleClick = 0;
       ApplePressAndHoldEnabled = 0;
       AppleReduceDesktopTinting = 0;
-      _HIHideMenuBar = false;
+      _HIHideMenuBar = true;
       "com.apple.mouse.scaling" = 1;
       "com.apple.sound.beep.feedback" = 1;
       "com.apple.sound.beep.flash" = 0;

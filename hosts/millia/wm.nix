@@ -43,7 +43,7 @@
       yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
       yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
       sudo yabai --load-sa
-      ${ignored ["JetBrains Toolbox" "iStat Menus" "WireGuard" "System Settings"]}
+      ${ignored ["JetBrains Toolbox" "iStat Menus" "WireGuard" "System Settings" "LuLu" "Finder"]}
       ${unmanaged ["Transmission" "VLC" "RoboForm"]}
     '';
   };
@@ -75,9 +75,6 @@
       # restart yabai
       cmd + alt - r : launchctl kickstart -k "gui/''${UID}/org.nixos.yabai"
       # ONLY WORKS WITH SIP DISABLED:
-      # fast focus space left/right
-      cmd - left  : ${yabai} -m space --focus prev
-      cmd - right : ${yabai} -m space --focus next
       # switch to space
       cmd + ctrl - 1 : ${yabai} -m space --focus 1
       cmd + ctrl - 2 : ${yabai} -m space --focus 2
