@@ -11,9 +11,6 @@
   };
 in {
   xdg.configFile = {
-    "starship.toml" = {
-      source = ./apps/configs/starship_config/starship.toml;
-    };
     "neofetch" = {
       source = ./apps/configs/neofetch_config;
     };

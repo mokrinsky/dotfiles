@@ -1,5 +1,42 @@
 {
   "nodes": {
+    "catppuccin": {
+      "inputs": {
+        "ctp": "ctp",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1679581277,
+        "narHash": "sha256-mptcWyLp7uJbx/21KQhLtHni7hsAYy+AWS8gI2ut6tE=",
+        "owner": "mokrinsky",
+        "repo": "nix-ctp",
+        "rev": "c0f6daed30d2135f2dfeda4318f530a639324cd6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mokrinsky",
+        "repo": "nix-ctp",
+        "type": "github"
+      }
+    },
+    "ctp": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1677814890,
+        "narHash": "sha256-q4qHUz5bGGcldXzrGh9PJPKU4kvyKFCKhjvBRzT1Jz8=",
+        "rev": "530db7cbcbee895a7c0ce65d06db003f25a2c57b",
+        "revCount": 113,
+        "type": "git",
+        "url": "https://github.com/catppuccin/palette"
+      },
+      "original": {
+        "rev": "530db7cbcbee895a7c0ce65d06db003f25a2c57b",
+        "type": "git",
+        "url": "https://github.com/catppuccin/palette"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -209,6 +246,7 @@
     },
     "root": {
       "inputs": {
+        "catppuccin": "catppuccin",
         "darwin": "darwin",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",

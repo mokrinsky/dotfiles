@@ -50,6 +50,11 @@
         utils.follows = "flake-utils";
       };
     };
+
+    catppuccin = {
+      url = "github:mokrinsky/nix-ctp";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
@@ -63,6 +68,7 @@
     flake-utils,
     pre-commit-hooks,
     mkAlias,
+    catppuccin,
   }: let
     nur-overlays = final: prev: {
       nur = import nur {
