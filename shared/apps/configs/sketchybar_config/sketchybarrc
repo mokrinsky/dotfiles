@@ -33,7 +33,7 @@ sketchybar --default \
            label.padding_left=0 \
            label.padding_right=7
 
-# shellcheck source=plugins/spaces.sh
+# shellcheck disable=SC1091
 source "$PLUGIN_DIR/spaces.sh"
 
 sketchybar --add item front_app left \

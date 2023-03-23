@@ -151,9 +151,8 @@
                 deadnix.enable = true;
                 statix.enable = true;
                 stylua.enable = true;
-                pylint.enable = true;
+                shellcheck.enable = true;
               };
-              settings.pylint.binPath = "pylint";
               settings.deadnix = {
                 noLambdaPatternNames = true;
                 noLambdaArg = true;
