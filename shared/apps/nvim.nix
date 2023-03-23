@@ -9,16 +9,32 @@
 
   programs.neovim = {
     withRuby = false;
-    withPython3 = false;
+    withPython3 = true;
     enable = true;
     vimAlias = true;
     viAlias = true;
     vimdiffAlias = true;
     defaultEditor = true;
     extraPackages = with pkgs; [
-      # I prefer using Mason, but some packages are not present in here
-      alejandra
       tree-sitter
+      # Linters
+      alejandra
+      deadnix
+      statix
+      selene
+      stylua
+      yamlfmt
+      codespell
+      shellcheck
+      commitlint
+      # Language servers
+      yaml-language-server
+      gopls
+      ansible-language-server
+      sumneko-lua-language-server
+      rnix-lsp
+      pyright
+      nodePackages.dockerfile-language-server-nodejs
     ];
   };
 }

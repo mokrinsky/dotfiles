@@ -23,7 +23,17 @@
     };
   };
 
+  networking = let
+    name = "millia";
+  in {
+    computerName = name;
+    hostName = name;
+    localHostName = name;
+  };
+
   services.nix-daemon.enable = true;
+
+  security.pam.enableSudoTouchIdAuth = true;
 
   environment = {
     shells = [pkgs.fish];
@@ -41,7 +51,7 @@
   # next line works fine, but MS Outlook cries each darwin-switch execution so i disabled it
   # time.timeZone = "Europe/Moscow";
 
-  # TODO: reinstall appliactions so they will be managed by brew (aka by nix as well)
+  # TODO: reinstall applications so they will be managed by brew (aka by nix as well)
   homebrew = {
     enable = true;
     onActivation = {
@@ -55,11 +65,11 @@
     brews = [
       "squid"
       "openvpn"
-      "python@3.11"
       "openjdk@17"
       "maven"
     ];
     casks = [
+      "alfred"
       # "apache-directory-studio"
       # "balenaetcher"
       "cyberduck"
@@ -76,7 +86,6 @@
       # "virtualbox"
       "visual-studio-code"
       "vlc"
-      "wezterm"
       "wireshark"
       # "spotify"
     ];
@@ -87,7 +96,6 @@
       Keynote = 409183694;
       Mattermost = 1614666244;
       "The Unarchiver" = 425424353;
-      WireGuard = 1451685025;
       Numbers = 409203825;
     };
   };

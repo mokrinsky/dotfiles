@@ -1,0 +1,170 @@
+#!/usr/bin/env bash
+
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
+FONT_FACE="JetBrainsMono Nerd Font"
+ICON_FACE="Symbols Nerd Font Mono"
+
+##### Bar Appearance #####
+# https://felixkratz.github.io/SketchyBar/config/bar
+
+sketchybar --bar \
+           height=32 \
+           blur_radius=0 \
+           position=top \
+           sticky=on \
+           padding_left=23 \
+           padding_right=23 \
+           display=main \
+           color=0x0024273a # Originally it was 0x6624273a
+
+sketchybar --default \
+           updates=when_shown \
+           background.color=0xff24273a \
+           background.padding_left=2 \
+           background.padding_right=2 \
+           background.corner_radius=5 \
+           background.height=24 \
+           icon.color=0xffffffff \
+           icon.font="$ICON_FACE:2048-em:17.0" \
+           icon.padding_left=8 \
+           icon.padding_right=7 \
+           label.font="$FONT_FACE:Bold:12.0" \
+           label.color=0xffcad3f5 \
+           label.padding_left=0 \
+           label.padding_right=7
+
+# shellcheck source=plugins/spaces.sh
+source "$PLUGIN_DIR/spaces.sh"
+
+sketchybar --add item front_app left \
+           --set front_app \
+                 background.color=0xffa6da95 \
+                 background.padding_left=0 \
+                 background.padding_right=0 \
+                 icon.y_offset=1 \
+                 icon.color=0xff24273a \
+                 label.drawing=no \
+                 script="$PLUGIN_DIR/front_app.sh" \
+           --add item front_app.separator left \
+           --set front_app.separator \
+                 icon= \
+                 background.padding_left=-3 \
+                 icon.y_offset=1 \
+                 icon.font="$ICON_FACE:2048-em:24.0" \
+                 icon.color=0xffa6da95 \
+                 icon.padding_left=0 \
+                 icon.padding_right=0 \
+                 label.drawing=no \
+           --add item front_app.name left \
+           --set front_app.name \
+                 icon.drawing=off \
+                 label="Hello" \
+                 label.drawing=yes
+
+sketchybar --add bracket front_app_bracket \
+                 front_app \
+                 front_app.separator \
+                 front_app.name \
+           --subscribe front_app front_app_switched
+
+sketchybar --add item weather.moon q \
+           --set weather.moon \
+                 background.color=0x667dc4e4 \
+                 background.padding_right=-7 \
+                 icon.color=0xff181926 \
+                 icon.font="$ICON_FACE:2048-em:22.0" \
+                 label.drawing=off
+
+sketchybar --add item weather q \
+           --set weather \
+                 icon= \
+                 icon.color=0xfff5bde6 \
+                 icon.font="$ICON_FACE:2048-em:15.0" \
+                 update_freq=1800 \
+                 script="$PLUGIN_DIR/weather.sh" \
+           --subscribe weather system_woke
+
+SPOTIFY_EVENT="com.spotify.client.PlaybackStateChanged"
+sketchybar --add event spotify_change $SPOTIFY_EVENT \
+           --add item spotify e \
+           --set spotify \
+                 icon= \
+                 icon.font="$ICON_FACE:2048-em:20.0" \
+                 icon.y_offset=1 \
+                 label.drawing=off \
+                 label.padding_left=2 \
+                 script="$PLUGIN_DIR/spotify.sh" \
+           --subscribe spotify spotify_change mouse.clicked
+
+sketchybar --add item clock right \
+           --set clock \
+                 icon= \
+                 icon.y_offset=1 \
+                 icon.color=0xffed8796 \
+                 update_freq=10 \
+                 script="$PLUGIN_DIR/clock.sh"
+
+sketchybar --add item volume right \
+           --set volume \
+                 icon.y_offset=1 \
+                 icon.color=0xffcba6f7 \
+                 label.drawing=no \
+                 script="$PLUGIN_DIR/volume.sh" \
+           --subscribe volume volume_change
+
+sketchybar --add item bluetooth right \
+           --set bluetooth \
+                 script="$PLUGIN_DIR/bluetooth.sh" \
+                 icon= \
+                 icon.y_offset=1 \
+                 update_freq=10
+
+sketchybar --add item wg right \
+           --set wg \
+                 script="$PLUGIN_DIR/wg.sh" \
+                 icon=󰖂 \
+                 icon.y_offset=1 \
+                 update_freq=10 \
+                 updates=on \
+                 label.drawing=off
+
+sketchybar --add item net right \
+           --set net \
+                 script="$PLUGIN_DIR/net.sh" \
+                 icon= \
+                 icon.color=0xffe0a3ad \
+                 icon.y_offset=1 \
+                 update_freq=10 \
+                 updates=on \
+                 label.drawing=off \
+           --subscribe net mouse.entered mouse.exited mouse.exited.global \
+           --add item net_name popup.net \
+           --set net_name \
+                 script="$PLUGIN_DIR/net.sh" \
+                 icon.drawing=off \
+                 label.padding_left=7
+
+sketchybar --add item battery right \
+           --set battery \
+                 icon.y_offset=1 \
+                 update_freq=10 \
+                 script="$PLUGIN_DIR/battery.sh" \
+           --subscribe battery system_woke
+
+sketchybar --add item language right \
+           --set language \
+                 script="$PLUGIN_DIR/language.sh" \
+                 update_freq=5 \
+                 icon.drawing=off \
+                 label.padding_left=7
+
+sketchybar --add item cpu_temp right \
+           --set cpu_temp \
+                 script="$PLUGIN_DIR/cpu.sh" \
+                 icon=󰘚 \
+                 icon.color=0xff94e2d5 \
+                 update_freq=5
+
+##### Finalizing Setup #####
+sketchybar --update
+sketchybar --trigger space_change

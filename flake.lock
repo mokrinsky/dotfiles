@@ -1,5 +1,42 @@
 {
   "nodes": {
+    "catppuccin": {
+      "inputs": {
+        "ctp": "ctp",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1679581277,
+        "narHash": "sha256-mptcWyLp7uJbx/21KQhLtHni7hsAYy+AWS8gI2ut6tE=",
+        "owner": "mokrinsky",
+        "repo": "nix-ctp",
+        "rev": "c0f6daed30d2135f2dfeda4318f530a639324cd6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mokrinsky",
+        "repo": "nix-ctp",
+        "type": "github"
+      }
+    },
+    "ctp": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1677814890,
+        "narHash": "sha256-q4qHUz5bGGcldXzrGh9PJPKU4kvyKFCKhjvBRzT1Jz8=",
+        "rev": "530db7cbcbee895a7c0ce65d06db003f25a2c57b",
+        "revCount": 113,
+        "type": "git",
+        "url": "https://github.com/catppuccin/palette"
+      },
+      "original": {
+        "rev": "530db7cbcbee895a7c0ce65d06db003f25a2c57b",
+        "type": "git",
+        "url": "https://github.com/catppuccin/palette"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -51,21 +88,6 @@
         "type": "github"
       }
     },
-    "flake-utils_2": {
-      "locked": {
-        "lastModified": 1667395993,
-        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "gitignore": {
       "inputs": {
         "nixpkgs": [
@@ -92,7 +114,9 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "utils": "utils"
+        "utils": [
+          "flake-utils"
+        ]
       },
       "locked": {
         "lastModified": 1676367705,
@@ -105,6 +129,46 @@
       "original": {
         "owner": "nix-community",
         "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "mkAlias": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1678761502,
+        "narHash": "sha256-tL3C/b2BPOGQpV287wECDCDWmKwwPvezAAN3qz7N07M=",
+        "owner": "reckenrode",
+        "repo": "mkAlias",
+        "rev": "8a5478cdb646f137ebc53cb9d235f8e5892ea00a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "reckenrode",
+        "repo": "mkAlias",
+        "type": "github"
+      }
+    },
+    "nekowinston": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1678658648,
+        "narHash": "sha256-Nd6bgXUvxrnVf5u8cr54sUyV97IxNAr8EU+pkmlVgIM=",
+        "owner": "nekowinston",
+        "repo": "nur",
+        "rev": "fc1fa6286e6cdfa7099e32e90d8061296fc250f6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nekowinston",
+        "repo": "nur",
         "type": "github"
       }
     },
@@ -157,7 +221,9 @@
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat",
-        "flake-utils": "flake-utils_2",
+        "flake-utils": [
+          "flake-utils"
+        ],
         "gitignore": "gitignore",
         "nixpkgs": [
           "nixpkgs"
@@ -180,28 +246,16 @@
     },
     "root": {
       "inputs": {
+        "catppuccin": "catppuccin",
         "darwin": "darwin",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
+        "mkAlias": "mkAlias",
+        "nekowinston": "nekowinston",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
         "pre-commit-hooks": "pre-commit-hooks",
         "yumi": "yumi"
-      }
-    },
-    "utils": {
-      "locked": {
-        "lastModified": 1667395993,
-        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
       }
     },
     "yumi": {
@@ -211,11 +265,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1676404161,
-        "narHash": "sha256-NYzmfwujQ/ALjTacFC0w1RoTu3vGUVxKck1MbHgTDrU=",
+        "lastModified": 1678648789,
+        "narHash": "sha256-pwQqWchfkXnhp3mdwO/MKJ/RFDa74WCmJditpRmOXLQ=",
         "owner": "mokrinsky",
         "repo": "nix-packages",
-        "rev": "be9d969a28feb1cf03a6e3b389cd5c0487c5ce5f",
+        "rev": "c976446c7d04d8c9779676364d18f1af65c543d2",
         "type": "github"
       },
       "original": {
