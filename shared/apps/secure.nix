@@ -10,6 +10,7 @@
       yubikey-manager
       openconnect
       gopass
+      openssh
     ];
   };
 
