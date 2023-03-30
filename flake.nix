@@ -4,11 +4,10 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     nur.url = "github:nix-community/NUR";
-    flake-utils.url = "github:numtide/flake-utils";
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
-        flake-utils.follows = "flake-utils";
+        flake-utils.follows = "flake-utils-plus";
         nixpkgs.follows = "nixpkgs";
       };
     };
@@ -35,13 +34,17 @@
       url = "github:nix-community/home-manager";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        utils.follows = "flake-utils";
+        utils.follows = "flake-utils-plus";
       };
     };
 
     catppuccin = {
       url = "github:mokrinsky/nix-ctp";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    flake-utils-plus = {
+      url = "github:gytis-ivaskevicius/flake-utils-plus";
     };
   };
 
@@ -53,7 +56,7 @@
     nixpkgs,
     darwin,
     home-manager,
-    flake-utils,
+    flake-utils-plus,
     pre-commit-hooks,
     mkAlias,
     catppuccin,
@@ -125,8 +128,12 @@
         };
       };
     in
-      (flake-utils.lib.eachDefaultSystem (
+      (flake-utils-plus.lib.eachDefaultSystem (
         system: {
+          channels.nixpkgs = {
+            input = nixpkgs;
+            config.allowUnfree = true;
+          };
           checks = {
             pre-commit-check = pre-commit-hooks.lib.${system}.run {
               src = ./.;
@@ -154,6 +161,6 @@
         let
           f = fold (compose [getSystem recursiveUpdate]) {};
         in
-          f (import ./hosts {systems = flake-utils.lib.system;})
+          f (import ./hosts {systems = flake-utils-plus.lib.system;})
       );
 }

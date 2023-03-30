@@ -75,16 +75,34 @@
     },
     "flake-utils": {
       "locked": {
-        "lastModified": 1678901627,
-        "narHash": "sha256-U02riOqrKKzwjsxc/400XnElV+UtPUQWpANPlyazjH0=",
+        "lastModified": 1644229661,
+        "narHash": "sha256-1YdnJAsNy69bpcjuoKdOYQX0YxZBiCYZo4Twxerqv7k=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "93a2b84fc4b70d9e089d029deacc3583435c2ed6",
+        "rev": "3cecb5b042f7f209c56ffd8371b2711a290ec797",
         "type": "github"
       },
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils-plus": {
+      "inputs": {
+        "flake-utils": "flake-utils"
+      },
+      "locked": {
+        "lastModified": 1657226504,
+        "narHash": "sha256-GIYNjuq4mJlFgqKsZ+YrgzWm0IpA4axA3MCrdKYj7gs=",
+        "owner": "gytis-ivaskevicius",
+        "repo": "flake-utils-plus",
+        "rev": "2bf0f91643c2e5ae38c1b26893ac2927ac9bd82a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gytis-ivaskevicius",
+        "repo": "flake-utils-plus",
         "type": "github"
       }
     },
@@ -115,7 +133,7 @@
           "nixpkgs"
         ],
         "utils": [
-          "flake-utils"
+          "flake-utils-plus"
         ]
       },
       "locked": {
@@ -222,7 +240,7 @@
       "inputs": {
         "flake-compat": "flake-compat",
         "flake-utils": [
-          "flake-utils"
+          "flake-utils-plus"
         ],
         "gitignore": "gitignore",
         "nixpkgs": [
@@ -248,7 +266,7 @@
       "inputs": {
         "catppuccin": "catppuccin",
         "darwin": "darwin",
-        "flake-utils": "flake-utils",
+        "flake-utils-plus": "flake-utils-plus",
         "home-manager": "home-manager",
         "mkAlias": "mkAlias",
         "nekowinston": "nekowinston",
