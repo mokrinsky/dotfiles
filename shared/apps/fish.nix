@@ -6,15 +6,37 @@
   inputs,
   ...
 }: let
-  ctp = inputs.catppuccin;
   flavor = "mocha";
+  ctp = inputs.catppuccin.${flavor};
+  unsharp = lib.strings.removePrefix "#";
 in {
-  home.activation = lib.mkIf (configRoot.username != "root") {
-    # TODO: bat can fetch them with nix function. Maybe I should write PR so fish could do that as well...
-    executeCustomScripts = config.lib.dag.entryAfter ["linkGeneration"] ''
-      echo ":: Getting fish theme..."
-      mkdir -p ${config.home.homeDirectory}/.config/fish/themes
-      curl https://raw.githubusercontent.com/catppuccin/fish/main/themes/Catppuccin%20Mocha.theme -o ${config.home.homeDirectory}/.config/fish/themes/mocha.theme &> /dev/null
+  xdg.configFile."fish/themes/theme.theme" = {
+    text = ''
+      fish_color_normal ${unsharp ctp.text.hex}
+      fish_color_command ${unsharp ctp.blue.hex}
+      fish_color_param ${unsharp ctp.flamingo.hex}
+      fish_color_keyword ${unsharp ctp.red.hex}
+      fish_color_quote ${unsharp ctp.green.hex}
+      fish_color_redirection ${unsharp ctp.pink.hex}
+      fish_color_end ${unsharp ctp.peach.hex}
+      fish_color_comment ${unsharp ctp.overlay1.hex}
+      fish_color_error ${unsharp ctp.red.hex}
+      fish_color_gray ${unsharp ctp.overlay0.hex}
+      fish_color_selection --background=${unsharp ctp.surface0.hex}
+      fish_color_search_match --background=${unsharp ctp.surface0.hex}
+      fish_color_operator ${unsharp ctp.pink.hex}
+      fish_color_escape ${unsharp ctp.maroon.hex}
+      fish_color_autosuggestion ${unsharp ctp.overlay0.hex}
+      fish_color_cancel ${unsharp ctp.red.hex}
+      fish_color_cwd ${unsharp ctp.yellow.hex}
+      fish_color_user ${unsharp ctp.teal.hex}
+      fish_color_host ${unsharp ctp.blue.hex}
+      fish_color_host_remote ${unsharp ctp.green.hex}
+      fish_color_status ${unsharp ctp.red.hex}
+      fish_pager_color_progress ${unsharp ctp.overlay0.hex}
+      fish_pager_color_prefix ${unsharp ctp.pink.hex}
+      fish_pager_color_completion ${unsharp ctp.text.hex}
+      fish_pager_color_description ${unsharp ctp.overlay0.hex}
     '';
   };
 
@@ -23,32 +45,32 @@ in {
       enable = true;
       settings = {
         palettes.ctp = {
-          rosewater = ctp.${flavor}.rosewater.hex;
-          flamingo = ctp.${flavor}.flamingo.hex;
-          pink = ctp.${flavor}.pink.hex;
-          mauve = ctp.${flavor}.mauve.hex;
-          red = ctp.${flavor}.red.hex;
-          maroon = ctp.${flavor}.maroon.hex;
-          peach = ctp.${flavor}.peach.hex;
-          yellow = ctp.${flavor}.yellow.hex;
-          green = ctp.${flavor}.green.hex;
-          teal = ctp.${flavor}.teal.hex;
-          sky = ctp.${flavor}.sky.hex;
-          sapphire = ctp.${flavor}.sapphire.hex;
-          blue = ctp.${flavor}.blue.hex;
-          lavender = ctp.${flavor}.lavender.hex;
-          text = ctp.${flavor}.text.hex;
-          subtext1 = ctp.${flavor}.subtext1.hex;
-          subtext0 = ctp.${flavor}.subtext0.hex;
-          overlay2 = ctp.${flavor}.overlay2.hex;
-          overlay1 = ctp.${flavor}.overlay1.hex;
-          overlay0 = ctp.${flavor}.overlay0.hex;
-          surface2 = ctp.${flavor}.surface2.hex;
-          surface1 = ctp.${flavor}.surface1.hex;
-          surface0 = ctp.${flavor}.surface0.hex;
-          base = ctp.${flavor}.base.hex;
-          mantle = ctp.${flavor}.mantle.hex;
-          crust = ctp.${flavor}.crust.hex;
+          rosewater = ctp.rosewater.hex;
+          flamingo = ctp.flamingo.hex;
+          pink = ctp.pink.hex;
+          mauve = ctp.mauve.hex;
+          red = ctp.red.hex;
+          maroon = ctp.maroon.hex;
+          peach = ctp.peach.hex;
+          yellow = ctp.yellow.hex;
+          green = ctp.green.hex;
+          teal = ctp.teal.hex;
+          sky = ctp.sky.hex;
+          sapphire = ctp.sapphire.hex;
+          blue = ctp.blue.hex;
+          lavender = ctp.lavender.hex;
+          text = ctp.text.hex;
+          subtext1 = ctp.subtext1.hex;
+          subtext0 = ctp.subtext0.hex;
+          overlay2 = ctp.overlay2.hex;
+          overlay1 = ctp.overlay1.hex;
+          overlay0 = ctp.overlay0.hex;
+          surface2 = ctp.surface2.hex;
+          surface1 = ctp.surface1.hex;
+          surface0 = ctp.surface0.hex;
+          base = ctp.base.hex;
+          mantle = ctp.mantle.hex;
+          crust = ctp.crust.hex;
         };
         palette = "ctp";
         format = "$golang$java$kotlin$nodejs$rust$python$docker_context$kubernetes$cmd_duration$git_branch$git_status\n$directory$character";
@@ -139,9 +161,10 @@ in {
         cat = "bat --decorations never --paging never";
         ps = "procs";
         dig = "dog";
+        lazyvim = "env NVIM_APPNAME=lazyvim nvim";
       };
       shellInit = ''
-        echo y | fish_config theme save mocha
+        echo y | fish_config theme save theme
 
         set -Ux fish_user_paths
         fish_add_path ${config.home.homeDirectory}/bin
