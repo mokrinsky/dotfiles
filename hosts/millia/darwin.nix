@@ -53,7 +53,6 @@
     taps = ["homebrew/bundle" "homebrew/cask" "homebrew/core"];
     brews = [
       "squid"
-      "openvpn"
       "openjdk@17"
       "maven"
     ];
