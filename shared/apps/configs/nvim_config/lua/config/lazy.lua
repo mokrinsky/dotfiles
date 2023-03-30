@@ -14,7 +14,7 @@ vim.opt.runtimepath:prepend(lazypath)
 
 require('lazy').setup {
   spec = {
-    { 'mokrinsky/yumivim', import = 'yumivim.plugins', branch = 'git-syntax' },
+    { 'mokrinsky/yumivim', import = 'yumivim.plugins' },
     { import = 'plugins' },
   },
   defaults = { lazy = true },
