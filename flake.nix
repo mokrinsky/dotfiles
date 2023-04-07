@@ -150,6 +150,7 @@
                 statix.enable = true;
                 stylua.enable = true;
                 shellcheck.enable = true;
+                commitizen.enable = true;
               };
               settings.deadnix = {
                 noLambdaPatternNames = true;
