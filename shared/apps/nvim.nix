@@ -8,15 +8,11 @@
   };
 
   xdg.configFile."lazyvim" = {
-    source = pkgs.fetchFromGitHub {
-      owner = "LazyVim";
-      repo = "starter";
-      rev = "9ad6acdff121ad344cebeb640b48e6ed4d5a8f58";
-      sha256 = "sha256-F/jipxu8+I0uIJBdTc8PdTFXDwTX7dYYudGessV9xh4=";
-    };
+    source = ./configs/lazyvim_config;
   };
 
   programs.neovim = {
+    package = pkgs.nur.repos.yumi.neovim-unwrapped;
     withRuby = false;
     withPython3 = true;
     enable = true;
