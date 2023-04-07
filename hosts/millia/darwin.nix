@@ -12,17 +12,6 @@
     shell = "${pkgs.fish}/bin/fish";
   };
 
-  nix = {
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-    gc = {
-      automatic = true;
-      user = "root";
-      options = "--delete-older-than 7d";
-    };
-  };
-
   networking = let
     name = "millia";
   in {
@@ -64,7 +53,6 @@
     taps = ["homebrew/bundle" "homebrew/cask" "homebrew/core"];
     brews = [
       "squid"
-      "openvpn"
       "openjdk@17"
       "maven"
     ];

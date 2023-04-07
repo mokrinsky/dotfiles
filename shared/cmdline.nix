@@ -63,7 +63,7 @@ in {
       [
         config.nix.package
         cacert
-        coreutils
+        nur.repos.yumi.coreutils
         findutils
         gawk
         gnugrep
@@ -161,7 +161,7 @@ in {
           color_scheme = 'Catppuccin Mocha', -- or Macchiato, Frappe, Latte
           colors = {
             tab_bar = {
-              background = 'rgba(30, 30, 46, 0.05)',
+              background = 'rgba(30, 30, 46, 0.3)',
             },
           },
           debug_key_events = false,

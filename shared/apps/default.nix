@@ -3,7 +3,7 @@
     ./nvim.nix
     ./git.nix
     ./fish.nix
-    ./sketchybar.nix
+    ./sketchybar
     ./secure.nix
   ];
 }

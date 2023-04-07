@@ -15,10 +15,11 @@
       mouse_drop_action = "swap";
       mouse_follows_focus = "off";
       mouse_modifier = "off";
-      window_animation_duration = "0.1";
+      window_animation_duration = "0";
       window_border = "on";
       window_border_blur = "off";
       window_border_width = "2";
+      window_border_radius = "0";
       window_gap = "5";
       window_topmost = "on";
       left_padding = "5";
@@ -28,8 +29,8 @@
       window_origin_display = "default";
       window_placement = "second_child";
       window_shadow = "off";
-      active_window_border_color = "0xfff38ba8";
-      normal_window_border_color = "0xff000000";
+      active_window_border_color = "0xfffab387";
+      normal_window_border_color = "0xb81e1e2e";
       external_bar = "all:32:0";
     };
     extraConfig = let

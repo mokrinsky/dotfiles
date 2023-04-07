@@ -7,7 +7,12 @@
     source = ./configs/nvim_config;
   };
 
+  xdg.configFile."lazyvim" = {
+    source = ./configs/lazyvim_config;
+  };
+
   programs.neovim = {
+    package = pkgs.nur.repos.yumi.neovim-unwrapped;
     withRuby = false;
     withPython3 = true;
     enable = true;
@@ -26,7 +31,6 @@
       yamlfmt
       codespell
       shellcheck
-      commitlint
       # Language servers
       yaml-language-server
       gopls

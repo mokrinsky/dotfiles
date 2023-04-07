@@ -5,15 +5,13 @@
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-in {
-  home = lib.mkIf isDarwin {
-    packages = with pkgs; [
+in
+  lib.mkIf isDarwin {
+    home.packages = with pkgs; [
       sketchybar
       osx-cpu-temp
     ];
-  };
-  launchd = lib.mkIf isDarwin {
-    agents.sketchybar = {
+    launchd.agents.sketchybar = {
       enable = true;
       config = {
         ProgramArguments = ["${lib.getExe pkgs.sketchybar}"];
@@ -37,10 +35,4 @@ in {
         };
       };
     };
-  };
-  xdg.configFile = lib.mkIf isDarwin {
-    "sketchybar" = {
-      source = ./configs/sketchybar_config;
-    };
-  };
-}
+  }
