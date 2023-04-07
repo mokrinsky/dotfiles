@@ -2,3 +2,4 @@
 # I have to untrack config for now cause I didn't like sops as a secret storage, so I'm looking for something else.
 config/default.nix
 .pre-commit-config.yaml
+.direnv

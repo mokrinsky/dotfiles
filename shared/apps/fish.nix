@@ -153,6 +153,7 @@ in {
         };
       };
     };
+    direnv.enable = true;
     fish = {
       enable = true;
       shellAliases = {
