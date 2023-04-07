@@ -31,6 +31,7 @@
       yamlfmt
       codespell
       shellcheck
+      commitlint
       # Language servers
       yaml-language-server
       gopls
