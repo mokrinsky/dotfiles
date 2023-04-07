@@ -81,6 +81,7 @@ in {
         rename
         ripgrep
         virt-viewer
+        pre-commit
         # rust replacements for some default console utilities
         procs
         grex
