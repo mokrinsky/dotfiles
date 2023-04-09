@@ -5,5 +5,8 @@
     ./fish.nix
     ./sketchybar
     ./secure.nix
+    ./gnu.nix
+    ./python.nix
+    ./wezterm.nix
   ];
 }

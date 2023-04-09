@@ -17,12 +17,6 @@ in {
     "procs" = {
       source = ./apps/configs/procs_config;
     };
-    "wezterm/hyperlink.lua" = {
-      source = ./apps/configs/wezterm_config/hyperlink.lua;
-    };
-    "wezterm/tabbar.lua" = {
-      source = ./apps/configs/wezterm_config/tabbar.lua;
-    };
     "btop/themes" = {
       source = pkgs.fetchFromGitHub {
         owner = "catppuccin";

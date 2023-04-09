@@ -1,14 +1,17 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
+  home = {
+    sessionVariables = {
+      VISUAL = "$EDITOR";
+      SUDO_EDITOR = "$EDITOR";
+    };
+  };
+
   xdg.configFile."nvim" = {
-    source = ./configs/nvim_config;
+    source = ./neovim;
   };
 
   xdg.configFile."lazyvim" = {
-    source = ./configs/lazyvim_config;
+    source = ./lazyvim;
   };
 
   programs.neovim = {
@@ -21,7 +24,7 @@
     vimdiffAlias = true;
     defaultEditor = true;
     extraPackages = with pkgs; [
-      tree-sitter
+      pkgs.unstable.tree-sitter
       # Linters
       alejandra
       deadnix

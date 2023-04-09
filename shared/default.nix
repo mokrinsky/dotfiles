@@ -5,15 +5,17 @@
   ...
 }: {
   nix = {
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
+    linkInputs = true;
+    generateRegistryFromInputs = true;
+    generateNixPathFromInputs = true;
+
     gc = {
       automatic = true;
-      user = "root";
       options = "--delete-older-than 7d";
     };
     settings = {
+      experimental-features = "nix-command flakes";
+      warn-dirty = false;
       extra-trusted-users = ["yumi"];
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -41,7 +43,7 @@
     users.${config.username} = {
       home.stateVersion = "22.05";
       imports = [
-        ./cmdline.nix
+        ./base.nix
         ./configs.nix
         ./fonts.nix
         ./apps

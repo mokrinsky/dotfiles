@@ -2,18 +2,15 @@
   description = "Yumi's nix flake";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "nixpkgs/nixpkgs-unstable"; # this will move to stable upon 23.05 release
+    nixpkgs-unstable.url = "github:nixos/nixpkgs";
     nur.url = "github:nix-community/NUR";
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
-        flake-utils.follows = "flake-utils-plus";
+        flake-utils.follows = "fup";
         nixpkgs.follows = "nixpkgs";
       };
-    };
-    mkAlias = {
-      url = "github:reckenrode/mkAlias";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     yumi = {
       url = "github:mokrinsky/nix-packages";
@@ -34,7 +31,7 @@
       url = "github:nix-community/home-manager";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        utils.follows = "flake-utils-plus";
+        utils.follows = "fup";
       };
     };
 
@@ -43,8 +40,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    flake-utils-plus = {
+    fu.url = "github:numtide/flake-utils";
+
+    fup = {
       url = "github:gytis-ivaskevicius/flake-utils-plus";
+      inputs.flake-utils.follows = "fu";
     };
   };
 
@@ -54,14 +54,18 @@
     yumi,
     nekowinston,
     nixpkgs,
+    nixpkgs-unstable,
     darwin,
     home-manager,
-    flake-utils-plus,
     pre-commit-hooks,
-    mkAlias,
-    catppuccin,
+    fup,
+    ...
   }: let
-    nur-overlays = final: prev: {
+    overlays = _final: prev: {
+      unstable = import nixpkgs-unstable {
+        inherit (prev) system;
+        config.allowUnfree = true;
+      };
       nur = import nur {
         nurpkgs = prev;
         pkgs = prev;
@@ -71,24 +75,9 @@
         };
       };
     };
-    getLib = {lib, ...}: lib // import ./libs {inherit lib;};
   in
-    with getLib nixpkgs; let
-      getPkgs = system:
-        import nixpkgs {
-          inherit system;
-          config.permittedInsecurePackages = [
-            "libressl-3.4.3"
-          ];
-          overlays = [nur-overlays];
-        };
-
+    with nixpkgs.lib; let
       userModules = [
-        {
-          nix = {
-            registry.nixpgks.flake = nixpkgs;
-          };
-        }
         (import ./config)
         (import ./shared)
       ];
@@ -104,7 +93,6 @@
         isNixOS,
         config,
       }: let
-        pkgs = getPkgs system;
         cfgs =
           if isNixOS
           then "nixosConfigurations"
@@ -114,26 +102,24 @@
           then nixpkgs.lib.nixosSystem
           else darwin.lib.darwinSystem;
       in {
-        ${cfgs}.${hostname} = sys {
-          inherit pkgs inputs;
-
+        ${hostname} = {
+          inherit system;
+          builder = sys;
+          output = cfgs;
           modules =
             userModules
             ++ hmModule isNixOS
             ++ [
               config
             ];
-
-          specialArgs = {lib = getLib pkgs;};
+          specialArgs = {
+            inherit inputs;
+          };
         };
       };
     in
-      (flake-utils-plus.lib.eachDefaultSystem (
+      (fup.lib.eachDefaultSystem (
         system: {
-          channels.nixpkgs = {
-            input = nixpkgs;
-            config.allowUnfree = true;
-          };
           checks = {
             pre-commit-check = pre-commit-hooks.lib.${system}.run {
               src = ./.;
@@ -149,18 +135,33 @@
               };
             };
           };
-          devShells.default = let
-            pkgs = nixpkgs.legacyPackages.${system};
-          in
-            pkgs.mkShell {
-              inherit (self.checks.${system}.pre-commit-check) shellHook;
-            };
         }
       ))
-      // (
-        let
-          f = fold (compose [getSystem recursiveUpdate]) {};
-        in
-          f (import ./hosts {systems = flake-utils-plus.lib.system;})
-      );
+      // (fup.lib.mkFlake {
+        inherit self inputs;
+
+        hosts = fold (flip pipe [getSystem recursiveUpdate]) {} (import ./hosts {systems = fup.lib.system;});
+
+        sharedOverlays = [overlays];
+
+        channels.nixpkgs = {
+          input = nixpkgs;
+          config = {
+            allowUnfree = true;
+            permittedInsecurePackages = [
+              "libressl-3.4.3"
+            ];
+          };
+        };
+
+        outputsBuilder = channels: {
+          devShells.default = channels.nixpkgs.mkShell {
+            name = "devShell";
+            packages = with channels.nixpkgs; [
+              commitizen
+              just
+            ];
+          };
+        };
+      });
 }
