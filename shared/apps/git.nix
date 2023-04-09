@@ -3,6 +3,10 @@
   configRoot,
   ...
 }: {
+  home.packages = with pkgs; [
+    commitizen
+  ];
+
   programs.git = {
     enable = true;
     userName = configRoot.name;
@@ -24,19 +28,6 @@
     };
     includes = configRoot.gitIncludes;
     hooks = {
-      prepare-commit-msg = pkgs.writeShellScript "prepare-commit-msg" ''
-
-        COMMIT_MSG_FILE=$1
-        COMMIT_SOURCE=$2
-        SHA1=$3
-
-        SOB=$'# Recommended-commit-format:\n# (fix|feat|build|chore|ci|docs|style|refactor|perf|test|BREAKING CHANGE): Commit message\n#'
-        git interpret-trailers --in-place --trailer "$SOB" "$COMMIT_MSG_FILE"
-        if test -z "$COMMIT_SOURCE"
-        then
-          ${pkgs.perl}/bin/perl -i.bak -pe 'print "\n" if !$first_line++' "$COMMIT_MSG_FILE"
-        fi
-      '';
       pre-commit = pkgs.writeShellScript "pre-commit" ''
 
         # start templated
