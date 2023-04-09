@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  configRoot,
   inputs,
   ...
 }: let
@@ -39,6 +38,11 @@ in {
       fish_pager_color_description ${unsharp ctp.overlay0.hex}
     '';
   };
+
+  home.packages = with pkgs; [
+    grc
+    fishPlugins.grc
+  ];
 
   programs = {
     starship = {
