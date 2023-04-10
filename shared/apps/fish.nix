@@ -77,7 +77,7 @@ in {
           crust = ctp.crust.hex;
         };
         palette = "ctp";
-        format = "$golang$java$kotlin$nodejs$rust$python$docker_context$kubernetes$cmd_duration$git_branch$git_status\n$directory$character";
+        format = "[](fg:red)$username$hostname$container$sudo$shlvl[](fg:red bg:peach)$git_branch$git_commit$git_state$git_status$git_metrics[](fg:peach bg:yellow)$cmd_duration[](fg:yellow bg:green)$java$kotlin$golang$helm$nodejs$python$rust[](fg:green bg:blue)$package$nix_shell[](fg:blue bg:mauve)$docker_context$kubernetes[](fg:mauve)$line_break$directory$shell$status$character";
         right_format = "";
         character = {
           success_symbol = "[>](bold green)";
@@ -96,46 +96,62 @@ in {
         };
         golang = {
           symbol = " ";
-          format = "(fg:base bg:base)[](fg:blue bg:base)[$symbol$version](fg:base bg:blue)[](fg:blue bg:none) ";
-          style = "fg:blue bg:base";
+          format = "[ $symbol$version ]($style)";
+          style = "fg:base bg:green";
         };
         java = {
           symbol = " ";
-          style = "fg:mauve bg:base";
-          format = "(fg:base bg:base)[](fg:mauve bg:base)[$symbol$version](fg:base bg:mauve)[](fg:mauve bg:none) ";
+          style = "fg:base bg:green";
+          format = "[ $symbol$version ]($style)";
         };
         kotlin = {
           symbol = " ";
-          style = "fg:mauve bg:base";
-          format = "(fg:base bg:base)[](fg:mauve bg:base)[$symbol$version](fg:base bg:mauve)[](fg:mauve bg:none) ";
+          style = "fg:base bg:green";
+          format = "[ $symbol$version ]($style)";
         };
         nodejs = {
           symbol = " ";
-          style = "fg:sky bg:base";
-          format = "(fg:base bg:base)[](fg:sky bg:base)[$symbol$version](fg:base bg:sky)[](fg:sky bg:none) ";
+          style = "fg:base bg:green";
+          format = "[ $symbol$version ]($style)";
         };
         rust = {
-          format = "(fg:base bg:base)[](fg:red bg:base)[$symbol$version](fg:base bg:red)[](fg:red bg:none) ";
-          style = "fg:red bg:base";
+          format = "[ $symbol$version ]($style)";
+          style = "fg:base bg:green";
           symbol = " ";
+        };
+        python = {
+          format = "[ $symbol$pyenv_prefix($version)($virtualenv) ]($style)";
+          style = "fg:base bg:green";
+          symbol = " ";
+        };
+        package = {
+          symbol = " ";
+          style = "fg:base bg:blue";
+          format = "[ $symbol$version ]($style)";
         };
         kubernetes = {
           symbol = "󱃾 ";
-          format = "(fg:base bg:base)[](fg:sapphire bg:base)[$symbol$context](fg:base bg:sapphire)[](fg:sapphire bg:none) ";
-          style = "fg:sapphire bg:base";
+          format = "[ $symbol$context ]($style)";
+          style = "fg:base bg:mauve";
           disabled = false;
         };
+        nix_shell = {
+          symbol = " ";
+          format = "[ $symbol$state( \\($name\\)) ]($style)";
+          style = "fg:base bg:blue";
+        };
         git_branch = {
-          format = "(fg:base bg:base)[](fg:yellow bg:base)[ $branch](fg:base bg:yellow)[](fg:yellow bg:none) ";
-          style = "fg:yellow bg:base";
+          symbol = " ";
+          format = "[ $symbol$branch ]($style)";
+          style = "fg:base bg:peach";
         };
         git_status = {
-          format = "(fg:base bg:base)[](fg:lavender bg:base)[$all_status](fg:base bg:lavender)[](fg:lavender bg:none) ";
-          style = "fg:lavender bg:base";
+          format = "[$all_status ]($style)";
+          style = "fg:base bg:peach";
           conflicted = "=";
           ahead = " $count";
           behind = " $count";
-          diverged = " $ahead_count$behind_count";
+          diverged = " $ahead_count $behind_count";
           up_to_date = " ";
           untracked = "?$count";
           stashed = " ";
@@ -144,16 +160,15 @@ in {
           renamed = "»$count";
           deleted = "✘$count";
         };
-        python = {
-          format = "(fg:base bg:base)[](fg:green bg:base)[$symbol$pyenv_prefix($version )($virtualenv )](fg:base bg:green)[](fg:green bg:none) ";
-          style = "fg:green bg:base";
-          symbol = " ";
-        };
         cmd_duration = {
           min_time = 1;
-          format = "(fg:base bg:base)[](fg:mauve bg:base)[ $duration](fg:base bg:mauve)[](fg:mauve bg:none) ";
+          format = "[  $duration ]($style)";
           disabled = false;
-          style = "fg:mauve bg:base";
+          style = "fg:base bg:yellow";
+        };
+        status = {
+          disabled = false;
+          format = "[$status ]($style)";
         };
       };
     };
