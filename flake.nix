@@ -118,26 +118,7 @@
         };
       };
     in
-      (fup.lib.eachDefaultSystem (
-        system: {
-          checks = {
-            pre-commit-check = pre-commit-hooks.lib.${system}.run {
-              src = ./.;
-              hooks = {
-                alejandra.enable = true;
-                editorconfig-checker.enable = true;
-                deadnix.enable = true;
-                statix.enable = true;
-              };
-              settings.deadnix = {
-                noLambdaPatternNames = true;
-                noLambdaArg = true;
-              };
-            };
-          };
-        }
-      ))
-      // (fup.lib.mkFlake {
+      fup.lib.mkFlake {
         inherit self inputs;
 
         hosts = fold (flip pipe [getSystem recursiveUpdate]) {} (import ./hosts {systems = fup.lib.system;});
@@ -154,14 +135,31 @@
           };
         };
 
-        outputsBuilder = channels: {
-          devShells.default = channels.nixpkgs.mkShell {
-            name = "devShell";
-            packages = with channels.nixpkgs; [
-              commitizen
-              just
-            ];
+        outputsBuilder = channels:
+          with channels.nixpkgs; {
+            checks = {
+              pre-commit-check = pre-commit-hooks.lib.${system}.run {
+                src = ./.;
+                hooks = {
+                  alejandra.enable = true;
+                  editorconfig-checker.enable = true;
+                  deadnix.enable = true;
+                  statix.enable = true;
+                };
+                settings.deadnix = {
+                  noLambdaPatternNames = true;
+                  noLambdaArg = true;
+                };
+              };
+            };
+            devShells.default = mkShell {
+              inherit (self.checks.${system}.pre-commit-check) shellHook;
+              name = "devShell";
+              packages = [
+                commitizen
+                just
+              ];
+            };
           };
-        };
-      });
+      };
 }
