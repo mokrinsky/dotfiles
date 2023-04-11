@@ -276,16 +276,22 @@
     },
     "yumi": {
       "inputs": {
+        "flake-utils": [
+          "fu"
+        ],
         "nixpkgs": [
           "nixpkgs"
+        ],
+        "pre-commit-hooks": [
+          "pre-commit-hooks"
         ]
       },
       "locked": {
-        "lastModified": 1680292247,
-        "narHash": "sha256-P4yxeilk7osaFCVJgT9/rThjXHJ7h15bu0GXwEeC7hs=",
+        "lastModified": 1681181934,
+        "narHash": "sha256-Dv/XxadsMn17e+xYz0NyJXcCnohLhjvYjk5sJXo+PKM=",
         "owner": "mokrinsky",
         "repo": "nix-packages",
-        "rev": "a64ee691e3b611f8a69e5901eab96b3f3374dad1",
+        "rev": "0a10538a461b58f8a19dc425988951eb0840b57d",
         "type": "github"
       },
       "original": {

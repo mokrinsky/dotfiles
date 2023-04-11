@@ -35,6 +35,9 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    sharedModules = [
+      inputs.yumi.homeManagerModules.default
+    ];
     # verbose = true;
     extraSpecialArgs = {
       inherit inputs pkgs;

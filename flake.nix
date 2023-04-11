@@ -15,6 +15,8 @@
     yumi = {
       url = "github:mokrinsky/nix-packages";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.pre-commit-hooks.follows = "pre-commit-hooks";
+      inputs.flake-utils.follows = "fu";
     };
 
     nekowinston = {

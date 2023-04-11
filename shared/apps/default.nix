@@ -8,5 +8,6 @@
     ./gnu.nix
     ./python.nix
     ./wezterm.nix
+    ./ui.nix
   ];
 }
