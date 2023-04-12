@@ -1,5 +1,10 @@
-{config, ...}: {
-  home-manager.users.${config.username}.targets.darwin.defaults = {
+{
+  pkgs,
+  lib,
+  ...
+}:
+lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
+  targets.darwin.defaults = {
     NSGlobalDomain = {
       AppleLanguages = ["en-GB" "en-RU" "ru-RU" "en" "it"];
       AppleLocale = "en_RU"; # dd/mm/yyyy - 3.14 - 10,000 - week starts on Monday

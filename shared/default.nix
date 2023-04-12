@@ -49,6 +49,7 @@
         ./base.nix
         ./configs.nix
         ./fonts.nix
+        ./darwin.nix
         ./apps
       ];
     };
