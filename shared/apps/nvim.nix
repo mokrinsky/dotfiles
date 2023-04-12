@@ -15,7 +15,7 @@
   };
 
   programs.neovim = {
-    package = pkgs.nur.repos.yumi.neovim-unwrapped;
+    package = pkgs.unstable.neovim-unwrapped;
     withRuby = false;
     withPython3 = true;
     enable = true;
