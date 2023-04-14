@@ -37,11 +37,11 @@
     useUserPackages = true;
     sharedModules = [
       inputs.yumi.homeManagerModules.default
+      (import ../config/default.nix)
     ];
     # verbose = true;
     extraSpecialArgs = {
       inherit inputs pkgs;
-      configRoot = config;
     };
     users.${config.username} = {
       home.stateVersion = "22.05";

@@ -1,6 +1,6 @@
 {
   pkgs,
-  configRoot,
+  config,
   ...
 }: {
   home.packages = with pkgs; [
@@ -9,10 +9,10 @@
 
   programs.git = {
     enable = true;
-    userName = configRoot.name;
-    userEmail = configRoot.email;
+    userName = config.name;
+    userEmail = config.email;
     signing = {
-      key = configRoot.gpgKey;
+      key = config.gpgKey;
       signByDefault = true;
     };
     lfs = {
@@ -26,7 +26,7 @@
         autoSetupRemote = true;
       };
     };
-    includes = configRoot.gitIncludes;
+    includes = config.gitIncludes;
     hooks = {
       pre-commit = pkgs.writeShellScript "pre-commit" ''
 
