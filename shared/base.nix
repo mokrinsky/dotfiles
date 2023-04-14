@@ -30,6 +30,8 @@
       FZF_DEFAULT_OPTS = "--cycle --border --height=90% --preview-window=wrap --marker=\"*\"";
       EXA_ICON_SPACING = 2;
       TERMINFO_DIRS = "/Users/yumi/.terminfo";
+      ANSIBLE_CONFIG = "${config.xdg.configHome}/ansible.cfg";
+      JAVA_HOME = "/usr/local/Cellar/openjdk@17/17.0.6";
     };
 
     language.base = "en_US.UTF-8";
@@ -37,6 +39,7 @@
     packages = with pkgs;
       [
         config.nix.package
+        home-manager
         cacert
         inetutils
         ipcalc
@@ -70,6 +73,54 @@
         nur.repos.yumi.pidof
         nur.repos.yumi.squid
       ];
+  };
+
+  homebrew = {
+    enable = true;
+    onActivation = {
+      cleanup = "zap";
+      silent = true;
+      # upgrade = true;
+    };
+    global = {
+      brewfile = true;
+    };
+    taps = ["homebrew/bundle" "homebrew/cask" "homebrew/core"];
+    brews = [
+      "squid"
+      "openjdk@17"
+      "maven"
+    ];
+    casks = [
+      "alfred"
+      # "apache-directory-studio"
+      # "balenaetcher"
+      "cyberduck"
+      "discord"
+      # "displaycal"
+      "docker"
+      # "lulu"
+      # "mos"
+      "notion"
+      "sublime-text"
+      "telegram-desktop"
+      # "transmission"
+      "tuntap"
+      # "virtualbox"
+      "visual-studio-code"
+      "vlc"
+      "wireshark"
+      # "spotify"
+    ];
+    masApps = {
+      "Microsoft Remote Desktop" = 1295203466;
+      Xcode = 497799835;
+      Pages = 409201541;
+      Keynote = 409183694;
+      Mattermost = 1614666244;
+      "The Unarchiver" = 425424353;
+      Numbers = 409203825;
+    };
   };
 
   programs = {
