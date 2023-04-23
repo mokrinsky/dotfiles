@@ -17,6 +17,7 @@
       experimental-features = "nix-command flakes";
       warn-dirty = false;
       extra-trusted-users = ["yumi"];
+      tarball-ttl = 604800;
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "nekowinston.cachix.org-1:lucpmaO+JwtoZj16HCO1p1fOv68s/RL1gumpVzRHRDs="
@@ -37,7 +38,7 @@
     useUserPackages = true;
     sharedModules = [
       inputs.yumi.homeManagerModules.default
-      (import ../config/default.nix)
+      (import ../config)
     ];
     # verbose = true;
     extraSpecialArgs = {
