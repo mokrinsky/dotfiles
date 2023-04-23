@@ -2,65 +2,86 @@
   description = "Yumi's nix flake";
 
   inputs = {
+    # core inputs
     nixpkgs.url = "nixpkgs/nixpkgs-unstable"; # this will move to stable upon 23.05 release
     nixpkgs-unstable.url = "github:nixos/nixpkgs";
-    nur.url = "github:nix-community/NUR";
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
-      inputs = {
-        flake-utils.follows = "fup";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-    yumi = {
-      url = "github:mokrinsky/nix-packages";
+    darwin = {
+      url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.pre-commit-hooks.follows = "pre-commit-hooks";
-      inputs.flake-utils.follows = "fu";
+    };
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # NUR inputs
+    nur.url = "github:nix-community/NUR";
+    yumi = {
+      url = "github:mokrinsky/nix-packages";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.pre-commit-hooks.follows = "pre-commit-hooks";
+    };
     nekowinston = {
       url = "github:nekowinston/nur";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    darwin = {
-      url = "github:lnl7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
+    # QoL inputs
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
+        flake-utils.follows = "flake-utils-plus";
         nixpkgs.follows = "nixpkgs";
-        utils.follows = "fup";
       };
     };
-
+    flake-utils.url = "github:numtide/flake-utils";
+    flake-utils-plus = {
+      url = "github:gytis-ivaskevicius/flake-utils-plus";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+    digga = {
+      url = "github:divnix/digga";
+      inputs = {
+        darwin.follows = "darwin";
+        flake-utils-plus.follows = "flake-utils-plus";
+        flake-utils.follows = "flake-utils";
+        home-manager.follows = "home-manager";
+        nixlib.follows = "nixpkgs";
+        nixpkgs-unstable.follows = "nixpkgs-unstable";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     catppuccin = {
       url = "github:mokrinsky/nix-ctp";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    fu.url = "github:numtide/flake-utils";
-
-    fup = {
-      url = "github:gytis-ivaskevicius/flake-utils-plus";
-      inputs.flake-utils.follows = "fu";
+    # Development inputs
+    yumi-dev = {
+      url = "path:/Users/yumi/git/nix-overlay";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.pre-commit-hooks.follows = "pre-commit-hooks";
+    };
+    nixpkgs-dev = {
+      url = "path:/Users/yumi/git/nixpkgs";
     };
   };
 
   outputs = inputs @ {
     self,
-    nur,
-    yumi,
+    darwin,
+    digga,
+    flake-utils-plus,
+    home-manager,
     nekowinston,
     nixpkgs,
+    nixpkgs-dev,
     nixpkgs-unstable,
-    darwin,
-    home-manager,
+    nur,
     pre-commit-hooks,
-    fup,
+    yumi,
     ...
   }: let
     overlays = _final: prev: {
@@ -76,6 +97,12 @@
           nekowinston = import nekowinston {pkgs = prev;};
         };
       };
+      dev = import nixpkgs-dev {
+        inherit (prev) system;
+        config.allowUnfree = true;
+      };
+      inherit (yumi.packages.${prev.system}) wireguard-tools fzf;
+      inherit (home-manager.packages.${prev.system}) home-manager;
     };
   in
     with nixpkgs.lib; let
@@ -120,10 +147,10 @@
         };
       };
     in
-      fup.lib.mkFlake {
+      flake-utils-plus.lib.mkFlake {
         inherit self inputs;
 
-        hosts = fold (flip pipe [getSystem recursiveUpdate]) {} (import ./hosts {systems = fup.lib.system;});
+        hosts = fold (flip pipe [getSystem recursiveUpdate]) {} (import ./hosts {systems = flake-utils-plus.lib.system;});
 
         sharedOverlays = [overlays];
 

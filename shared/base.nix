@@ -23,6 +23,16 @@
   #     };
   #   };
   # };
+  programs.java = {
+    enable = true;
+    package = pkgs.dev.openjdk;
+    installMaven = true;
+    extraPackages = with pkgs; [
+      dev.openjdk17
+      dev.openjdk8
+    ];
+  };
+
   home = {
     enableNixpkgsReleaseCheck = true;
     sessionVariables = {
@@ -31,7 +41,6 @@
       EXA_ICON_SPACING = 2;
       TERMINFO_DIRS = "/Users/yumi/.terminfo";
       ANSIBLE_CONFIG = "${config.xdg.configHome}/ansible.cfg";
-      JAVA_HOME = "/usr/local/Cellar/openjdk@17/17.0.6";
     };
 
     language.base = "en_US.UTF-8";
@@ -62,7 +71,7 @@
         fd
         dogdns
         just
-        nur.repos.yumi.fzf
+        fzf
       ]
       ++ lib.optionals pkgs.stdenv.isLinux [
         wireshark
@@ -88,8 +97,6 @@
     taps = ["homebrew/bundle" "homebrew/cask" "homebrew/core"];
     brews = [
       "squid"
-      "openjdk@17"
-      "maven"
     ];
     casks = [
       "alfred"
