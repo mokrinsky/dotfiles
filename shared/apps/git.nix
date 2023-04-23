@@ -26,7 +26,11 @@
         autoSetupRemote = true;
       };
     };
-    includes = config.gitIncludes;
+    includes = [
+      {
+        path = "~/.gitconfig.includes";
+      }
+    ];
     hooks = {
       pre-commit = pkgs.writeShellScript "pre-commit" ''
 
