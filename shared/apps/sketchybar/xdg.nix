@@ -226,7 +226,7 @@ in
         text = ''
           #!/usr/bin/env bash
 
-          SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13" "14" "15")
+          SPACE_ICONS=("一" "二" "三" "四" "五" "六" "七" "八" "九" "十" "十一" "十二" "十三" "十四" "十五")
 
           sid=0
           for i in "''${!SPACE_ICONS[@]}"
@@ -360,7 +360,8 @@ in
           # COUNTRY="$(echo "$LOCATION_JSON" | jq '.country' | tr -d '"')"
 
           # Line below replaces spaces with +
-          LOCATION_ESCAPED="''${LOCATION// /+}+''${REGION// /+}"
+          # LOCATION_ESCAPED="''${LOCATION// /+}+''${REGION// /+}"
+          LOCATION_ESCAPED="''${LOCATION// /+}"
           WEATHER_JSON=$(curl -s "https://wttr.in/$LOCATION_ESCAPED?format=j1")
 
           # Fallback if empty
