@@ -113,9 +113,10 @@
       "telegram-desktop"
       # "transmission"
       "tuntap"
-      # "virtualbox"
+      "virtualbox"
       "visual-studio-code"
       "vlc"
+      "wezterm"
       "wireshark"
       # "spotify"
     ];

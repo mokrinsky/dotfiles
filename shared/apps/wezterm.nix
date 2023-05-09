@@ -9,7 +9,7 @@
   };
   programs.wezterm = {
     enable = true;
-    package = pkgs.nur.repos.nekowinston.wezterm-nightly;
+    package = pkgs.writeScriptBin "__dummy-wezterm" "";
     extraConfig = ''
       local hyperlink = require 'hyperlink'
       require 'tabbar'
@@ -39,7 +39,7 @@
         hide_tab_bar_if_only_one_tab = true,
         hyperlink_rules = hyperlink,
         line_height = 0.9,
-        -- macos_window_background_blur = 20,
+        macos_window_background_blur = 20,
         scrollback_lines = 10000,
         swallow_mouse_click_on_window_focus = false,
         tab_bar_style = {
