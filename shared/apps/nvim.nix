@@ -41,8 +41,12 @@
       ansible-language-server
       sumneko-lua-language-server
       rnix-lsp
+      nil
       pyright
+
       nodePackages.dockerfile-language-server-nodejs
+      nodePackages.typescript-language-server
+      nodePackages.prettier
     ];
   };
 }
