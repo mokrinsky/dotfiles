@@ -181,7 +181,7 @@ in {
         ls = "exa -alg --color=always --icons --group-directories-first --octal-permissions --no-permissions --git";
         cat = "bat --decorations never --paging never";
         dig = "dog";
-        lazyvim = "env NVIM_APPNAME=lazyvim nvim";
+        lazyvim = "NVIM_APPNAME=lazyvim nvim";
       };
       shellInit = ''
         echo y | fish_config theme save theme
