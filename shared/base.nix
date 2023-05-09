@@ -23,6 +23,14 @@
   #     };
   #   };
   # };
+  sops = {
+    defaultSopsFile = ../secrets/secrets.yaml;
+    gnupg.home = config.programs.gpg.homedir;
+    secrets = {
+      ansibleCfg.path = "${config.xdg.configHome}/ansible.cfg";
+    };
+  };
+
   programs.java = {
     enable = true;
     package = pkgs.dev.openjdk;
@@ -63,6 +71,7 @@
         p7zip
         rename
         ripgrep
+        sops
         virt-viewer
         pre-commit
         # rust replacements for some default console utilities

@@ -22,10 +22,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.pre-commit-hooks.follows = "pre-commit-hooks";
     };
-    nekowinston = {
-      url = "github:nekowinston/nur";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # QoL inputs
     pre-commit-hooks = {
@@ -40,21 +36,18 @@
       url = "github:gytis-ivaskevicius/flake-utils-plus";
       inputs.flake-utils.follows = "flake-utils";
     };
-    digga = {
-      url = "github:divnix/digga";
-      inputs = {
-        darwin.follows = "darwin";
-        flake-utils-plus.follows = "flake-utils-plus";
-        flake-utils.follows = "flake-utils";
-        home-manager.follows = "home-manager";
-        nixlib.follows = "nixpkgs";
-        nixpkgs-unstable.follows = "nixpkgs-unstable";
-        nixpkgs.follows = "nixpkgs";
-      };
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
     catppuccin = {
       url = "github:mokrinsky/nix-ctp";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    sops = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     # Development inputs
@@ -72,15 +65,15 @@
   outputs = inputs @ {
     self,
     darwin,
-    digga,
     flake-utils-plus,
+    flake-parts,
     home-manager,
-    nekowinston,
     nixpkgs,
     nixpkgs-dev,
     nixpkgs-unstable,
     nur,
     pre-commit-hooks,
+    sops,
     yumi,
     ...
   }: let
@@ -94,7 +87,6 @@
         pkgs = prev;
         repoOverrides = {
           yumi = import yumi {pkgs = prev;};
-          nekowinston = import nekowinston {pkgs = prev;};
         };
       };
       dev = import nixpkgs-dev {
@@ -163,32 +155,47 @@
             ];
           };
         };
+      }
+      // flake-parts.lib.mkFlake {inherit inputs;} {
+        imports = [
+          pre-commit-hooks.flakeModule
+        ];
+        systems = [
+          "x86_64-linux"
+          "x86_64-darwin"
+          "aarch64-darwin"
+        ];
 
-        outputsBuilder = channels:
-          with channels.nixpkgs; {
-            checks = {
-              pre-commit-check = pre-commit-hooks.lib.${system}.run {
-                src = ./.;
-                hooks = {
-                  alejandra.enable = true;
-                  editorconfig-checker.enable = true;
-                  deadnix.enable = true;
-                  statix.enable = true;
-                };
-                settings.deadnix = {
-                  noLambdaPatternNames = true;
-                  noLambdaArg = true;
-                };
-              };
+        perSystem = {
+          pkgs,
+          system,
+          config,
+          ...
+        }: {
+          pre-commit.settings = {
+            src = ./.;
+            hooks = {
+              alejandra.enable = true;
+              editorconfig-checker.enable = true;
+              deadnix.enable = true;
+              statix.enable = true;
             };
-            devShells.default = mkShell {
-              inherit (self.checks.${system}.pre-commit-check) shellHook;
-              name = "devShell";
-              packages = [
-                commitizen
-                just
-              ];
+            settings.deadnix = {
+              noLambdaPatternNames = true;
+              noLambdaArg = true;
             };
           };
+          devShells.default = pkgs.mkShell {
+            shellHook = ''
+              ${config.pre-commit.installationScript}
+              echo 1>&2 "Welcome to the development shell!"
+            '';
+            name = "devShell";
+            packages = with pkgs; [
+              commitizen
+              just
+            ];
+          };
+        };
       };
 }

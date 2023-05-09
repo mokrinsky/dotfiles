@@ -38,6 +38,7 @@
     useUserPackages = true;
     sharedModules = [
       inputs.yumi.homeManagerModules.default
+      inputs.sops.homeManagerModules.sops
       (import ../config)
     ];
     # verbose = true;
