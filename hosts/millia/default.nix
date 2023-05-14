@@ -5,7 +5,7 @@
   inputs,
   ...
 }: {
-  nix.package = pkgs.unstable.nixVersions.nix_2_14;
+  nix.package = pkgs.unstable.nixVersions.nix_2_15;
 
   users.users.${config.username} = {
     home = "/Users/${config.username}";
