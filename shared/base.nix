@@ -28,16 +28,18 @@
     gnupg.home = config.programs.gpg.homedir;
     secrets = {
       ansibleCfg.path = "${config.xdg.configHome}/ansible.cfg";
+      wgPrivateKey.path = "${config.xdg.configHome}/wgPrivateKey";
+      kubeconfig.path = "${config.home.homeDirectory}/.kube/config";
     };
   };
 
   programs.java = {
     enable = true;
-    package = pkgs.dev.openjdk;
+    package = pkgs.openjdk;
     installMaven = true;
     extraPackages = with pkgs; [
-      dev.openjdk17
-      dev.openjdk8
+      openjdk17
+      openjdk8
     ];
   };
 

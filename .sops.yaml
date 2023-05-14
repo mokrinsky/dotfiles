@@ -1,0 +1,6 @@
+keys:
+  - &yumigpg EA54E892D96C779E1FA64E0A73CC011921471A15
+creation_rules:
+  - key_groups:
+      - pgp:
+          - *yumigpg
