@@ -73,26 +73,6 @@
         "type": "github"
       }
     },
-    "flake-parts": {
-      "inputs": {
-        "nixpkgs-lib": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1682984683,
-        "narHash": "sha256-fSMthG+tp60AHhNmaHc4StT3ltfHkQsJtN8GhfLWmtI=",
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "rev": "86684881e184f41aa322e653880e497b66429f3e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "type": "github"
-      }
-    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -187,18 +167,6 @@
         "type": "indirect"
       }
     },
-    "nixpkgs-dev": {
-      "locked": {
-        "lastModified": 1681654802,
-        "narHash": "sha256-RMjQ+5GLg0Vszv0RjD0Fhjt1bWeBfU94ZrlJzNVrZhI=",
-        "path": "/Users/yumi/git/nixpkgs",
-        "type": "path"
-      },
-      "original": {
-        "path": "/Users/yumi/git/nixpkgs",
-        "type": "path"
-      }
-    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1678872516,
@@ -275,18 +243,15 @@
       "inputs": {
         "catppuccin": "catppuccin",
         "darwin": "darwin",
-        "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
         "flake-utils-plus": "flake-utils-plus",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-dev": "nixpkgs-dev",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
         "pre-commit-hooks": "pre-commit-hooks",
         "sops": "sops",
-        "yumi": "yumi",
-        "yumi-dev": "yumi-dev"
+        "yumi": "yumi"
       }
     },
     "sops": {
@@ -351,29 +316,6 @@
         "owner": "mokrinsky",
         "repo": "nix-packages",
         "type": "github"
-      }
-    },
-    "yumi-dev": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "pre-commit-hooks": [
-          "pre-commit-hooks"
-        ]
-      },
-      "locked": {
-        "lastModified": 1681659180,
-        "narHash": "sha256-AP7OkVZyFv2ptUrpdbljb2478v6BgR0VRSYyF6WzWzM=",
-        "path": "/Users/yumi/git/nix-overlay",
-        "type": "path"
-      },
-      "original": {
-        "path": "/Users/yumi/git/nix-overlay",
-        "type": "path"
       }
     }
   },
