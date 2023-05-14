@@ -34,17 +34,6 @@ in
         # restart yabai
         cmd + alt - r : launchctl kickstart -k "gui/''${UID}/org.nixos.yabai"
         # ONLY WORKS WITH SIP DISABLED:
-        # switch to space
-        cmd + ctrl - 1 : ${yabai} -m space --focus 1
-        cmd + ctrl - 2 : ${yabai} -m space --focus 2
-        cmd + ctrl - 3 : ${yabai} -m space --focus 3
-        cmd + ctrl - 4 : ${yabai} -m space --focus 4
-        cmd + ctrl - 5 : ${yabai} -m space --focus 5
-        cmd + ctrl - 6 : ${yabai} -m space --focus 6
-        cmd + ctrl - 7 : ${yabai} -m space --focus 7
-        cmd + ctrl - 8 : ${yabai} -m space --focus 8
-        cmd + ctrl - 9 : ${yabai} -m space --focus 9
-        cmd + ctrl - 0 : ${yabai} -m space --focus 10
         # send window to desktop and follow focus
         cmd + shift - 1 : ${yabai} -m window --space 1; ${yabai} -m space --focus 1
         cmd + shift - 2 : ${yabai} -m window --space 2; ${yabai} -m space --focus 2
@@ -72,8 +61,9 @@ in
         window_animation_duration = "0.1";
         window_border = "on";
         window_border_blur = "off";
+        window_border_hidpi = "on";
         window_border_width = "2";
-        window_border_radius = "0";
+        window_border_radius = "12";
         window_gap = "5";
         window_topmost = "on";
         left_padding = "5";
@@ -83,8 +73,9 @@ in
         window_origin_display = "default";
         window_placement = "second_child";
         window_shadow = "off";
-        active_window_border_color = "0xfffab387";
-        normal_window_border_color = "0xb81e1e2e";
+        # active_window_border_color = "0xfffab387";
+        active_window_border_color = "0xff1e1e2e";
+        normal_window_border_color = "0xff1e1e2e";
         external_bar = "all:32:0";
       };
       extraConfig = let
