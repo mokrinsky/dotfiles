@@ -14,9 +14,6 @@ in {
     "neofetch" = {
       source = ./apps/configs/neofetch_config;
     };
-    "procs" = {
-      source = ./apps/configs/procs_config;
-    };
     "btop/themes" = {
       source = pkgs.fetchFromGitHub {
         owner = "catppuccin";
