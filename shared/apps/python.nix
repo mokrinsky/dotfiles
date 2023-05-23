@@ -7,7 +7,7 @@
           numpy
           yt-dlp
           black
-          ansible-lint
+          pkgs.ansible-lint
           pylint
           yamllint
           ansible

@@ -24,7 +24,7 @@
     vimdiffAlias = true;
     defaultEditor = true;
     extraPackages = with pkgs; [
-      pkgs.unstable.tree-sitter
+      tree-sitter
       # Linters
       alejandra
       deadnix

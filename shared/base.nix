@@ -61,7 +61,6 @@
     packages = with pkgs;
       [
         config.nix.package
-        home-manager
         cacert
         inetutils
         ipcalc

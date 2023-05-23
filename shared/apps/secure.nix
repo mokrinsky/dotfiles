@@ -5,8 +5,6 @@
 }: {
   home = {
     packages = with pkgs; [
-      wireguard-go
-      wireguard-tools
       yubikey-manager
       openconnect
       gopass

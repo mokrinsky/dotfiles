@@ -3,7 +3,7 @@
 
   inputs = {
     # core inputs
-    nixpkgs.url = "nixpkgs/nixpkgs-unstable"; # this will move to stable upon 23.05 release
+    nixpkgs.url = "nixpkgs/nixpkgs-23.05-darwin";
     nixpkgs-unstable.url = "github:nixos/nixpkgs";
     darwin = {
       url = "github:lnl7/nix-darwin";
@@ -88,7 +88,6 @@
       #   config.allowUnfree = true;
       # };
       inherit (yumi.packages.${prev.system}) wireguard-tools fzf;
-      inherit (home-manager.packages.${prev.system}) home-manager;
     };
   in
     with nixpkgs.lib; let
@@ -105,9 +104,10 @@
       getSystem = {
         hostname,
         system,
-        isNixOS,
         config,
       }: let
+        # TODO: it was worse before, but i still don't like this line
+        isNixOS = builtins.match ".*(darwin).*" system == null;
         cfgs =
           if isNixOS
           then "nixosConfigurations"
@@ -158,7 +158,7 @@
                 hooks = {
                   alejandra.enable = true;
                   editorconfig-checker.enable = true;
-                  deadnix.enable = true;
+                  # deadnix.enable = true; TODO: broken in upstream, reanble once pr is accepted
                   statix.enable = true;
                 };
                 settings.deadnix = {

@@ -123,9 +123,9 @@ in
 
           case $1 in
             "WezTerm") ICON= ;;
-            "Discord") ICON=ﭮ ;;
-            "Finder") ICON= ;;
-            "Brave Browser") ICON=󰖟 ;;
+            "Discord") ICON=󰙯 ;;
+            "Finder") ICON=󰀶 ;;
+            "Brave Browser") ICON= ;;
             "Spotify") ICON= ;;
             "App Store") ICON= ;;
             "Photos") ICON= ;;
@@ -137,7 +137,8 @@ in
             "Microsoft Outlook") ICON=󰊫 ;;
             "RoboForm") ICON= ;;
             "MatterMost") ICON= ;;
-            *) ICON=﯂ ;;
+            "Firefox") ICON= ;;
+            *) ICON= ;;
           esac
 
           echo $ICON
@@ -452,7 +453,7 @@ in
               "VeryCloudy") ICON="";;
           esac
 
-          sketchybar --set "$NAME" label="$TEMPERATURE 糖 $WEATHER_DESCRIPTION"
+          sketchybar --set "$NAME" label="$TEMPERATURE 󰔄 $WEATHER_DESCRIPTION"
           sketchybar --set "$NAME".moon icon="$ICON"
         '';
       };
@@ -574,7 +575,7 @@ in
 
           sketchybar --add item clock right \
                      --set clock \
-                           icon= \
+                           icon=󰃰 \
                            icon.y_offset=1 \
                            icon.color=0xff${unsharp ctp.red.hex} \
                            update_freq=10 \
