@@ -21,9 +21,13 @@
     extraConfig = {
       core = {
         editor = "nvim";
+        pager = "nvim -R";
       };
       push = {
         autoSetupRemote = true;
+      };
+      color = {
+        pager = "no";
       };
     };
     includes = [

@@ -53,6 +53,7 @@
       EXA_ICON_SPACING = 2;
       TERMINFO_DIRS = "/Users/yumi/.terminfo";
       ANSIBLE_CONFIG = "${config.xdg.configHome}/ansible.cfg";
+      MANPAGER = "nvim +Man!";
     };
 
     language.base = "en_US.UTF-8";
