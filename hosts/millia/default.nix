@@ -1,8 +1,6 @@
 {
   pkgs,
   config,
-  lib,
-  inputs,
   ...
 }: {
   nix.package = pkgs.unstable.nixVersions.nix_2_15;

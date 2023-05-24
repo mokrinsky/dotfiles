@@ -158,8 +158,8 @@
                 hooks = {
                   alejandra.enable = true;
                   editorconfig-checker.enable = true;
-                  # deadnix.enable = true; TODO: broken in upstream, reanble once pr is accepted
                   statix.enable = true;
+                  nil.enable = true;
                 };
                 settings.deadnix = {
                   noLambdaPatternNames = true;
