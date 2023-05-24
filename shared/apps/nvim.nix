@@ -27,7 +27,6 @@
       tree-sitter
       # Linters
       alejandra
-      deadnix
       statix
       selene
       stylua
@@ -40,7 +39,6 @@
       gopls
       ansible-language-server
       sumneko-lua-language-server
-      rnix-lsp
       nil
       pyright
 
