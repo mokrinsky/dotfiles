@@ -18,8 +18,8 @@ in {
       source = pkgs.fetchFromGitHub {
         owner = "catppuccin";
         repo = "btop";
-        rev = "HEAD";
-        sha256 = "sha256-ovVtupO5jWUw6cwA3xEzRe1juUB8ykfarMRVTglx3mk=";
+        rev = "7109eac2884e9ca1dae431c0d7b8bc2a7ce54e54";
+        sha256 = "sha256-QoPPx4AzxJMYo/prqmWD/CM7e5vn/ueyx+XQ5+YfHF8=";
       };
     };
     "linters" = {
