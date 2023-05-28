@@ -57,24 +57,6 @@ in
         '';
       };
 
-      "${plugins}/bluetooth.sh" = {
-        executable = true;
-        text = ''
-          #!/usr/bin/env bash
-
-          BLUETOOTH=$(system_profiler SPBluetoothDataType -json)
-          BT_STATE=$(echo "$BLUETOOTH" | jq -r '.SPBluetoothDataType[0].controller_properties.controller_state')
-          # BT_DEVICES=$(echo "$BLUETOOTH" | jq -r '.SPBluetoothDataType[0].device_connected[] | keys' 2> /dev/null)
-
-          case $BT_STATE in
-              "attrib_on") COLOR=0xff${unsharp ctp.blue.hex};;
-              "attrib_off") COLOR=0xff${unsharp ctp.text.hex};;
-          esac
-
-          sketchybar --set "$NAME" icon.color="$COLOR"
-        '';
-      };
-
       "${plugins}/clock.sh" = {
         executable = true;
         text = ''
@@ -162,29 +144,6 @@ in
         '';
       };
 
-      "${plugins}/net.sh" = {
-        executable = true;
-        text = ''
-          #!/usr/bin/env bash
-
-          update() {
-              LABEL=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk 'NR==13 {print $2}')
-
-              sketchybar --set net_name label="$LABEL"
-          }
-
-          popup() {
-              sketchybar --set net popup.drawing="$1"
-          }
-
-          case $SENDER in
-              "mouse.entered") popup on;;
-              "mouse.exited"|"mouse.exited.global") popup off;;
-              *) update;;
-          esac
-        '';
-      };
-
       "${plugins}/space.sh" = {
         executable = true;
         text = ''
@@ -199,12 +158,12 @@ in
             for space in $line
             do
               icon_strip=""
-              apps=$(yabai -m query --windows --space "$space" | jq -r ".[].app")
-              if [ "$apps" != "" ]; then
-                while IFS= read -r app; do
-                  icon_strip+="$("$HOME"/.config/sketchybar/plugins/icons.sh "$app") "
-                done <<< "$apps"
-              fi
+              #apps=$(yabai -m query --windows --space "$space" | jq -r ".[].app")
+              #if [ "$apps" != "" ]; then
+              #  while IFS= read -r app; do
+              #    icon_strip+="$("$HOME"/.config/sketchybar/plugins/icons.sh "$app") "
+              #  done <<< "$apps"
+              #fi
               if [ "$icon_strip" = "" ]; then
                   args+=(--set space."$space" label="" label.drawing=off label.padding_right=5)
               else
@@ -227,7 +186,7 @@ in
         text = ''
           #!/usr/bin/env bash
 
-          SPACE_ICONS=("一" "二" "三" "四" "五" "六" "七" "八" "九" "十" "十一" "十二" "十三" "十四" "十五")
+          SPACE_ICONS=("term" "web" "dc" "tmp" "subl" "六" "七" "八" "九" "十" "十一" "十二" "十三" "十四" "十五")
 
           sid=0
           for i in "''${!SPACE_ICONS[@]}"
@@ -243,16 +202,16 @@ in
               script="$PLUGIN_DIR/space.sh"
             )
 
-            sketchybar --add space space.$sid left    \
-                       --set space.$sid "''${space[@]}" \
-                       --subscribe space.$sid mouse.clicked
+            sketchybar  --add space space.$sid left    \
+                        --set space.$sid "''${space[@]}" \
+                        --subscribe space.$sid mouse.clicked
           done
 
           spaces_bracket=(
           )
 
-          sketchybar --add bracket spaces_bracket '/space\..*/'  \
-                     --set spaces_bracket "''${spaces_bracket[@]}"
+          sketchybar  --add bracket spaces_bracket '/space\..*/'  \
+                      --set spaces_bracket "''${spaces_bracket[@]}"
         '';
       };
 
@@ -303,7 +262,7 @@ in
                   ARTIST="''${ARTIST:0:$(( MAX_LENGTH - TRACK_LENGTH - 1 ))}…"
                 fi
               fi
-              sketchybar  --set "$NAME" label="$ARTIST  $TRACK" label.drawing=yes icon.padding_right=3 icon.color=0xff${unsharp ctp.green.hex}
+              sketchybar --set "$NAME" label="$ARTIST  $TRACK" label.drawing=yes icon.padding_right=3 icon.color=0xff${unsharp ctp.green.hex}
 
             elif [ "$PLAYER_STATE" = "Paused" ]; then
               sketchybar --set "$NAME" icon.color=0xff${unsharp ctp.yellow.hex}
@@ -323,28 +282,6 @@ in
               update_track
               ;;
           esac
-        '';
-      };
-
-      "${plugins}/volume.sh" = {
-        executable = true;
-        text = ''
-          #!/usr/bin/env bash
-
-          case $INFO in
-            [6-9][0-9]|100)
-              ICON=""
-              ICON_PADDING_RIGHT=5
-              ;;
-            [1-5][0-9]|[1-9])
-              ICON=""
-              ICON_PADDING_RIGHT=11
-              ;;
-            *) ICON=""
-              ICON_PADDING_RIGHT=15
-          esac
-
-          sketchybar --set "$NAME" icon="$ICON" icon.padding_right="$ICON_PADDING_RIGHT"
         '';
       };
 
@@ -484,163 +421,133 @@ in
           FONT_FACE="JetBrainsMono Nerd Font"
           ICON_FACE="Symbols Nerd Font Mono"
 
-          sketchybar --bar \
-                     height=32 \
-                     blur_radius=0 \
-                     position=top \
-                     sticky=on \
-                     padding_left=5 \
-                     padding_right=5 \
-                     display=main \
-                     color=0x00${unsharp ctp.base.hex}
+          sketchybar  --bar \
+                      height=32 \
+                      blur_radius=0 \
+                      position=top \
+                      sticky=on \
+                      padding_left=5 \
+                      padding_right=5 \
+                      display=main \
+                      color=0x00${unsharp ctp.base.hex}
 
-          sketchybar --default \
-                     updates=when_shown \
-                     background.color=0xff${unsharp ctp.base.hex} \
-                     background.padding_left=2 \
-                     background.padding_right=2 \
-                     background.corner_radius=5 \
-                     background.height=24 \
-                     icon.color=0xff${unsharp ctp.text.hex} \
-                     icon.font="$ICON_FACE:2048-em:17.0" \
-                     icon.padding_left=8 \
-                     icon.padding_right=7 \
-                     label.font="$FONT_FACE:Bold:12.0" \
-                     label.color=0xff${unsharp ctp.text.hex} \
-                     label.padding_left=0 \
-                     label.padding_right=7
+          sketchybar  --default \
+                      updates=when_shown \
+                      background.color=0xff${unsharp ctp.base.hex} \
+                      background.padding_left=2 \
+                      background.padding_right=2 \
+                      background.corner_radius=5 \
+                      background.height=24 \
+                      icon.color=0xff${unsharp ctp.text.hex} \
+                      icon.font="$ICON_FACE:2048-em:17.0" \
+                      icon.padding_left=8 \
+                      icon.padding_right=7 \
+                      label.font="$FONT_FACE:Bold:12.0" \
+                      label.color=0xff${unsharp ctp.text.hex} \
+                      label.padding_left=0 \
+                      label.padding_right=7
 
           # shellcheck source=plugins/spaces.sh
           source "$PLUGIN_DIR/spaces.sh"
 
-          sketchybar --add item front_app left \
-                     --set front_app \
-                           background.color=0xff${unsharp ctp.green.hex} \
-                           background.padding_left=0 \
-                           background.padding_right=0 \
-                           icon.y_offset=1 \
-                           icon.color=0xff${unsharp ctp.base.hex} \
-                           label.drawing=no \
-                           script="$PLUGIN_DIR/front_app.sh" \
-                     --add item front_app.separator left \
-                     --set front_app.separator \
-                           icon= \
-                           background.padding_left=-3 \
-                           icon.y_offset=1 \
-                           icon.font="$ICON_FACE:2048-em:24.0" \
-                           icon.color=0xff${unsharp ctp.green.hex} \
-                           icon.padding_left=0 \
-                           icon.padding_right=0 \
-                           label.drawing=no \
-                     --add item front_app.name left \
-                     --set front_app.name \
-                           icon.drawing=off \
-                           label="Hello" \
-                           label.drawing=yes
+          sketchybar  --add item front_app left \
+                      --set front_app \
+                            background.color=0xff${unsharp ctp.green.hex} \
+                            background.padding_left=0 \
+                            background.padding_right=0 \
+                            icon.y_offset=1 \
+                            icon.color=0xff${unsharp ctp.base.hex} \
+                            label.drawing=no \
+                            script="$PLUGIN_DIR/front_app.sh" \
+                      --add item front_app.separator left \
+                      --set front_app.separator \
+                            icon= \
+                            background.padding_left=-3 \
+                            icon.y_offset=1 \
+                            icon.font="$ICON_FACE:2048-em:24.0" \
+                            icon.color=0xff${unsharp ctp.green.hex} \
+                            icon.padding_left=0 \
+                            icon.padding_right=0 \
+                            label.drawing=no \
+                      --add item front_app.name left \
+                      --set front_app.name \
+                            icon.drawing=off \
+                            label="Hello" \
+                            label.drawing=yes
 
-          sketchybar --add bracket front_app_bracket \
-                           front_app \
-                           front_app.separator \
-                           front_app.name \
-                     --subscribe front_app front_app_switched
+          sketchybar  --add bracket front_app_bracket \
+                            front_app \
+                            front_app.separator \
+                            front_app.name \
+                      --subscribe front_app front_app_switched
 
-          sketchybar --add item weather.moon q \
-                     --set weather.moon \
-                           background.color=0xff${unsharp ctp.sapphire.hex} \
-                           background.padding_right=-7 \
-                           icon.color=0xff${unsharp ctp.crust.hex} \
-                           icon.font="$ICON_FACE:2048-em:22.0" \
-                           label.drawing=off
+          sketchybar  --add item weather.moon q \
+                      --set weather.moon \
+                            background.color=0xff${unsharp ctp.sapphire.hex} \
+                            background.padding_right=-7 \
+                            icon.color=0xff${unsharp ctp.crust.hex} \
+                            icon.font="$ICON_FACE:2048-em:22.0" \
+                            label.drawing=off
 
-          sketchybar --add item weather q \
-                     --set weather \
-                           icon= \
-                           icon.color=0xff${unsharp ctp.pink.hex} \
-                           icon.font="$ICON_FACE:2048-em:15.0" \
-                           update_freq=1800 \
-                           script="$PLUGIN_DIR/weather.sh" \
-                     --subscribe weather system_woke
+          sketchybar  --add item weather q \
+                      --set weather \
+                            icon= \
+                            icon.color=0xff${unsharp ctp.pink.hex} \
+                            icon.font="$ICON_FACE:2048-em:15.0" \
+                            update_freq=1800 \
+                            script="$PLUGIN_DIR/weather.sh" \
+                      --subscribe weather system_woke
 
           SPOTIFY_EVENT="com.spotify.client.PlaybackStateChanged"
-          sketchybar --add event spotify_change $SPOTIFY_EVENT \
-                     --add item spotify e \
-                     --set spotify \
-                           icon= \
-                           icon.font="$ICON_FACE:2048-em:20.0" \
-                           icon.y_offset=1 \
-                           label.drawing=off \
-                           label.padding_left=2 \
-                           script="$PLUGIN_DIR/spotify.sh" \
-                     --subscribe spotify spotify_change mouse.clicked
+          sketchybar  --add event spotify_change $SPOTIFY_EVENT \
+                      --add item spotify e \
+                      --set spotify \
+                            icon= \
+                            icon.font="$ICON_FACE:2048-em:20.0" \
+                            icon.y_offset=1 \
+                            label.drawing=off \
+                            label.padding_left=2 \
+                            script="$PLUGIN_DIR/spotify.sh" \
+                      --subscribe spotify spotify_change mouse.clicked
 
-          sketchybar --add item clock right \
-                     --set clock \
-                           icon=󰃰 \
-                           icon.y_offset=1 \
-                           icon.color=0xff${unsharp ctp.red.hex} \
-                           update_freq=10 \
-                           script="$PLUGIN_DIR/clock.sh"
+          sketchybar  --add item clock right \
+                      --set clock \
+                            icon=󰃰 \
+                            icon.y_offset=1 \
+                            icon.color=0xff${unsharp ctp.red.hex} \
+                            update_freq=10 \
+                            script="$PLUGIN_DIR/clock.sh"
 
-          sketchybar --add item volume right \
-                     --set volume \
-                           icon.y_offset=1 \
-                           icon.color=0xff${unsharp ctp.mauve.hex} \
-                           label.drawing=no \
-                           script="$PLUGIN_DIR/volume.sh" \
-                     --subscribe volume volume_change
+          sketchybar  --add item wg right \
+                      --set wg \
+                            script="$PLUGIN_DIR/wg.sh" \
+                            icon=󰖂 \
+                            icon.y_offset=1 \
+                            icon.color=0xff${unsharp ctp.mauve.hex} \
+                            update_freq=10 \
+                            updates=on \
+                            label.drawing=off
 
-          sketchybar --add item bluetooth right \
-                     --set bluetooth \
-                           script="$PLUGIN_DIR/bluetooth.sh" \
-                           icon= \
-                           icon.y_offset=1 \
-                           update_freq=10
+          sketchybar  --add item battery right \
+                      --set battery \
+                            icon.y_offset=1 \
+                            update_freq=10 \
+                            script="$PLUGIN_DIR/battery.sh" \
+                      --subscribe battery system_woke
 
-          sketchybar --add item wg right \
-                     --set wg \
-                           script="$PLUGIN_DIR/wg.sh" \
-                           icon=󰖂 \
-                           icon.y_offset=1 \
-                           update_freq=10 \
-                           updates=on \
-                           label.drawing=off
+          sketchybar  --add item language right \
+                      --set language \
+                            script="$PLUGIN_DIR/language.sh" \
+                            update_freq=5 \
+                            icon.drawing=off \
+                            label.padding_left=7
 
-          sketchybar --add item net right \
-                     --set net \
-                           script="$PLUGIN_DIR/net.sh" \
-                           icon= \
-                           icon.color=0xff${unsharp ctp.maroon.hex} \
-                           icon.y_offset=1 \
-                           update_freq=10 \
-                           updates=on \
-                           label.drawing=off \
-                     --subscribe net mouse.entered mouse.exited mouse.exited.global \
-                     --add item net_name popup.net \
-                     --set net_name \
-                           script="$PLUGIN_DIR/net.sh" \
-                           icon.drawing=off \
-                           label.padding_left=7
-
-          sketchybar --add item battery right \
-                     --set battery \
-                           icon.y_offset=1 \
-                           update_freq=10 \
-                           script="$PLUGIN_DIR/battery.sh" \
-                     --subscribe battery system_woke
-
-          sketchybar --add item language right \
-                     --set language \
-                           script="$PLUGIN_DIR/language.sh" \
-                           update_freq=5 \
-                           icon.drawing=off \
-                           label.padding_left=7
-
-          sketchybar --add item cpu_temp right \
-                     --set cpu_temp \
-                           script="$PLUGIN_DIR/cpu.sh" \
-                           icon=󰘚 \
-                           icon.color=0xff${unsharp ctp.teal.hex} \
-                           update_freq=5
+          sketchybar  --add item cpu_temp right \
+                      --set cpu_temp \
+                            script="$PLUGIN_DIR/cpu.sh" \
+                            icon=󰘚 \
+                            icon.color=0xff${unsharp ctp.teal.hex} \
+                            update_freq=5
 
           ##### Finalizing Setup #####
           sketchybar --update
