@@ -29,7 +29,6 @@
     secrets = {
       ansibleCfg.path = "${config.xdg.configHome}/ansible.cfg";
       wgPrivateKey.path = "${config.xdg.configHome}/wgPrivateKey";
-      kubeconfig.path = "${config.home.homeDirectory}/.kube/config";
       gitconfigIncludes.path = "${config.home.homeDirectory}/.gitconfig.includes";
       gitconfigJob.path = "${config.home.homeDirectory}/.gitconfig.job";
     };
@@ -64,7 +63,6 @@
         cacert
         inetutils
         ipcalc
-        kubectl
         man-db
         mc
         minicom

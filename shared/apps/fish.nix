@@ -99,6 +99,11 @@ in {
           format = "[ $symbol$version ]($style)";
           style = "fg:base bg:green";
         };
+        helm = {
+          symbol = "󰶓 ";
+          format = "[ $symbol$version ]($style)";
+          style = "fg:base bg:green";
+        };
         java = {
           symbol = " ";
           style = "fg:base bg:green";

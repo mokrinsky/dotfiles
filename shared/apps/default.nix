@@ -9,5 +9,6 @@
     ./python.nix
     ./wezterm.nix
     ./ui.nix
+    ./k8s.nix
   ];
 }
