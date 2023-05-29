@@ -76,6 +76,7 @@
         sops
         virt-viewer
         pre-commit
+        gum
         # rust replacements for some default console utilities
         grex
         cloak
