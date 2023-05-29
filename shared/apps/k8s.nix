@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  lib,
   ...
 }: {
   sops = {
@@ -15,9 +14,11 @@
 
   home = {
     packages = with pkgs; [
+      argocd
+      konf
       kubectl
       kubernetes-helm
-      konf
+      kyverno
     ];
   };
 
