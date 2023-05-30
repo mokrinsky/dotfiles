@@ -15,6 +15,7 @@
   home = {
     packages = with pkgs; [
       argocd
+      cilium-cli
       konf
       kubectl
       kubernetes-helm
