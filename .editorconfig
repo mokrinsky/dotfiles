@@ -1,0 +1,11 @@
+root = true
+
+[*]
+end_of_line = lf
+indent_size = 2
+indent_style = space
+charset = utf-8
+trim_trailing_whitespace = true
+
+[*.{xml,go}]
+indent_size = 4
