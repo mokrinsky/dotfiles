@@ -4,14 +4,24 @@
   pkgs,
   inputs,
   ...
-}: let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+}:
+with lib; let
   flavor = "mocha";
   ctp = inputs.catppuccin.${flavor};
   unsharp = lib.strings.removePrefix "#";
   plugins = "sketchybar/plugins";
-in
-  lib.mkIf isDarwin {
+  cfg = config.yumi.sketchybar;
+in {
+  config = mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = pkgs.stdenv.hostPlatform.isDarwin;
+        message =
+          "This module is available only for darwin platform. If you run linux, please, set"
+          + "yumi.sketchybar.enable = false; in your configuration";
+      }
+    ];
+
     xdg.configFile = {
       "${plugins}/battery.sh" = {
         executable = true;
@@ -555,4 +565,5 @@ in
         '';
       };
     };
-  }
+  };
+}

@@ -1,5 +1,15 @@
-{pkgs, ...}: {
-  programs.wezterm = {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.yumi.wezterm;
+in {
+  options.yumi.wezterm.enable = mkEnableOption "Install wezterm config";
+
+  config.programs.wezterm = mkIf cfg.enable {
     enable = true;
     package = pkgs.writeScriptBin "__dummy-wezterm" "";
     extraConfig = ''

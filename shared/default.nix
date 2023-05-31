@@ -37,6 +37,7 @@
     sharedModules = [
       inputs.yumi.homeManagerModules.default
       inputs.sops.homeManagerModules.sops
+      ../modules/hm
       (import ../config)
     ];
     # verbose = true;
@@ -48,8 +49,6 @@
       imports = [
         ./base.nix
         ./configs.nix
-        ./fonts.nix
-        ./darwin.nix
         ./apps
       ];
     };

@@ -3,11 +3,25 @@
   lib,
   config,
   ...
-}: let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
-in
-  lib.mkIf isDarwin {
-    services.skhd = {
+}:
+with lib; let
+  cfg = config.yumi.yabai;
+in {
+  options.yumi.yabai = {
+    enable = mkEnableOption "Install utilities with homebrew";
+    withSkhd = mkEnableOption "Enable skhd module";
+  };
+
+  config = mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = pkgs.stdenv.hostPlatform.isDarwin;
+        message =
+          "This module is available only for darwin platform. If you run linux, please, set"
+          + "yumi.yabai.enable = false; in your configuration";
+      }
+    ];
+    services.skhd = mkIf cfg.withSkhd {
       enable = true;
       skhdConfig = let
         yabai = lib.getExe pkgs.yabai;
@@ -94,4 +108,5 @@ in
         ${unmanaged ["Transmission" "VLC" "RoboForm"]}
       '';
     };
-  }
+  };
+}
