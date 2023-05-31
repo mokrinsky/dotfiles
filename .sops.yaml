@@ -1,6 +1,9 @@
 keys:
   - &yumigpg EA54E892D96C779E1FA64E0A73CC011921471A15
+  - &nl age16ex7z2jzcn74m49ue7fuy2thy0t0w59p4et0nqf3vten32ah9c5s30pwyd
 creation_rules:
   - key_groups:
       - pgp:
           - *yumigpg
+        age:
+          - *nl

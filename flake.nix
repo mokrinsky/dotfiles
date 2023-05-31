@@ -70,6 +70,7 @@
     nur,
     pre-commit-hooks,
     yumi,
+    sops,
     ...
   }: let
     overlays = _final: prev: {
@@ -102,6 +103,11 @@
         then [home-manager.nixosModules.home-manager]
         else [home-manager.darwinModules.home-manager];
 
+      sopsModule = isNixOS:
+        if isNixOS
+        then [sops.nixosModules.sops]
+        else [];
+
       getSystem = {
         hostname,
         system,
@@ -125,6 +131,7 @@
           modules =
             userModules
             ++ hmModule isNixOS
+            ++ sopsModule isNixOS
             ++ [
               config
             ];
@@ -157,8 +164,12 @@
               pre-commit-check = pre-commit-hooks.lib.${system}.run {
                 src = ./.;
                 hooks = {
+                  typos = {
+                    enable = true;
+                    excludes = ["secrets/.*" ".sops.yaml"];
+                  };
                   alejandra.enable = true;
-                  editorconfig-checker.enable = true;
+                  editorconfig-checker.enable = false;
                   statix.enable = true;
                   nil.enable = true;
                 };

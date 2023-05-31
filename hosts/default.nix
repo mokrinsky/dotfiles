@@ -1,9 +1,9 @@
 {systems, ...}:
 with systems; [
   {
-    hostname = "nixos";
+    hostname = "nl";
     system = x86_64-linux;
-    config = ./nixos;
+    config = ./nl;
   }
 
   {
