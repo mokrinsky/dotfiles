@@ -27,7 +27,10 @@
     defaultSopsFile = ../secrets/secrets.yaml;
     gnupg.home = config.programs.gpg.homedir;
     secrets = {
-      wgPrivateKey.path = "${config.xdg.configHome}/wgPrivateKey";
+      wgPrivateKey = {
+        sopsFile = ../secrets/millia.yaml;
+        path = "${config.xdg.configHome}/wgPrivateKey";
+      };
     };
   };
 
