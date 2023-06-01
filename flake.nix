@@ -10,7 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -28,7 +28,8 @@
       url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
         flake-utils.follows = "flake-utils-plus";
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs-unstable";
       };
     };
     flake-utils.url = "github:numtide/flake-utils";
