@@ -27,16 +27,12 @@
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
-        flake-utils.follows = "flake-utils-plus";
+        flake-utils.follows = "flake-utils";
         nixpkgs-stable.follows = "nixpkgs";
         nixpkgs.follows = "nixpkgs-unstable";
       };
     };
     flake-utils.url = "github:numtide/flake-utils";
-    flake-utils-plus = {
-      url = "github:gytis-ivaskevicius/flake-utils-plus";
-      inputs.flake-utils.follows = "flake-utils";
-    };
     catppuccin = {
       url = "github:mokrinsky/nix-ctp";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -62,7 +58,7 @@
   outputs = inputs @ {
     self,
     darwin,
-    flake-utils-plus,
+    flake-utils,
     home-manager,
     nixpkgs,
     # nixpkgs-dev,
@@ -93,9 +89,16 @@
     };
   in
     with nixpkgs.lib; let
+      getPkgs = system:
+        import nixpkgs {
+          inherit system;
+          overlays = [overlays];
+        };
+
       userModules = [
         (import ./config)
         (import ./shared)
+        (import ./lib/options.nix)
       ];
 
       hmModule = isNixOS:
@@ -115,6 +118,7 @@
       }: let
         # TODO: it was worse before, but i still don't like this line
         isNixOS = builtins.match ".*(darwin).*" system == null;
+        pkgs = getPkgs system;
         cfgs =
           if isNixOS
           then "nixosConfigurations"
@@ -124,10 +128,8 @@
           then nixpkgs.lib.nixosSystem
           else darwin.lib.darwinSystem;
       in {
-        ${hostname} = {
-          inherit system;
-          builder = sys;
-          output = cfgs;
+        ${cfgs}.${hostname} = sys {
+          inherit pkgs;
           modules =
             userModules
             ++ hmModule isNixOS
@@ -141,51 +143,37 @@
         };
       };
     in
-      flake-utils-plus.lib.mkFlake {
-        inherit self inputs;
-
-        hosts = fold (flip pipe [getSystem recursiveUpdate]) {} (import ./hosts {systems = flake-utils-plus.lib.system;});
-
-        sharedOverlays = [overlays];
-
-        channels.nixpkgs = {
-          input = nixpkgs;
-          config = {
-            allowUnfree = true;
-            permittedInsecurePackages = [
-              "libressl-3.4.3"
-            ];
+      flake-utils.lib.eachDefaultSystem (system: {
+        checks = {
+          pre-commit-check = pre-commit-hooks.lib.${system}.run {
+            src = ./.;
+            hooks = {
+              typos = {
+                enable = true;
+                excludes = ["secrets/.*" ".sops.yaml"];
+              };
+              alejandra.enable = true;
+              editorconfig-checker.enable = false;
+              statix.enable = true;
+              nil.enable = true;
+            };
+            settings.deadnix = {
+              noLambdaPatternNames = true;
+              noLambdaArg = true;
+            };
           };
         };
-
-        outputsBuilder = channels:
-          with channels.nixpkgs; {
-            checks = {
-              pre-commit-check = pre-commit-hooks.lib.${system}.run {
-                src = ./.;
-                hooks = {
-                  typos = {
-                    enable = true;
-                    excludes = ["secrets/.*" ".sops.yaml"];
-                  };
-                  alejandra.enable = true;
-                  editorconfig-checker.enable = false;
-                  statix.enable = true;
-                  nil.enable = true;
-                };
-                settings.deadnix = {
-                  noLambdaPatternNames = true;
-                  noLambdaArg = true;
-                };
-              };
-            };
-            devShells.default = mkShell {
+        devShells.default = let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+          with pkgs;
+            mkShell {
               inherit (self.checks.${system}.pre-commit-check) shellHook;
               name = "devShell";
               packages = [
                 commitizen
               ];
             };
-          };
-      };
+      })
+      // fold (flip pipe [getSystem recursiveUpdate]) {} (import ./hosts {systems = flake-utils.lib.system;});
 }
