@@ -1,0 +1,64 @@
+arbiter:
+  enabled: false
+
+auth:
+  enabled: true
+  ## MongoDB(&reg;) custom users and databases
+  ## ref: https://github.com/bitnami/containers/tree/main/bitnami/mongodb#creating-a-user-and-database-on-first-run
+  ## @param auth.usernames List of custom users to be created during the initialization
+  ## @param auth.passwords List of passwords for the custom users set at `auth.usernames`
+  ## @param auth.databases List of custom databases to be created during the initialization
+  ##
+  databases: []
+  passwords: []
+  usernames: []
+
+global:
+  namespaceOverride: "mongodb"
+  storageClass: "openebs-lvm"
+
+metrics:
+  enabled: false
+  collector:
+    all: false
+    collstats: false
+    collstatsColls: []
+    collstatsLimit: 0
+    dbstats: false
+    diagnosticdata: true
+    indexstats: false
+    indexstatsColls: []
+    replicasetstatus: false
+    topmetrics: false
+  ## @param metrics.username String with username for the metrics exporter
+  ## If undefined the root user will be used for the metrics exporter
+  ##
+  username: ""
+  ## @param metrics.password String with password for the metrics exporter
+  ## If undefined but metrics.username is defined, a random password will be generated
+  ##
+  password: ""
+
+  serviceMonitor:
+    ## @param metrics.serviceMonitor.enabled Create ServiceMonitor Resource for scraping metrics using Prometheus Operator
+    ##
+    enabled: false
+    ## @param metrics.serviceMonitor.interval Interval at which metrics should be scraped
+    ##
+    interval: 30s
+  prometheusRule:
+    ## @param metrics.prometheusRule.enabled Set this to true to create prometheusRules for Prometheus operator
+    ##
+    enabled: false
+
+persistence:
+  accessModes:
+    - ReadWriteOnce
+  enabled: true
+  size: 8Gi
+
+tls:
+  enabled: false
+
+volumePermissions:
+  enabled: true

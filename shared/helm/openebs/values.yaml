@@ -1,0 +1,29 @@
+crd:
+  enableInstall: true
+
+cstor:
+  enabled: false
+jiva:
+  enabled: false
+localprovisioner:
+  enabled: false
+localpv-provisioner:
+  enabled: false
+lvm-localpv:
+  enabled: true
+mayastor:
+  enabled: false
+ndm:
+  enabled: false
+ndmExporter:
+  enabled: false
+ndmOperator:
+  enabled: false
+nfs-provisioner:
+  enabled: false
+openebs-ndm:
+  enabled: false
+webhook:
+  enabled: true
+zfs-localpv:
+  enabled: false

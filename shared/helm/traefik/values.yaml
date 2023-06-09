@@ -1,0 +1,90 @@
+deployment:
+  enabled: true
+  kind: Deployment
+  replicas: 1
+  revisionHistoryLimit: 3
+
+ingressClass:
+  enabled: true
+  isDefaultClass: true
+
+ingressRoute:
+  dashboard:
+    enabled: true
+    entryPoints: ["traefik"]
+    matchRule: PathPrefix(`/dashboard`) || PathPrefix(`/api`)
+
+logs:
+  access:
+    bufferingSize: 0
+    enabled: true
+  general:
+    level: INFO
+
+metrics:
+  prometheus:
+    entryPoint: metrics
+
+persistence:
+  accessMode: ReadWriteOnce
+  enabled: true
+  name: data
+  path: /data
+  size: 128Mi
+  storageClass: "openebs-lvm"
+
+ports:
+  metrics:
+    expose: false
+    exposedPort: 9100
+    port: 9100
+  traefik:
+    expose: false
+    exposedPort: 9000
+    port: 9000
+  web:
+    expose: true
+    exposedPort: 80
+    port: 8000
+    proxyProtocol:
+      insecure: true
+    redirectTo: websecure
+  websecure:
+    # asDefault: true
+    expose: true
+    exposedPort: 443
+    http3:
+      enabled: false
+    port: 8443
+    proxyProtocol:
+      insecure: true
+    tls:
+      certResolver: ""
+      domains: []
+      enabled: true
+      options: ""
+
+providers:
+  kubernetesCRD:
+    allowCrossNamespace: false
+    allowEmptyServices: false
+    allowExternalNameServices: false
+    enabled: true
+
+  kubernetesIngress:
+    allowEmptyServices: false
+    allowExternalNameServices: false
+    enabled: true
+    publishedService:
+      enabled: false
+
+rbac:
+  enabled: true
+  namespaced: false
+
+service:
+  enabled: true
+  single: true
+  spec:
+    externalTrafficPolicy: Local
+  type: LoadBalancer

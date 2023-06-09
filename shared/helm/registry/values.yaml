@@ -1,0 +1,52 @@
+replicaCount: 1
+
+image:
+  repository: registry
+  tag: 2.8.1
+  pullPolicy: IfNotPresent
+
+service:
+  name: registry
+  type: ClusterIP
+  port: 5000
+
+ingress:
+  enabled: true
+  className: traefik
+  path: /
+  hosts:
+    - registry.kolya.it
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+  tls:
+
+persistence:
+  accessMode: "ReadWriteOnce"
+  enabled: true
+  size: 10Gi
+  storageClass: "openebs-lvm"
+
+storage: filesystem
+
+proxy:
+  enabled: false
+  remoteurl: https://registry-1.docker.io
+  username: ""
+  password: ""
+  secretRef: ""
+
+metrics:
+  enabled: false
+  port: 5001
+  serviceMonitor:
+    enabled: false
+    labels: {}
+  prometheusRule:
+    enabled: false
+    labels: {}
+    rules: {}
+
+garbageCollect:
+  enabled: false
+  deleteUntagged: true
+  schedule: "0 1 * * *"
