@@ -1,3 +1,14 @@
+certResolvers:
+  default:
+    dnsChallenge:
+      delayBeforeCheck: 30
+      provider: cloudflare
+      resolvers:
+        - 1.1.1.1
+        - 8.8.8.8
+    email: me@mokrinsky.ru
+    storage: /data/acme.json
+
 deployment:
   enabled: true
   kind: Deployment
@@ -17,7 +28,6 @@ ingressRoute:
 logs:
   access:
     bufferingSize: 0
-    enabled: true
   general:
     level: INFO
 
@@ -59,10 +69,9 @@ ports:
     proxyProtocol:
       insecure: true
     tls:
-      certResolver: ""
-      domains: []
+      certResolver: default
       enabled: true
-      options: ""
+      options: default
 
 providers:
   kubernetesCRD:
@@ -88,3 +97,7 @@ service:
   spec:
     externalTrafficPolicy: Local
   type: LoadBalancer
+
+tlsOptions:
+  default:
+    minVersion: VersionTLS12
