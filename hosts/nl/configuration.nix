@@ -4,7 +4,6 @@
   lib,
   ...
 }: {
-  nix.settings.experimental-features = ["nix-command" "flakes"];
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/vda";
 
@@ -77,12 +76,16 @@
     networkmanager.enable = false;
     wireless.enable = false;
     firewall = {
+      trustedInterfaces = ["lxc*"];
+      checkReversePath = false;
       allowPing = true;
       allowedTCPPorts = [
+        19333
         22
-        80
+        2222
         443
         6443
+        80
       ];
       enable = true;
     };
@@ -126,10 +129,11 @@
     };
     k3s = {
       enable = true;
-      extraFlags = "--disable traefik --disable local-storage --disable metrics-server";
+      extraFlags = "--disable traefik --disable local-storage --disable metrics-server --flannel-backend=none --disable-network-policy";
     };
     openssh = {
       enable = true;
+      ports = [19333];
       settings = {
         KbdInteractiveAuthentication = false;
         PasswordAuthentication = false;
