@@ -18,7 +18,7 @@ jobs:
         with:
           github_access_token: ${{ secrets.token }}
       - run: nix flake check --show-trace
-  # NOTE: Technically it works, but, unline nix flake check, it takes a century to complete, so I don't think it's worth using.
+  # NOTE: Technically it works, but, unlike nix flake check, it takes a century to complete, so I don't think it's worth using.
   #       Let it just be here in case someone will run into that.
   # macos-check:
   #   runs-on: macos-latest
