@@ -1,9 +1,19 @@
 {
-  pkgs,
   config,
-  lib,
+  pkgs,
+  inputs,
   ...
-}: {
+}: let
+  linters = pkgs.fetchFromGitHub {
+    owner = "mokrinsky";
+    repo = "linters";
+    rev = "8aaca06b126b2205acf014ee1d08a73331eef8a7";
+    sha256 = "sha256-e29cmxw7Fkzj2+znYBcu2E4BEe4//Y12ABoLyqEXEbY=";
+  };
+in {
+  imports = [
+    ../../shared/apps/secure.nix
+  ];
   # launchd = {
   #   enable = true;
   #   agents = {
@@ -24,13 +34,65 @@
   #   };
   # };
   sops = {
-    defaultSopsFile = ../secrets/secrets.yaml;
+    defaultSopsFile = "${inputs.self}/secrets/secrets.yaml";
     gnupg.home = config.programs.gpg.homedir;
     secrets = {
       wgPrivateKey = {
-        sopsFile = ../secrets/millia.yaml;
+        sopsFile = "${inputs.self}/secrets/millia.yaml";
         path = "${config.xdg.configHome}/wgPrivateKey";
       };
+    };
+  };
+
+  xdg.configFile = {
+    "neofetch" = {
+      source = "${inputs.self}/shared/configs/neofetch";
+    };
+    "btop/themes" = {
+      source = pkgs.fetchFromGitHub {
+        owner = "catppuccin";
+        repo = "btop";
+        rev = "7109eac2884e9ca1dae431c0d7b8bc2a7ce54e54";
+        sha256 = "sha256-QoPPx4AzxJMYo/prqmWD/CM7e5vn/ueyx+XQ5+YfHF8=";
+      };
+    };
+    "linters" = {
+      source = linters;
+    };
+    "yamlfmt/.yamlfmt" = {
+      source = linters + "/.yamlfmt";
+    };
+    "${config.home.homeDirectory}/bin/vpnc-script" = {
+      source = "${inputs.self}/shared/bin/vpnc-script";
+    };
+  };
+
+  yumi = {
+    brew.enable = true;
+    darwin.enable = true;
+    fish = {
+      enable = true;
+      withStarship = true;
+      withGrc = true;
+      withCatppuccin = true;
+    };
+    fonts.enable = true;
+    git.enable = true;
+    k8s.enable = true;
+    neovim = {
+      enable = true;
+      withLazyVim = true;
+      withSessionVariables = true;
+    };
+    python = {
+      enable = true;
+      withAnsible = true;
+    };
+    sketchybar.enable = true;
+    wezterm.enable = true;
+    yabai = {
+      enable = true;
+      withSkhd = true;
     };
   };
 
@@ -45,6 +107,9 @@
   };
 
   home = {
+    inherit (config) username;
+    stateVersion = "23.05";
+    homeDirectory = "/Users/${config.username}";
     enableNixpkgsReleaseCheck = true;
     sessionVariables = {
       GOTELEMETRY = "off";
@@ -56,7 +121,6 @@
 
     packages = with pkgs;
       [
-        config.nix.package
         cacert
         inetutils
         ipcalc
@@ -69,18 +133,21 @@
         nmap
         p7zip
         rename
-        ripgrep
         sops
         virt-viewer
         pre-commit
         gum
         # rust replacements for some default console utilities
-        grex
         cloak
-        fd
         dogdns
-        just
         fzf
+      ]
+      ++ [
+        # GNU utilities
+        nur.repos.yumi.coreutils
+        findutils
+        gawk
+        gnugrep
       ]
       ++ lib.optionals pkgs.stdenv.isLinux [
         wireshark

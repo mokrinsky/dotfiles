@@ -32,7 +32,10 @@
         nixpkgs.follows = "nixpkgs-unstable";
       };
     };
-    flake-utils.url = "github:numtide/flake-utils";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
     catppuccin = {
       url = "github:mokrinsky/nix-ctp";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -44,6 +47,11 @@
     };
 
     # Development inputs
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
+    };
     # yumi-dev = {
     #   url = "path:/Users/yumi/git/nix-overlay";
     #   inputs.flake-utils.follows = "flake-utils";
@@ -53,99 +61,53 @@
     # nixpkgs-dev = {
     #   url = "path:/Users/yumi/git/nixpkgs";
     # };
+
+    # Dependencies
+    systems.url = "github:nix-systems/default";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
   };
 
   outputs = inputs @ {
     self,
     darwin,
-    flake-utils,
+    devshell,
+    flake-parts,
     home-manager,
     nixpkgs,
     # nixpkgs-dev,
     nixpkgs-unstable,
     nur,
     pre-commit-hooks,
-    yumi,
     sops,
+    yumi,
     ...
-  }: let
-    overlays = _final: prev: {
-      unstable = import nixpkgs-unstable {
-        inherit (prev) system;
-        config.allowUnfree = true;
-      };
-      nur = import nur {
-        nurpkgs = prev;
-        pkgs = prev;
-        repoOverrides = {
-          yumi = import yumi {pkgs = prev;};
-        };
-      };
-      # dev = import nixpkgs-dev {
-      #   inherit (prev) system;
-      #   config.allowUnfree = true;
-      # };
-      inherit (yumi.packages.${prev.system}) wireguard-tools fzf;
-    };
-  in
-    with nixpkgs.lib; let
-      getPkgs = system:
-        import nixpkgs {
-          inherit system;
-          overlays = [overlays];
-        };
-
-      userModules = [
-        (import ./config)
-        (import ./shared)
-        (import ./lib/options.nix)
+  }:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      imports = [
+        pre-commit-hooks.flakeModule
+        devshell.flakeModule
+        ./hosts
       ];
 
-      hmModule = isNixOS:
-        if isNixOS
-        then [home-manager.nixosModules.home-manager]
-        else [home-manager.darwinModules.home-manager];
+      systems = ["x86_64-linux" "x86_64-darwin"];
 
-      sopsModule = isNixOS:
-        if isNixOS
-        then [sops.nixosModules.sops]
-        else [];
-
-      getSystem = {
-        hostname,
-        system,
+      perSystem = {
         config,
-      }: let
-        # TODO: it was worse before, but i still don't like this line
-        isNixOS = builtins.match ".*(darwin).*" system == null;
-        pkgs = getPkgs system;
-        cfgs =
-          if isNixOS
-          then "nixosConfigurations"
-          else "darwinConfigurations";
-        sys =
-          if isNixOS
-          then nixpkgs.lib.nixosSystem
-          else darwin.lib.darwinSystem;
-      in {
-        ${cfgs}.${hostname} = sys {
-          inherit pkgs;
-          modules =
-            userModules
-            ++ hmModule isNixOS
-            ++ sopsModule isNixOS
-            ++ [
-              config
-            ];
-          specialArgs = {
-            inherit inputs;
-          };
+        pkgs,
+        system,
+        lib,
+        ...
+      }: {
+        _module.args.pkgs = import nixpkgs {
+          inherit system;
+          overlays = [self.overlays.default];
         };
-      };
-    in
-      flake-utils.lib.eachDefaultSystem (system: {
-        checks = {
-          pre-commit-check = pre-commit-hooks.lib.${system}.run {
+        pre-commit = {
+          check.enable = true;
+          settings = {
             src = ./.;
             hooks = {
               typos = {
@@ -163,17 +125,78 @@
             };
           };
         };
-        devShells.default = let
-          pkgs = nixpkgs.legacyPackages.${system};
-        in
-          with pkgs;
-            mkShell {
-              inherit (self.checks.${system}.pre-commit-check) shellHook;
-              name = "devShell";
-              packages = [
-                commitizen
-              ];
+
+        devshells.default = {
+          devshell = {
+            startup.test.text = ''
+              ${config.pre-commit.installationScript}
+            '';
+            name = "devShell";
+          };
+          packages = [
+            pkgs.pre-commit
+          ];
+          commands = [
+            {
+              help = "code style check";
+              name = "check";
+              command = "${lib.getExe pkgs.pre-commit} run --all-files";
+            }
+            {
+              help = "show flake outputs";
+              name = "show";
+              command = "nix flake show";
+            }
+            {
+              help = "show flake metadata";
+              name = "meta";
+              command = "nix flake metadata";
+            }
+          ];
+        };
+
+        formatter = pkgs.alejandra;
+      };
+
+      flake = {
+        nixosModules.extra = import ./modules/system;
+        darwinModules.extra = import ./modules/system;
+        homeManagerModules.bundle = import ./modules/hm;
+
+        overlays.default = _final: prev: {
+          unstable = import nixpkgs-unstable {
+            inherit (prev) system;
+            config.allowUnfree = true;
+          };
+          nur = import nur {
+            nurpkgs = prev;
+            pkgs = prev;
+            repoOverrides = {
+              yumi = import yumi {pkgs = prev;};
             };
-      })
-      // fold (flip pipe [getSystem recursiveUpdate]) {} (import ./hosts {systems = flake-utils.lib.system;});
+          };
+          # dev = import nixpkgs-dev {
+          #   inherit (prev) system;
+          #   config.allowUnfree = true;
+          # };
+          inherit (yumi.packages.${prev.system}) wireguard-tools fzf;
+        };
+
+        homeConfigurations.placeholder = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            overlays = [self.overlays.default];
+          };
+          modules = [
+            (import ./config)
+            yumi.homeManagerModules.default
+            sops.homeManagerModules.sops
+            self.homeManagerModules.bundle
+            ./users/yumi/include.nix
+          ];
+          extraSpecialArgs = {
+            inherit inputs;
+          };
+        };
+      };
+    };
 }

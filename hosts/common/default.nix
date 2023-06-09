@@ -1,10 +1,7 @@
-{
-  config,
-  pkgs,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   nix = {
+    package = pkgs.unstable.nixVersions.nix_2_15;
+
     linkInputs = true;
     generateRegistryFromInputs = true;
     generateNixPathFromInputs = true;
@@ -16,7 +13,7 @@
     settings = {
       experimental-features = "nix-command flakes";
       warn-dirty = false;
-      extra-trusted-users = ["yumi"];
+      extra-trusted-users = ["yumi" "@admin" "@wheel"];
       tarball-ttl = 604800;
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -27,29 +24,6 @@
         "https://mokrinsky.cachix.org"
         "https://nix-community.cachix.org"
         "https://pre-commit-hooks.cachix.org"
-      ];
-    };
-  };
-
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    sharedModules = [
-      inputs.yumi.homeManagerModules.default
-      inputs.sops.homeManagerModules.sops
-      ../modules/hm
-      (import ../config)
-    ];
-    # verbose = true;
-    extraSpecialArgs = {
-      inherit inputs pkgs;
-    };
-    users.${config.username} = {
-      home.stateVersion = "22.05";
-      imports = [
-        ./base.nix
-        ./configs.nix
-        ./apps
       ];
     };
   };

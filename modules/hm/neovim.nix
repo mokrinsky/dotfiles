@@ -42,6 +42,8 @@ in {
         defaultEditor = true;
         extraPackages = with pkgs; [
           tree-sitter
+          ripgrep
+          fd
           # Linters
           alejandra
           statix

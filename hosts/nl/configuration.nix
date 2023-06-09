@@ -133,7 +133,7 @@
       settings = {
         KbdInteractiveAuthentication = false;
         PasswordAuthentication = false;
-        UseDNS = false;
+        UseDns = false;
         X11Forwarding = false;
       };
     };

@@ -38,6 +38,7 @@ in {
             fish_add_path ${config.home.profileDirectory}/bin
 
             set -Ua fish_features ampersand-nobg-in-token qmark-noglob
+            set -x DIRENV_LOG_FORMAT ""
             set -x GPG_TTY (tty)
             set -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
             gpgconf --launch gpg-agent

@@ -13,7 +13,7 @@
   };
 
   networking = let
-    name = "millia";
+    name = "hitagi";
   in {
     computerName = name;
     hostName = name;
