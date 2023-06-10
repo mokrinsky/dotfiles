@@ -134,7 +134,6 @@ in {
         p7zip
         rename
         sops
-        virt-viewer
         pre-commit
         gum
         # rust replacements for some default console utilities
