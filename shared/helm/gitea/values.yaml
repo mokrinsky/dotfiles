@@ -1,0 +1,44 @@
+gitea:
+  admin:
+    username: ""
+    password: ""
+  config:
+    service:
+      REGISTER_EMAIL_CONFIRM: false
+      ENABLE_NOTIFY_MAIL: false
+      DISABLE_REGISTRATION: true
+      ALLOW_ONLY_EXTERNAL_REGISTRATION: false
+      ENABLE_CAPTCHA: false
+      REQUIRE_SIGNIN_VIEW: false
+      DEFAULT_KEEP_EMAIL_PRIVATE: true
+      DEFAULT_ALLOW_CREATE_ORGANIZATION: true
+      DEFAULT_ENABLE_TIMETRACKING: true
+    server:
+      ROOT_URL: https://git.kolya.it
+    openid:
+      ENABLE_OPENID_SIGNIN: false
+      ENABLE_OPENID_SIGNUP: false
+    mailer:
+      ENABLED: false
+
+memcached:
+  enabled: false
+
+persistence:
+  storageClass: openebs-lvm
+  size: 5Gi
+
+postgresql:
+  enabled: false
+
+service:
+  ssh:
+    type: LoadBalancer
+
+ingress:
+  enabled: true
+  hosts:
+    - host: git.kolya.it
+      paths:
+        - path: /
+          pathType: Prefix
