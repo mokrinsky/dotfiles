@@ -2,20 +2,37 @@
   myLib = import ../lib {inherit inputs;};
 in {
   flake = with inputs; {
-    nixosConfigurations.nl = myLib.mkConfiguration {
-      builder = nixpkgs.lib.nixosSystem;
-      modules = [
-        self.nixosModules.extra
-        sops.nixosModules.sops
-        ({pkgs, ...}: {
-          nixpkgs.overlays = [self.overlays.default];
-        })
-      ];
-      name = "nl";
-      specialArgs = {
-        inherit inputs;
+    nixosConfigurations = {
+      argolab = myLib.mkConfiguration {
+        builder = nixpkgs.lib.nixosSystem;
+        modules = [
+          self.nixosModules.extra
+          sops.nixosModules.sops
+          ({pkgs, ...}: {
+            nixpkgs.overlays = [self.overlays.default];
+          })
+        ];
+        name = "argolab";
+        specialArgs = {
+          inherit inputs;
+        };
+        system = "x86_64-linux";
       };
-      system = "x86_64-linux";
+      nl = myLib.mkConfiguration {
+        builder = nixpkgs.lib.nixosSystem;
+        modules = [
+          self.nixosModules.extra
+          sops.nixosModules.sops
+          ({pkgs, ...}: {
+            nixpkgs.overlays = [self.overlays.default];
+          })
+        ];
+        name = "nl";
+        specialArgs = {
+          inherit inputs;
+        };
+        system = "x86_64-linux";
+      };
     };
 
     darwinConfigurations = {
