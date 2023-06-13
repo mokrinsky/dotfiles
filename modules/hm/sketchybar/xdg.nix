@@ -196,7 +196,7 @@ in {
         text = ''
           #!/usr/bin/env bash
 
-          SPACE_ICONS=("term" "web" "dc" "tmp" "subl" "六" "七" "八" "九" "十" "十一" "十二" "十三" "十四" "十五")
+          SPACE_ICONS=("term" "web" "dc" "tmp" "subl" "sdg" "slack" "八" "九" "十" "十一" "十二" "十三" "十四" "十五")
 
           sid=0
           for i in "''${!SPACE_ICONS[@]}"
