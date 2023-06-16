@@ -7,12 +7,56 @@ in {
         builder = nixpkgs.lib.nixosSystem;
         modules = [
           self.nixosModules.extra
-          sops.nixosModules.sops
           ({pkgs, ...}: {
             nixpkgs.overlays = [self.overlays.default];
           })
         ];
         name = "argolab";
+        specialArgs = {
+          inherit inputs;
+        };
+        system = "x86_64-linux";
+      };
+      k1 = myLib.mkConfiguration {
+        builder = nixpkgs.lib.nixosSystem;
+        modules = [
+          self.nixosModules.extra
+          sops.nixosModules.sops
+          ({pkgs, ...}: {
+            nixpkgs.overlays = [self.overlays.default];
+          })
+        ];
+        name = "k1";
+        specialArgs = {
+          inherit inputs;
+        };
+        system = "x86_64-linux";
+      };
+      k2 = myLib.mkConfiguration {
+        builder = nixpkgs.lib.nixosSystem;
+        modules = [
+          self.nixosModules.extra
+          sops.nixosModules.sops
+          ({pkgs, ...}: {
+            nixpkgs.overlays = [self.overlays.default];
+          })
+        ];
+        name = "k2";
+        specialArgs = {
+          inherit inputs;
+        };
+        system = "x86_64-linux";
+      };
+      k3 = myLib.mkConfiguration {
+        builder = nixpkgs.lib.nixosSystem;
+        modules = [
+          self.nixosModules.extra
+          sops.nixosModules.sops
+          ({pkgs, ...}: {
+            nixpkgs.overlays = [self.overlays.default];
+          })
+        ];
+        name = "k3";
         specialArgs = {
           inherit inputs;
         };

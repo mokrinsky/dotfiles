@@ -14,7 +14,9 @@ in {
       secrets = let
         konfPath = "${config.home.homeDirectory}/.kube/konfs/store";
       in {
+        "kubeconfig/argolab".path = "${konfPath}/argolab_default.yaml";
         "kubeconfig/dbo".path = "${konfPath}/dbo_kvantera.yaml";
+        "kubeconfig/lab".path = "${konfPath}/lab_default.yaml";
         "kubeconfig/nl-k3s".path = "${konfPath}/nl-k3s_nl-k3s.yaml";
       };
     };
