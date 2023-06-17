@@ -77,5 +77,32 @@
         X11Forwarding = false;
       };
     };
+    coredns = {
+      enable = true;
+      config = ''
+        .:53 {
+            errors
+            health
+            ready
+            hosts {
+              192.168.2.254 argocd.lab.kolya.it
+              192.168.2.252 vm.lab.kolya.it
+              192.168.2.11 k1.lab.kolya.it
+              192.168.2.12 k2.lab.kolya.it
+              192.168.2.13 k3.lab.kolya.it
+              192.168.2.12 git.lab.kolya.it
+              ttl 60
+              reload 15s
+              fallthrough
+            }
+            prometheus :9153
+            forward . /etc/resolv.conf
+            cache 30
+            loop
+            reload
+            loadbalance
+        }
+      '';
+    };
   };
 }
