@@ -106,13 +106,13 @@
         enable = true;
         # editorconfig-checker-disable
         config = ''
-          router bgp 9
+          router bgp 65500
            bgp router-id 109.107.176.26
            bgp log-neighbor-changes
            no bgp hard-administrative-reset
            no bgp graceful-restart notification
            no bgp network import-check
-           neighbor 192.168.255.1 remote-as 1
+           neighbor 192.168.255.1 remote-as 65500
            !
            address-family ipv4 unicast
             neighbor 192.168.255.1 route-map IMPORT out
