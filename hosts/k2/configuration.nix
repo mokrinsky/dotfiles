@@ -79,6 +79,7 @@
     };
     openssh = {
       enable = true;
+      ports = [19333];
       settings = {
         KbdInteractiveAuthentication = false;
         UseDns = false;
