@@ -81,11 +81,13 @@
       allowPing = true;
       allowedTCPPorts = [
         19333
-        22
         2222
         443
         6443
         80
+      ];
+      allowedUDPPorts = [
+        443
       ];
       enable = true;
     };
