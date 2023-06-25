@@ -39,6 +39,7 @@
     mc
     nix-tree
     tcpdump
+    python3
   ];
 
   sops = {
