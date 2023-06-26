@@ -1,11 +1,22 @@
 {
   pkgs,
   lib,
+  modulesPath,
   ...
 }: {
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = ["nfs" "nfs4"];
+  imports = [
+    (modulesPath + "/profiles/minimal.nix")
+  ];
+
+  networking = {
+    networkmanager.enable = false;
+    wireless.enable = false;
+    firewall.enable = false;
+    usePredictableInterfaceNames = false;
+  };
+
+  virtualisation.vmware.guest.enable = true;
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   time.timeZone = "Europe/Moscow";
 
@@ -42,29 +53,10 @@
     python3
   ];
 
-  sops = {
-    defaultSopsFile = ../../secrets/lab.yaml;
-    age = {
-      sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
-      keyFile = "/var/lib/sops-nix/key.txt";
-      generateKey = true;
-    };
-    secrets = {
-      k3s_token = {};
-    };
-  };
-
   system.stateVersion = "23.05";
   system.autoUpgrade = {
     enable = true;
     flake = "github:mokrinsky/dotfiles";
-  };
-  networking = {
-    hostName = "k1";
-    domain = "lab.kolya.it";
-    networkmanager.enable = false;
-    wireless.enable = false;
-    firewall.enable = false;
   };
   programs = {
     neovim = {
@@ -75,10 +67,6 @@
     git.enable = true;
   };
   services = {
-    k3s = {
-      enable = true;
-      extraFlags = "--disable traefik --disable local-storage --disable metrics-server --flannel-backend=none --disable-network-policy";
-    };
     openssh = {
       enable = true;
       ports = [19333];
