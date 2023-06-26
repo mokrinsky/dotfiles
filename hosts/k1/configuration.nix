@@ -55,6 +55,10 @@
   };
 
   system.stateVersion = "23.05";
+  system.autoUpgrade = {
+    enable = true;
+    flake = "github:mokrinsky/dotfiles";
+  };
   networking = {
     hostName = "k1";
     domain = "lab.kolya.it";
