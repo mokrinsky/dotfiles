@@ -4,6 +4,9 @@ keys:
   - &k1 age1rpr5yjfvzmzvt76m3alc9a8padmgnyhnl37u6xval4ladp0l8uhsf77pc9
   - &k2 age1fee7rqp8ad9mvj3gjzgj0qc4krx0llsrv6xx7apzp2mlg0wgw4gs9jjfty
   - &k3 age1yy8wye8amlxxgws6y2ypqy6tfp5ajjmp654866q5d9yzxlrv4d8s9jxyxz
+  - &k4 age1zp9524rtg4eh7euls9eugc0ymaw0cf3ms3r8v72ug7khkjyutvwqcret4q
+  - &k5 age123hx9gt6p7lv4avhsqyjpc43uhpt2uu49myyqk000h9dnrw2sunsy4j3rt
+  - &k6 age1vx7tyczvf6qy78lg7c3y78uygrrtcdkx64hs4h24jj09uaqswuuq8kpz9k
 creation_rules:
   - path_regex: secrets/millia.yaml
     key_groups:
@@ -29,3 +32,6 @@ creation_rules:
           - *k1
           - *k2
           - *k3
+          - *k4
+          - *k5
+          - *k6
