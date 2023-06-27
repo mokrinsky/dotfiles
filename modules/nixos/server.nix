@@ -8,6 +8,11 @@
     (modulesPath + "/profiles/minimal.nix")
   ];
 
+  nix.gc = {
+    options = lib.mkForce "-d";
+    dates = "01:00";
+  };
+
   networking = {
     networkmanager.enable = false;
     wireless.enable = false;
