@@ -87,56 +87,6 @@ in {
         '';
       };
 
-      "${plugins}/front_app.sh" = {
-        executable = true;
-        text = ''
-          #!/usr/bin/env bash
-
-          # echo $INFO
-
-          ICON_PADDING_RIGHT=10
-
-          ICON=$("$HOME"/.config/${plugins}/icons.sh "$INFO")
-
-          case $INFO in
-            "WezTerm") ICON_PADDING_RIGHT=8;;
-            "Brave Browser") ICON_PADDING_RIGHT=7;;
-          esac
-
-          sketchybar --set "$NAME" icon="$ICON" icon.padding_right="$ICON_PADDING_RIGHT"
-          sketchybar --set "$NAME".name label="$INFO"
-        '';
-      };
-
-      "${plugins}/icons.sh" = {
-        executable = true;
-        text = ''
-          #!/usr/bin/env bash
-
-          case $1 in
-            "WezTerm") ICON= ;;
-            "Discord") ICON=󰙯 ;;
-            "Finder") ICON=󰀶 ;;
-            "Brave Browser") ICON= ;;
-            "Spotify") ICON= ;;
-            "App Store") ICON= ;;
-            "Photos") ICON= ;;
-            "Preview") ICON= ;;
-            "System Preferences") ICON= ;;
-            "Telegram") ICON= ;;
-            "Sublime Text") ICON= ;;
-            "VLC") ICON=󰕼 ;;
-            "Microsoft Outlook") ICON=󰊫 ;;
-            "RoboForm") ICON= ;;
-            "MatterMost") ICON= ;;
-            "Firefox") ICON= ;;
-            *) ICON= ;;
-          esac
-
-          echo $ICON
-        '';
-      };
-
       "${plugins}/language.sh" = {
         executable = true;
         text = ''
@@ -196,7 +146,7 @@ in {
         text = ''
           #!/usr/bin/env bash
 
-          SPACE_ICONS=("term" "web" "dc" "tmp" "subl" "sdg" "slack" "八" "九" "十" "十一" "十二" "十三" "十四" "十五")
+          SPACE_ICONS=("term" "web" "dc" "tg" "subl" "sdg" "slack" "tsx" "九" "十" "十一" "十二" "十三" "十四" "十五")
 
           sid=0
           for i in "''${!SPACE_ICONS[@]}"
@@ -459,31 +409,6 @@ in {
 
           # shellcheck source=plugins/spaces.sh
           source "$PLUGIN_DIR/spaces.sh"
-
-          sketchybar  --add item front_app left \
-                      --set front_app \
-                            background.color=0xff${unsharp ctp.green.hex} \
-                            background.padding_left=0 \
-                            background.padding_right=0 \
-                            icon.y_offset=1 \
-                            icon.color=0xff${unsharp ctp.base.hex} \
-                            label.drawing=no \
-                            script="$PLUGIN_DIR/front_app.sh" \
-                      --add item front_app.separator left \
-                      --set front_app.separator \
-                            icon= \
-                            background.padding_left=-3 \
-                            icon.y_offset=1 \
-                            icon.font="$ICON_FACE:2048-em:24.0" \
-                            icon.color=0xff${unsharp ctp.green.hex} \
-                            icon.padding_left=0 \
-                            icon.padding_right=0 \
-                            label.drawing=no \
-                      --add item front_app.name left \
-                      --set front_app.name \
-                            icon.drawing=off \
-                            label="Hello" \
-                            label.drawing=yes
 
           sketchybar  --add bracket front_app_bracket \
                             front_app \
