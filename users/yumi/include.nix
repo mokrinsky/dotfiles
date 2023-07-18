@@ -84,6 +84,7 @@ in {
       withLazyVim = true;
       withSessionVariables = true;
     };
+    nushell.enable = true;
     python = {
       enable = true;
       withAnsible = true;

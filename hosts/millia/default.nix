@@ -25,7 +25,10 @@
   security.pam.enableSudoTouchIdAuth = true;
 
   environment = {
-    shells = [pkgs.fish];
+    shells = [
+      pkgs.fish
+      pkgs.nushell
+    ];
   };
 
   system.stateVersion = 4;
