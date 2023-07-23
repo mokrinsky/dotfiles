@@ -25,11 +25,11 @@
   networking = {
     interfaces.ens3.ipv4.addresses = [
       {
-        address = "109.107.176.26";
+        address = "77.246.107.96";
         prefixLength = 24;
       }
     ];
-    defaultGateway.address = "109.107.176.1";
+    defaultGateway.address = "77.246.107.1";
     nameservers = ["8.8.8.8" "8.8.4.4"];
   };
 
