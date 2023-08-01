@@ -156,7 +156,7 @@ in {
       ++ lib.optionals pkgs.stdenv.isDarwin [
         darwin.iproute2mac
         nur.repos.yumi.pidof
-        nur.repos.yumi.squid
+        #nur.repos.yumi.squid
       ];
   };
 

@@ -59,24 +59,6 @@ in {
     };
 
     darwinConfigurations = {
-      millia = myLib.mkConfiguration {
-        builder = darwin.lib.darwinSystem;
-        modules = [
-          ../config
-          ../users/yumi
-          home-manager.darwinModules.home-manager
-          self.darwinModules.extra
-          ({pkgs, ...}: {
-            nixpkgs.overlays = [self.overlays.default];
-          })
-        ];
-        name = "millia";
-        specialArgs = {
-          inherit inputs;
-        };
-        system = "x86_64-darwin";
-      };
-
       hitagi = myLib.mkConfiguration {
         builder = darwin.lib.darwinSystem;
         modules = [

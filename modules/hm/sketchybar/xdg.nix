@@ -397,7 +397,7 @@ in {
                       background.padding_left=2 \
                       background.padding_right=2 \
                       background.corner_radius=5 \
-                      background.height=24 \
+                      background.height=30 \
                       icon.color=0xff${unsharp ctp.text.hex} \
                       icon.font="$ICON_FACE:2048-em:17.0" \
                       icon.padding_left=8 \
@@ -419,7 +419,7 @@ in {
           sketchybar  --add item weather.moon q \
                       --set weather.moon \
                             background.color=0xff${unsharp ctp.sapphire.hex} \
-                            background.padding_right=-7 \
+                            background.padding_right=14 \
                             icon.color=0xff${unsharp ctp.crust.hex} \
                             icon.font="$ICON_FACE:2048-em:22.0" \
                             label.drawing=off
@@ -437,6 +437,7 @@ in {
           sketchybar  --add event spotify_change $SPOTIFY_EVENT \
                       --add item spotify e \
                       --set spotify \
+                            background.padding_left=14 \
                             icon= \
                             icon.font="$ICON_FACE:2048-em:20.0" \
                             icon.y_offset=1 \

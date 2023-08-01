@@ -41,19 +41,20 @@ in {
         "discord"
         # "displaycal"
         "docker"
-        # "lulu"
+        "keepassxc"
         # "mos"
         "notion"
+        "robo-3t"
         "sublime-text"
         "telegram-desktop"
         # "transmission"
-        "tuntap"
-        "virtualbox"
+        # "tuntap"
+        # "virtualbox"
         "visual-studio-code"
         "vlc"
         "wezterm"
         "wireshark"
-        # "spotify"
+        "spotify"
       ];
       masApps = {
         "Microsoft Remote Desktop" = 1295203466;
@@ -63,6 +64,7 @@ in {
         Mattermost = 1614666244;
         "The Unarchiver" = 425424353;
         Numbers = 409203825;
+        Slack = 803453959;
       };
     };
   };
