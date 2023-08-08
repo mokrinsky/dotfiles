@@ -56,6 +56,21 @@ in {
         };
         system = "x86_64-linux";
       };
+      ru = myLib.mkConfiguration {
+        builder = nixpkgs.lib.nixosSystem;
+        modules = [
+          self.nixosModules.extra
+          sops.nixosModules.sops
+          ({pkgs, ...}: {
+            nixpkgs.overlays = [self.overlays.default];
+          })
+        ];
+        name = "ru";
+        specialArgs = {
+          inherit inputs;
+        };
+        system = "x86_64-linux";
+      };
     };
 
     darwinConfigurations = {
