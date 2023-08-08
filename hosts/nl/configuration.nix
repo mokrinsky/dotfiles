@@ -95,11 +95,16 @@ in {
     domain = "kolya.it";
     networkmanager.enable = false;
     wireless.enable = false;
+    nat = {
+      enable = true;
+      internalIPs = ["192.168.255.0/24"];
+    };
     firewall = {
       checkReversePath = false;
       allowPing = true;
       allowedTCPPorts = [
         19333
+        179
       ];
       enable = true;
     };

@@ -87,6 +87,10 @@ in {
     domain = "kolya.it";
     networkmanager.enable = false;
     wireless.enable = false;
+    nat = {
+      enable = true;
+      internalIPs = ["192.168.253.0/24" "192.168.255.0/24"];
+    };
     firewall = {
       checkReversePath = false;
       allowPing = true;
@@ -94,6 +98,7 @@ in {
         19333
         80
         443
+        179
       ];
       allowedUDPPorts = [
         1194
