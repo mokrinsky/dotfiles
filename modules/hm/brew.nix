@@ -44,6 +44,7 @@ in {
         "keepassxc"
         # "mos"
         "notion"
+        "obsidian"
         "robo-3t"
         "sublime-text"
         "telegram-desktop"
