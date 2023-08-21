@@ -28,7 +28,7 @@ in {
         konf
         kubectl
         kubernetes-helm
-        kyverno
+        terraform
       ];
     };
 
