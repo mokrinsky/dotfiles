@@ -36,6 +36,8 @@ in {
             fish_add_path ${config.home.homeDirectory}/bin
             fish_add_path ${config.home.homeDirectory}/go/bin
             fish_add_path ${config.home.profileDirectory}/bin
+            fish_add_path /opt/homebrew/bin
+            fish_add_path /opt/homebrew/sbin
 
             set -Ua fish_features ampersand-nobg-in-token qmark-noglob
             set -x DIRENV_LOG_FORMAT ""
@@ -180,12 +182,12 @@ in {
             rust = {
               format = "[ $symbol$version ]($style)";
               style = "fg:base bg:green";
-              symbol = " ";
+              symbol = "󱘗 ";
             };
             python = {
               format = "[ $symbol$pyenv_prefix($version)($virtualenv) ]($style)";
               style = "fg:base bg:green";
-              symbol = " ";
+              symbol = "󰌠 ";
             };
             package = {
               symbol = " ";
@@ -215,9 +217,9 @@ in {
               ahead = " $count";
               behind = " $count";
               diverged = " $ahead_count $behind_count";
-              up_to_date = " ";
+              up_to_date = "󰄬 ";
               untracked = "?$count";
-              stashed = " ";
+              stashed = "󰏖 ";
               modified = "!$count";
               staged = "+$count";
               renamed = "»$count";
