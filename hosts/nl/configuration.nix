@@ -21,6 +21,10 @@
     src = "${inputs.self}/shared/ip-ranges/as16509-cloudfront.txt";
     prefix = "  network ";
   };
+  nonprefix = pkgs.substituteAll {
+    src = "${inputs.self}/shared/ip-ranges/nonprefix-fb.txt";
+    prefix = "  network ";
+  };
   nl = pkgs.substituteAll {
     src = "${inputs.self}/shared/ip-ranges/nl.txt";
     prefix = "  network ";
@@ -142,6 +146,7 @@ in {
           ${builtins.readFile as54115}
           ${builtins.readFile as32934}
           ${builtins.readFile as16509}
+          ${builtins.readFile nonprefix}
           ${builtins.readFile nl}
             neighbor 192.168.255.1 route-map IMPORT in
           !
