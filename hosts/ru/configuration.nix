@@ -163,6 +163,11 @@ in {
               publicKey = "jcojWbtqBnjQDnKMXXlQc+kX3kHgfTAn0V/Oi7bEm2c=";
               allowedIPs = ["192.168.253.11/32"];
             }
+            {
+              name = "sabomov";
+              publicKey = "C6GHdtWN3BxIF0DVx7/XGB7maUbhZnifDEBjyhLSVEs=";
+              allowedIPs = ["192.168.253.12/32"];
+            }
           ];
         };
       };
