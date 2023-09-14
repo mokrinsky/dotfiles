@@ -31,15 +31,7 @@
   ];
 
   networking = {
-    hostName = "k7";
-    domain = "lab.kolya.it";
-    interfaces.eth0.ipv4.addresses = [
-      {
-        address = "192.168.2.17";
-        prefixLength = 24;
-      }
-    ];
-    defaultGateway.address = "192.168.2.1";
-    nameservers = ["192.168.2.254"];
+    hostName = "";
+    interfaces.eth0.useDHCP = true;
   };
 }
