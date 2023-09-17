@@ -94,6 +94,7 @@ in {
       "openvpn/nl.crt".path = "/etc/openvpn/nl.crt";
       "openvpn/nl.key".path = "/etc/openvpn/nl.key";
       "openvpn/config" = {};
+      "minio" = {};
     };
   };
 
@@ -113,6 +114,7 @@ in {
       allowedTCPPorts = [
         19333
         179
+        9000
       ];
       enable = true;
     };
@@ -128,6 +130,10 @@ in {
     mtr.enable = true;
   };
   services = {
+    minio = {
+      enable = true;
+      rootCredentialsFile = config.sops.secrets."minio".path;
+    };
     frr = {
       bgp = {
         enable = true;
