@@ -173,6 +173,11 @@ in {
               publicKey = "f1lNooi1anFZt00BW3Saz6r3+UzBV2tzwGnZz06oBk8=";
               allowedIPs = ["192.168.253.13/32"];
             }
+            {
+              name = "kulychevaa_mbp";
+              publicKey = "nKKvqyf3oPG40B313jzzBJGqi1TpwSLjcm7HED2bg2w=";
+              allowedIPs = ["192.168.253.14/32"];
+            }
           ];
         };
       };
