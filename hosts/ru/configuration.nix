@@ -178,6 +178,11 @@ in {
               publicKey = "nKKvqyf3oPG40B313jzzBJGqi1TpwSLjcm7HED2bg2w=";
               allowedIPs = ["192.168.253.14/32"];
             }
+            {
+              name = "tomin_a";
+              publicKey = "Jr37wO1gDN87h5DDw8HieCnwDpuVVgDiRviSIcBwEww=";
+              allowedIPs = ["192.168.253.15/32"];
+            }
           ];
         };
       };
