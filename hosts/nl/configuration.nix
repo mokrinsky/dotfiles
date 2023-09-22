@@ -107,7 +107,7 @@ in {
     wireless.enable = false;
     nat = {
       enable = true;
-      internalIPs = ["192.168.255.0/24"];
+      internalIPs = ["192.168.254.0/24" "192.168.255.0/24"];
     };
     firewall = {
       checkReversePath = false;
