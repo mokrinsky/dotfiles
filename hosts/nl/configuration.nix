@@ -95,6 +95,7 @@ in {
       "openvpn/nl.key".path = "/etc/openvpn/nl.key";
       "openvpn/config" = {};
       "minio" = {};
+      "wg/privateKey" = {};
     };
   };
 
@@ -116,7 +117,91 @@ in {
         179
         9000
       ];
+      allowedUDPPorts = [
+        8213
+      ];
       enable = true;
+    };
+    wireguard = {
+      interfaces = {
+        wg0 = {
+          ips = ["192.168.254.1/24"];
+          listenPort = 8213;
+          privateKeyFile = config.sops.secrets."wg/privateKey".path;
+          peers = [
+            {
+              name = "bogoden";
+              publicKey = "eJgoBWQt9gRlLhO5rzUWwufExiuR6SNzrtdPkW6zz0M=";
+              allowedIPs = ["192.168.254.2/32"];
+            }
+            {
+              name = "green";
+              publicKey = "8Dmm5nyCIGMjJ2zv1SkYAjr+kWHqjQXy1evYQXFe9jk=";
+              allowedIPs = ["192.168.254.3/32"];
+            }
+            {
+              name = "mbp";
+              publicKey = "hiiI52MWUxUOb9sWRugc/rMGCxrH+dBwN+WObqt4CEY=";
+              allowedIPs = ["192.168.254.4/32"];
+            }
+            {
+              name = "ipad";
+              publicKey = "jJm9LizeFCq/qCj67TPw1t16sNilnRIhY00yOzn5+kc=";
+              allowedIPs = ["192.168.254.5/32"];
+            }
+            {
+              name = "apermade";
+              publicKey = "3AoqIcEJus/botarevEFMIehoeDIYw0Qs0A3WnDyA04=";
+              allowedIPs = ["192.168.254.6/32"];
+            }
+            {
+              name = "owl";
+              publicKey = "VtZ8L8g2yKZUjhRPQecF0f24WneBF+uxS2BlwhhFZhQ=";
+              allowedIPs = ["192.168.254.7/32"];
+            }
+            {
+              name = "lavriv";
+              publicKey = "k7HnP/LN57ZTaVRreN0LYJMIjrkUkpppVJUx1pWXQQc=";
+              allowedIPs = ["192.168.254.8/32"];
+            }
+            {
+              name = "vsalnikova";
+              publicKey = "ugnH3K1xs8bu42mNgTjz7yua8X8IpcJ2XRRdqTlQKlA=";
+              allowedIPs = ["192.168.254.9/32"];
+            }
+            {
+              name = "kulychevaa";
+              publicKey = "KiezRV3t23p8QRY3hJbEBMRm8qNQLWP0bFIu8lx4Vx0=";
+              allowedIPs = ["192.168.254.10/32"];
+            }
+            {
+              name = "aaronchikov";
+              publicKey = "jcojWbtqBnjQDnKMXXlQc+kX3kHgfTAn0V/Oi7bEm2c=";
+              allowedIPs = ["192.168.254.11/32"];
+            }
+            {
+              name = "sabomov";
+              publicKey = "C6GHdtWN3BxIF0DVx7/XGB7maUbhZnifDEBjyhLSVEs=";
+              allowedIPs = ["192.168.254.12/32"];
+            }
+            {
+              name = "sabomov_v2";
+              publicKey = "f1lNooi1anFZt00BW3Saz6r3+UzBV2tzwGnZz06oBk8=";
+              allowedIPs = ["192.168.254.13/32"];
+            }
+            {
+              name = "kulychevaa_mbp";
+              publicKey = "nKKvqyf3oPG40B313jzzBJGqi1TpwSLjcm7HED2bg2w=";
+              allowedIPs = ["192.168.254.14/32"];
+            }
+            {
+              name = "tomin_a";
+              publicKey = "Jr37wO1gDN87h5DDw8HieCnwDpuVVgDiRviSIcBwEww=";
+              allowedIPs = ["192.168.254.15/32"];
+            }
+          ];
+        };
+      };
     };
   };
   programs = {
