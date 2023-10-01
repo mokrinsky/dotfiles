@@ -267,4 +267,5 @@ in {
       };
     };
   };
+  virtualisation.docker.enable = true;
 }
