@@ -104,6 +104,7 @@ in {
         1194
         8213
       ];
+      trustedInterfaces = ["tap0"];
       enable = true;
     };
     wireguard = {

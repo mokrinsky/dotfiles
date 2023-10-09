@@ -120,6 +120,7 @@ in {
       allowedUDPPorts = [
         8213
       ];
+      trustedInterfaces = ["tap0"];
       enable = true;
     };
     wireguard = {
