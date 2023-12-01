@@ -80,6 +80,7 @@ in {
     mc
     nix-tree
     tcpdump
+    virtualenv
   ];
 
   sops = {
