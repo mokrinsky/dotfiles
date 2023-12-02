@@ -80,7 +80,6 @@ in {
     mc
     nix-tree
     tcpdump
-    virtualenv
   ];
 
   sops = {
@@ -216,6 +215,33 @@ in {
     mtr.enable = true;
   };
   services = {
+    dante = {
+      enable = true;
+      config = ''
+        internal = tap0
+        external = ens3
+
+        clientmethod: none
+        method: none
+
+        client pass {
+          from: 192.168.0.0/16 to: 0.0.0.0/0
+          log: error # connect disconnect
+        }
+
+        pass {
+          from: 192.168.0.0/16 to: 0.0.0.0/0
+          command: bind connect udpassociate
+          log: error # connect disconnect iooperation
+        }
+
+        pass {
+          from: 192.168.0.0/16 to: 0.0.0.0/0
+          command: bindreply udpreply
+          log: error # connect disconnect iooperation
+        }
+      '';
+    };
     frr = {
       bgp = {
         enable = true;
