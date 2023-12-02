@@ -222,25 +222,30 @@ in {
         external: ens3
 
         clientmethod: none
-        method: none
+        socksmethod: none
 
         client pass {
           from: 192.168.0.0/16 to: 0.0.0.0/0
           log: error # connect disconnect
         }
 
-        pass {
+        sock pass {
           from: 192.168.0.0/16 to: 0.0.0.0/0
           command: bind connect udpassociate
           log: error # connect disconnect iooperation
         }
 
-        pass {
+        sock pass {
           from: 192.168.0.0/16 to: 0.0.0.0/0
           command: bindreply udpreply
           log: error # connect disconnect iooperation
         }
       '';
+    };
+    squid = {
+      enable = true;
+      proxyAddress = "192.168.255.9";
+      proxyPort = 3128;
     };
     frr = {
       bgp = {
