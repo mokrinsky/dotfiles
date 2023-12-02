@@ -218,8 +218,8 @@ in {
     dante = {
       enable = true;
       config = ''
-        internal = tap0
-        external = ens3
+        internal: tap0
+        external: ens3
 
         clientmethod: none
         method: none
