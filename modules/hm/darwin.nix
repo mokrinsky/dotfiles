@@ -43,30 +43,32 @@ in {
         "com.apple.swipescrolldirection" = 1;
         "com.apple.trackpad.forceClick" = 1;
       };
-      com.apple.desktopservices = {
-        DSDontWriteNetworkStores = true;
-        DSDontWriteUSBStores = true;
-      };
-      com.apple.dock = {
-        autohide = true;
-        largesize = false;
-        magnification = false;
-        mineffect = "genie";
-        orientation = "right";
-        tilesize = 45;
-      };
-      com.apple.TimeMachine = {
-        DoNotOfferNewDisksForBackup = true;
-      };
-      com.apple.finder = {
-        DisableAllAnimations = true;
-        ShowExternalHardDrivesOnDesktop = true;
-        ShowHardDrivesOnDesktop = true;
-        ShowMountedServersOnDesktop = false;
-        ShowRemovableMediaOnDesktop = true;
-        AppleShowAllFiles = true;
-        FXDefaultSearchScope = "SCcf";
-        FXPreferredViewStyle = "Nlsv";
+      com.apple = {
+        desktopservices = {
+          DSDontWriteNetworkStores = true;
+          DSDontWriteUSBStores = true;
+        };
+        dock = {
+          autohide = true;
+          largesize = false;
+          magnification = false;
+          mineffect = "genie";
+          orientation = "right";
+          tilesize = 45;
+        };
+        TimeMachine = {
+          DoNotOfferNewDisksForBackup = true;
+        };
+        finder = {
+          DisableAllAnimations = true;
+          ShowExternalHardDrivesOnDesktop = true;
+          ShowHardDrivesOnDesktop = true;
+          ShowMountedServersOnDesktop = false;
+          ShowRemovableMediaOnDesktop = true;
+          AppleShowAllFiles = true;
+          FXDefaultSearchScope = "SCcf";
+          FXPreferredViewStyle = "Nlsv";
+        };
       };
     };
   };

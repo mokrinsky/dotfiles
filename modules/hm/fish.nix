@@ -27,7 +27,7 @@ in {
           enable = true;
           shellAliases = {
             fetch = "neofetch";
-            ls = "exa -alg --color=always --icons --group-directories-first --octal-permissions --no-permissions --git";
+            ls = "eza -alg --color=always --icons --group-directories-first --octal-permissions --no-permissions --git";
             cat = "bat --decorations never --paging never";
             dig = "dog";
           };

@@ -3,14 +3,14 @@
 
   inputs = {
     # core inputs
-    nixpkgs.url = "nixpkgs/nixpkgs-23.05-darwin";
+    nixpkgs.url = "nixpkgs/nixpkgs-23.11-darwin";
     nixpkgs-unstable.url = "github:nixos/nixpkgs";
     darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -18,9 +18,11 @@
     nur.url = "github:nix-community/NUR";
     yumi = {
       url = "github:mokrinsky/nix-packages";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.pre-commit-hooks.follows = "pre-commit-hooks";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+      };
     };
 
     # QoL inputs
@@ -42,15 +44,19 @@
     };
     sops = {
       url = "github:Mic92/sops-nix";
-      inputs.nixpkgs-stable.follows = "nixpkgs";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs = {
+        nixpkgs-stable.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs-unstable";
+      };
     };
 
     # Development inputs
     devshell = {
       url = "github:numtide/devshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.systems.follows = "systems";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
     };
     # yumi-dev = {
     #   url = "path:/Users/yumi/git/nix-overlay";
@@ -122,6 +128,9 @@
             settings.deadnix = {
               noLambdaPatternNames = true;
               noLambdaArg = true;
+            };
+            settings.typos = {
+              exclude = ".sops.yaml --exclude secrets/*";
             };
           };
         };

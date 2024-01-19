@@ -81,7 +81,7 @@ in {
     k8s.enable = true;
     neovim = {
       enable = true;
-      withLazyVim = true;
+      withLazyVim = false;
       withSessionVariables = true;
     };
     nushell.enable = true;
@@ -144,7 +144,6 @@ in {
       ]
       ++ [
         # GNU utilities
-        nur.repos.yumi.coreutils
         findutils
         gawk
         gnugrep
@@ -155,13 +154,11 @@ in {
       ]
       ++ lib.optionals pkgs.stdenv.isDarwin [
         darwin.iproute2mac
-        nur.repos.yumi.pidof
-        #nur.repos.yumi.squid
       ];
   };
 
   programs = {
-    exa.enable = true;
+    eza.enable = true;
     go = {
       enable = true;
       goPath = "go";

@@ -30,13 +30,15 @@
     prefix = "  network ";
   };
 in {
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/vda";
+  boot = {
+    loader.grub.enable = true;
+    loader.grub.device = "/dev/vda";
 
-  boot.kernel.sysctl = {
-    "net.ipv6.conf.all.forwarding" = "1";
-    "net.ipv6.conf.default.forwarding" = "1";
-    "net.ipv4.ip_forward" = "1";
+    kernel.sysctl = {
+      "net.ipv6.conf.all.forwarding" = "1";
+      "net.ipv6.conf.default.forwarding" = "1";
+      "net.ipv4.ip_forward" = "1";
+    };
   };
 
   time.timeZone = "Europe/Amsterdam";

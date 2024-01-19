@@ -1,4 +1,7 @@
 {pkgs, ...}: {
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
   nix = {
     package = pkgs.unstable.nixVersions.nix_2_15;
 
