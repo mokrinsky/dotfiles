@@ -7,7 +7,6 @@ _: {
     ./git.nix
     ./k8s.nix
     ./neovim.nix
-    ./nushell.nix
     ./python.nix
     ./sketchybar
     ./wezterm.nix
