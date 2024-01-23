@@ -31,11 +31,10 @@ in {
       };
       taps = ["homebrew/bundle" "homebrew/cask" "homebrew/core"];
       brews = [
-        "squid"
       ];
       casks = [
-        "alfred"
         # "apache-directory-studio"
+        "arc"
         # "balenaetcher"
         "cyberduck"
         "discord"
@@ -45,6 +44,7 @@ in {
         # "mos"
         "notion"
         "obsidian"
+        "raycast"
         "robo-3t"
         "sublime-text"
         "telegram-desktop"
