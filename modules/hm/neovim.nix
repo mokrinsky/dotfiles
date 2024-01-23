@@ -46,10 +46,12 @@ in {
           fd
           # Linters
           alejandra
+          ansible-lint
           statix
           selene
           stylua
           yamlfmt
+          yamllint
           codespell
           shellcheck
           commitlint
