@@ -21,6 +21,10 @@ in {
   config = mkMerge [
     (mkIf cfg.enable {
       programs = {
+        atuin = {
+          enable = true;
+          flags = ["--disable-up-arrow"];
+        };
         direnv.enable = true;
         direnv.nix-direnv.enable = true;
         fish = {
