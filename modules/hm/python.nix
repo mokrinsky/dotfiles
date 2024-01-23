@@ -19,31 +19,29 @@ in {
       };
     };
 
+    programs.pyenv.enable = true;
+
     home = {
       sessionVariables = mkIf cfg.withAnsible {
         ANSIBLE_CONFIG = "${config.xdg.configHome}/ansible.cfg";
       };
-      packages = with pkgs; [
-        ansible-lint
-        (python3.withPackages (
-          p:
-            with p;
-              [
-                black
-                numpy
-                pika
-                pip
-                pylint
-                virtualenv
-                yamllint
-                yt-dlp
-              ]
-              ++ optionals cfg.withAnsible (with p; [
-                ansible-core
-                nur.repos.yumi.ovirt-engine-sdk-python
-              ])
-        ))
-      ];
+      # packages = with pkgs; [
+      #   (python3.withPackages (
+      #     p:
+      #       with p;
+      #         [
+      #           pika
+      #           pip
+      #           virtualenv
+      #           yt-dlp
+      #           pynetbox
+      #         ]
+      #         ++ optionals cfg.withAnsible (with p; [
+      #           ansible-core
+      #           nur.repos.yumi.ovirt-engine-sdk-python
+      #         ])
+      #   ))
+      # ];
     };
   };
 }

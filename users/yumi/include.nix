@@ -84,7 +84,6 @@ in {
       withLazyVim = false;
       withSessionVariables = true;
     };
-    nushell.enable = true;
     python = {
       enable = true;
       withAnsible = true;
@@ -122,6 +121,7 @@ in {
 
     packages = with pkgs;
       [
+        ansible
         cacert
         inetutils
         ipcalc
