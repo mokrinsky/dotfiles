@@ -94,7 +94,7 @@ in {
       };
       extraConfig = let
         rule = "yabai -m rule --add";
-        ignored = app: builtins.concatStringsSep "\n" (map (e: ''${rule} app="${e}" manage=off sticky=off layer=above border=off'') app);
+        ignored = app: builtins.concatStringsSep "\n" (map (e: ''${rule} app="${e}" manage=off sticky=off layer=above'') app);
         unmanaged = app: builtins.concatStringsSep "\n" (map (e: ''${rule} app="${e}" manage=off'') app);
         sketchybar = lib.getExe pkgs.sketchybar;
       in ''
@@ -104,8 +104,8 @@ in {
         yabai -m signal --add event=window_created action="${sketchybar} --trigger windows_on_spaces"
         yabai -m signal --add event=window_destroyed action="${sketchybar} --trigger windows_on_spaces"
         sudo yabai --load-sa
-        ${ignored ["JetBrains Toolbox" "iStat Menus" "WireGuard" "System Settings" "Finder"]}
-        ${unmanaged ["Transmission" "VLC" "RoboForm"]}
+        ${ignored ["JetBrains Toolbox" "iStat Menus" "WireGuard" "System Settings" "Finder" "Little Snitch" "Raycast"]}
+        ${unmanaged ["Transmission" "VLC"]}
       '';
     };
   };
