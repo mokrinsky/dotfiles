@@ -28,7 +28,6 @@ in {
       extraPackages = with pkgs; [
         yabai
         jq
-        osx-cpu-temp
         wireguard-tools
       ];
     };

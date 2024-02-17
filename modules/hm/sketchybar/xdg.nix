@@ -76,17 +76,6 @@ in {
         '';
       };
 
-      "${plugins}/cpu.sh" = {
-        executable = true;
-        text = ''
-          #!/usr/bin/env bash
-
-          TEMP=$(osx-cpu-temp)
-
-          sketchybar --set "$NAME" label="$TEMP"
-        '';
-      };
-
       "${plugins}/language.sh" = {
         executable = true;
         text = ''
@@ -477,13 +466,6 @@ in {
                             update_freq=5 \
                             icon.drawing=off \
                             label.padding_left=7
-
-          sketchybar  --add item cpu_temp right \
-                      --set cpu_temp \
-                            script="$PLUGIN_DIR/cpu.sh" \
-                            icon=󰘚 \
-                            icon.color=0xff${unsharp ctp.teal.hex} \
-                            update_freq=5
 
           ##### Finalizing Setup #####
           sketchybar --update
