@@ -29,7 +29,7 @@ in {
       global = {
         brewfile = true;
       };
-      taps = ["homebrew/bundle" "homebrew/cask" "homebrew/core"];
+      taps = ["homebrew/bundle"];
       brews = [
       ];
       casks = [
@@ -40,6 +40,7 @@ in {
         "discord"
         # "displaycal"
         "docker"
+        "iina"
         "keepassxc"
         # "mos"
         "notion"
