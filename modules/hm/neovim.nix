@@ -24,49 +24,21 @@ in {
             VISUAL = "$EDITOR";
             SUDO_EDITOR = "$EDITOR";
             MANPAGER = "nvim +Man!";
+            EDITOR = "nvim";
           };
+        packages = with pkgs; [
+          (callPackage ../../packages/neovim {})
+        ];
       };
 
       xdg.configFile."nvim" = {
         source = ./neovim;
       };
 
-      programs.neovim = {
-        package = pkgs.unstable.neovim-unwrapped;
-        withRuby = false;
-        withPython3 = true;
-        enable = true;
-        vimAlias = true;
-        viAlias = true;
-        vimdiffAlias = true;
-        defaultEditor = true;
-        extraPackages = with pkgs; [
-          tree-sitter
-          ripgrep
-          fd
-          # Linters
-          alejandra
-          ansible-lint
-          statix
-          selene
-          stylua
-          yamlfmt
-          yamllint
-          codespell
-          shellcheck
-          commitlint
-          # Language servers
-          yaml-language-server
-          gopls
-          ansible-language-server
-          sumneko-lua-language-server
-          nil
-          pyright
-
-          nodePackages.dockerfile-language-server-nodejs
-          nodePackages.typescript-language-server
-          nodePackages.prettier
-        ];
+      programs.fish.shellAliases = {
+        vimdiff = "nvim -d";
+        vi = "nvim";
+        vim = "nvim";
       };
     }
 
