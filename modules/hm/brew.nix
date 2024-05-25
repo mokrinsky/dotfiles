@@ -41,7 +41,6 @@ in {
         # "displaycal"
         "docker"
         "iina"
-        "keepassxc"
         # "mos"
         "notion"
         "obsidian"
@@ -66,7 +65,6 @@ in {
         Mattermost = 1614666244;
         "The Unarchiver" = 425424353;
         Numbers = 409203825;
-        Slack = 803453959;
       };
     };
   };
