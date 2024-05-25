@@ -107,9 +107,8 @@ in {
   };
 
   home = {
-    inherit (config) username;
     stateVersion = "23.05";
-    homeDirectory = "/Users/${config.username}";
+    homeDirectory = "/Users/yumi";
     enableNixpkgsReleaseCheck = true;
     sessionVariables = {
       GOTELEMETRY = "off";

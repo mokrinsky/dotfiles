@@ -71,7 +71,6 @@ in {
       hitagi = myLib.mkConfiguration {
         builder = darwin.lib.darwinSystem;
         modules = [
-          ../config
           ../users/yumi
           home-manager.darwinModules.home-manager
           self.darwinModules.extra

@@ -10,7 +10,6 @@
       inputs.yumi.homeManagerModules.default
       inputs.sops.homeManagerModules.sops
       inputs.self.homeManagerModules.bundle
-      (import ../../config)
     ];
     # verbose = true;
     extraSpecialArgs = {

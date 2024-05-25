@@ -23,10 +23,10 @@ in {
 
     programs.git = {
       enable = true;
-      userName = config.name;
-      userEmail = config.email;
+      userName = "Nikolay Mokrinsky";
+      userEmail = "me@mokrinsky.ru";
       signing = {
-        key = config.gpgKey;
+        key = "EA54E892D96C779E1FA64E0A73CC011921471A15";
         signByDefault = true;
       };
       lfs = {
@@ -43,11 +43,23 @@ in {
         color = {
           pager = "no";
         };
+        status = {
+          short = true;
+          branch = true;
+        };
       };
       includes = [
         {
           path = "~/.gitconfig.includes";
         }
+      ];
+      ignores = [
+        "*.log"
+        ".DS_Store"
+        "*.swp"
+        ".idea/"
+        ".direnv/"
+        ".envrc"
       ];
       hooks = {
         pre-commit = pkgs.writeShellScript "pre-commit" ''

@@ -7,8 +7,8 @@
     ../common
   ];
 
-  users.users.${config.username} = {
-    home = "/Users/${config.username}";
+  users.users.yumi = {
+    home = "/Users/yumi";
     shell = "${pkgs.fish}/bin/fish";
   };
 

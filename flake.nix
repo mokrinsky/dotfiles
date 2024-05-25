@@ -196,7 +196,6 @@
             overlays = [self.overlays.default];
           };
           modules = [
-            (import ./config)
             yumi.homeManagerModules.default
             sops.homeManagerModules.sops
             self.homeManagerModules.bundle
