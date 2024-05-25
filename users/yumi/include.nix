@@ -120,7 +120,6 @@ in {
 
     packages = with pkgs;
       [
-        ansible
         cacert
         inetutils
         ipcalc
@@ -140,12 +139,14 @@ in {
         cloak
         dogdns
         fzf
+        sshpass
       ]
       ++ [
         # GNU utilities
         findutils
         gawk
         gnugrep
+        curl
       ]
       ++ lib.optionals pkgs.stdenv.isLinux [
         wireshark

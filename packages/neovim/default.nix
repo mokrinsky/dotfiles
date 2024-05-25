@@ -14,7 +14,6 @@
   tree-sitter,
   fd,
   ripgrep,
-  ansible-lint,
   yamlfmt,
   yamllint,
   codespell,
@@ -39,7 +38,6 @@ runCommandNoCC "nvim" {nativeBuildInputs = [makeWrapper];} ''
       fd
       # Linters
       alejandra
-      ansible-lint
       statix
       selene
       stylua
