@@ -3,14 +3,14 @@
 
   inputs = {
     # core inputs
-    nixpkgs.url = "nixpkgs/nixpkgs-23.11-darwin";
+    nixpkgs.url = "nixpkgs/nixpkgs-24.05-darwin";
     nixpkgs-unstable.url = "github:nixos/nixpkgs";
     darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -29,7 +29,6 @@
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
-        flake-utils.follows = "flake-utils";
         nixpkgs-stable.follows = "nixpkgs";
         nixpkgs.follows = "nixpkgs-unstable";
       };
@@ -124,13 +123,13 @@
               editorconfig-checker.enable = false;
               statix.enable = true;
               nil.enable = true;
-            };
-            settings.deadnix = {
-              noLambdaPatternNames = true;
-              noLambdaArg = true;
-            };
-            settings.typos = {
-              exclude = ".sops.yaml --exclude secrets/*";
+              deadnix.settings = {
+                noLambdaPatternNames = true;
+                noLambdaArg = true;
+              };
+              typos.settings = {
+                exclude = ".sops.yaml --exclude secrets/*";
+              };
             };
           };
         };

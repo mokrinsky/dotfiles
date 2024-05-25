@@ -31,7 +31,7 @@ in {
         AppleInterfaceStyle = "Dark";
         AppleHighlightColor = "0.115673 0.118837 0.182377 Other";
         AppleMiniaturizeOnDoubleClick = 0;
-        ApplePressAndHoldEnabled = 0;
+        ApplePressAndHoldEnabled = false;
         AppleReduceDesktopTinting = 0;
         _HIHideMenuBar = true;
         "com.apple.mouse.scaling" = 1;

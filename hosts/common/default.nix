@@ -3,7 +3,7 @@
     allowUnfree = true;
   };
   nix = {
-    package = pkgs.unstable.nixVersions.nix_2_15;
+    package = pkgs.unstable.nixVersions.nix_2_18;
 
     linkInputs = true;
     generateRegistryFromInputs = true;
