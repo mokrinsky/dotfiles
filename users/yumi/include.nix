@@ -101,6 +101,7 @@ in {
     package = pkgs.openjdk;
     installMaven = true;
     extraPackages = with pkgs; [
+      openjdk21
       openjdk17
       openjdk8
     ];
