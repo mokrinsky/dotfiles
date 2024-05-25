@@ -72,6 +72,8 @@ in {
         text = ''
           #!/usr/bin/env bash
 
+          LANG=it_IT
+
           sketchybar --set "$NAME" label="$(date '+%a %b %-d %-H:%M')"
         '';
       };
@@ -239,8 +241,7 @@ in {
         text = ''
           #!/usr/bin/env bash
 
-          IP=$(curl -s https://ipinfo.io/ip)
-          LOCATION_JSON=$(curl -s https://ipinfo.io/"$IP"/json)
+          LOCATION_JSON=$(curl -s https://ip-api.com/json)
 
           LOCATION="$(echo "$LOCATION_JSON" | jq '.city' | tr -d '"')"
           REGION="$(echo "$LOCATION_JSON" | jq '.region' | tr -d '"')"
@@ -249,7 +250,7 @@ in {
           # Line below replaces spaces with +
           # LOCATION_ESCAPED="''${LOCATION// /+}+''${REGION// /+}"
           LOCATION_ESCAPED="''${LOCATION// /+}"
-          WEATHER_JSON=$(curl -s "https://wttr.in/$LOCATION_ESCAPED?format=j1")
+          WEATHER_JSON=$(curl -s "https://wttr.in/$LOCATION_ESCAPED?format=j1&lang=it")
 
           # Fallback if empty
           if [ -z "$WEATHER_JSON" ]; then
@@ -261,7 +262,7 @@ in {
           fi
 
           TEMPERATURE=$(echo "$WEATHER_JSON" | jq '.current_condition[0].temp_C' | tr -d '"')
-          WEATHER_DESCRIPTION=$(echo "$WEATHER_JSON" | jq '.current_condition[0].weatherDesc[0].value' | tr -d '"' | sed 's/\(.\{25\}\).*/\1.../')
+          WEATHER_DESCRIPTION=$(echo "$WEATHER_JSON" | jq '.current_condition[0].lang_it[0].value' | tr -d '"' | sed 's/\(.\{25\}\).*/\1.../')
           WEATHER_CODE=$(echo "$WEATHER_JSON" | jq '.current_condition[0].weatherCode' | tr -d '"')
 
           # This part was based on wttr.in source code.
