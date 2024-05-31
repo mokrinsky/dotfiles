@@ -2,19 +2,14 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }:
 with lib; let
   cfg = config.yumi.fish;
-  flavor = "mocha";
-  ctp = inputs.catppuccin.${flavor};
-  unsharp = lib.strings.removePrefix "#";
 in {
   options.yumi.fish = {
     enable = mkEnableOption "Install fish shell config";
     withStarship = mkEnableOption "Install starship config";
-    withCatppuccin = mkEnableOption "Enable catppuccin color scheme for fish";
     withGrc = mkEnableOption "Install grc for fish";
   };
 
@@ -25,15 +20,24 @@ in {
           enable = true;
           flags = ["--disable-up-arrow"];
         };
+        bat = {
+          enable = true;
+          catppuccin.enable = true;
+        };
         direnv.enable = true;
         direnv.nix-direnv.enable = true;
         fish = {
           enable = true;
+          catppuccin = {
+            enable = true;
+            flavor = "mocha";
+          };
           shellAliases = {
             fetch = "neofetch";
             ls = "eza -alg --color=always --icons --group-directories-first --octal-permissions --no-permissions --git";
             cat = "bat --decorations never --paging never";
             dig = "dog";
+            diff = "delta";
           };
           shellInit = ''
             set -Ux fish_user_paths
@@ -50,6 +54,10 @@ in {
             gpgconf --launch gpg-agent
           '';
         };
+        zoxide = {
+          enable = true;
+          options = ["--cmd cd"];
+        };
       };
     })
 
@@ -60,76 +68,15 @@ in {
       ];
     })
 
-    (mkIf (cfg.enable && cfg.withCatppuccin) {
-      programs.fish.shellInit = ''
-        echo y | fish_config theme save theme
-      '';
-
-      xdg.configFile."fish/themes/theme.theme" = {
-        text = ''
-          fish_color_normal ${unsharp ctp.text.hex}
-          fish_color_command ${unsharp ctp.blue.hex}
-          fish_color_param ${unsharp ctp.flamingo.hex}
-          fish_color_keyword ${unsharp ctp.red.hex}
-          fish_color_quote ${unsharp ctp.green.hex}
-          fish_color_redirection ${unsharp ctp.pink.hex}
-          fish_color_end ${unsharp ctp.peach.hex}
-          fish_color_comment ${unsharp ctp.overlay1.hex}
-          fish_color_error ${unsharp ctp.red.hex}
-          fish_color_gray ${unsharp ctp.overlay0.hex}
-          fish_color_selection --background=${unsharp ctp.surface0.hex}
-          fish_color_search_match --background=${unsharp ctp.surface0.hex}
-          fish_color_operator ${unsharp ctp.pink.hex}
-          fish_color_escape ${unsharp ctp.maroon.hex}
-          fish_color_autosuggestion ${unsharp ctp.overlay0.hex}
-          fish_color_cancel ${unsharp ctp.red.hex}
-          fish_color_cwd ${unsharp ctp.yellow.hex}
-          fish_color_user ${unsharp ctp.teal.hex}
-          fish_color_host ${unsharp ctp.blue.hex}
-          fish_color_host_remote ${unsharp ctp.green.hex}
-          fish_color_status ${unsharp ctp.red.hex}
-          fish_pager_color_progress ${unsharp ctp.overlay0.hex}
-          fish_pager_color_prefix ${unsharp ctp.pink.hex}
-          fish_pager_color_completion ${unsharp ctp.text.hex}
-          fish_pager_color_description ${unsharp ctp.overlay0.hex}
-        '';
-      };
-    })
-
     (mkIf (cfg.enable && cfg.withStarship) {
       programs = {
         starship = {
           enable = true;
+          catppuccin = {
+            enable = true;
+            flavor = "mocha";
+          };
           settings = {
-            palettes.ctp = {
-              rosewater = ctp.rosewater.hex;
-              flamingo = ctp.flamingo.hex;
-              pink = ctp.pink.hex;
-              mauve = ctp.mauve.hex;
-              red = ctp.red.hex;
-              maroon = ctp.maroon.hex;
-              peach = ctp.peach.hex;
-              yellow = ctp.yellow.hex;
-              green = ctp.green.hex;
-              teal = ctp.teal.hex;
-              sky = ctp.sky.hex;
-              sapphire = ctp.sapphire.hex;
-              blue = ctp.blue.hex;
-              lavender = ctp.lavender.hex;
-              text = ctp.text.hex;
-              subtext1 = ctp.subtext1.hex;
-              subtext0 = ctp.subtext0.hex;
-              overlay2 = ctp.overlay2.hex;
-              overlay1 = ctp.overlay1.hex;
-              overlay0 = ctp.overlay0.hex;
-              surface2 = ctp.surface2.hex;
-              surface1 = ctp.surface1.hex;
-              surface0 = ctp.surface0.hex;
-              base = ctp.base.hex;
-              mantle = ctp.mantle.hex;
-              crust = ctp.crust.hex;
-            };
-            palette = "ctp";
             format = "$git_branch$git_commit$git_state$git_status$git_metrics$java$kotlin$golang$helm$nodejs$python$package$nix_shell$docker_context$kubernetes$line_break$directory$shell$status$character";
             right_format = "";
             character = {

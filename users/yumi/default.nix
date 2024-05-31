@@ -10,6 +10,7 @@
       inputs.yumi.homeManagerModules.default
       inputs.sops.homeManagerModules.sops
       inputs.self.homeManagerModules.bundle
+      inputs.catppuccin-nix.homeManagerModules.catppuccin
     ];
     # verbose = true;
     extraSpecialArgs = {

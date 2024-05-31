@@ -44,17 +44,14 @@ in {
     };
   };
 
+  catppuccin = {
+    accent = "peach";
+    flavor = "mocha";
+  };
+
   xdg.configFile = {
     "neofetch" = {
       source = "${inputs.self}/shared/configs/neofetch";
-    };
-    "btop/themes" = {
-      source = pkgs.fetchFromGitHub {
-        owner = "catppuccin";
-        repo = "btop";
-        rev = "7109eac2884e9ca1dae431c0d7b8bc2a7ce54e54";
-        sha256 = "sha256-QoPPx4AzxJMYo/prqmWD/CM7e5vn/ueyx+XQ5+YfHF8=";
-      };
     };
     "linters" = {
       source = linters;
@@ -74,7 +71,6 @@ in {
       enable = true;
       withStarship = true;
       withGrc = true;
-      withCatppuccin = true;
     };
     fonts.enable = true;
     git.enable = true;
@@ -167,22 +163,6 @@ in {
     man = {
       enable = true;
       generateCaches = true;
-    };
-    bat = {
-      enable = true;
-      config = {
-        theme = "mocha";
-      };
-      themes = {
-        mocha = builtins.readFile (pkgs.fetchFromGitHub
-          {
-            owner = "catppuccin";
-            repo = "bat";
-            rev = "main";
-            sha256 = "6WVKQErGdaqb++oaXnY3i6/GuH2FhTgK0v4TN4Y0Wbw=";
-          }
-          + "/Catppuccin-mocha.tmTheme");
-      };
     };
     htop.enable = true;
     home-manager.enable = true;

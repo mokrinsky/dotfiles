@@ -21,6 +21,13 @@ in {
       enable = true;
       userName = "Nikolay Mokrinsky";
       userEmail = "me@mokrinsky.ru";
+      delta = {
+        enable = true;
+        catppuccin = {
+          enable = true;
+          flavor = "mocha";
+        };
+      };
       signing = {
         key = "EA54E892D96C779E1FA64E0A73CC011921471A15";
         signByDefault = true;
@@ -31,7 +38,6 @@ in {
       extraConfig = {
         core = mkIf config.yumi.neovim.enable {
           editor = "nvim";
-          pager = "nvim -R";
         };
         push = {
           autoSetupRemote = true;
@@ -42,6 +48,10 @@ in {
         status = {
           short = true;
           branch = true;
+        };
+        delta = {
+          line-numbers = true;
+          side-by-side = true;
         };
       };
       includes = [
