@@ -17,10 +17,6 @@ in {
       };
     };
 
-    home.packages = with pkgs; [
-      commitizen
-    ];
-
     programs.git = {
       enable = true;
       userName = "Nikolay Mokrinsky";

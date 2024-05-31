@@ -49,17 +49,6 @@ in {
             set -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
             gpgconf --launch gpg-agent
           '';
-          plugins = [
-            {
-              name = "fzf.fish";
-              src = pkgs.fetchFromGitHub {
-                owner = "PatrickF1";
-                repo = "fzf.fish";
-                rev = "v9.5";
-                sha256 = "ZdHfIZNCtY36IppnufEIyHr+eqlvsIUOs0kY5I9Df6A=";
-              };
-            }
-          ];
         };
       };
     })

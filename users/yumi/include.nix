@@ -139,7 +139,6 @@ in {
         # rust replacements for some default console utilities
         cloak
         dogdns
-        fzf
         sshpass
       ]
       ++ [
