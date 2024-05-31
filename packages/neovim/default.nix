@@ -53,9 +53,10 @@ runCommandNoCC "nvim" {nativeBuildInputs = [makeWrapper];} ''
       sumneko-lua-language-server
       nil
       pyright
+      nodePackages.bash-language-server
       nodePackages.dockerfile-language-server-nodejs
-      nodePackages.typescript-language-server
       nodePackages.prettier
+      nodePackages.typescript-language-server
     ]
   }
 ''
