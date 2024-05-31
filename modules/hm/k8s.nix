@@ -24,6 +24,8 @@ in {
       packages = with pkgs; [
         argocd
         cilium-cli
+        dyff # diff for yaml
+        jqp # playground for jq
         konf
         kubectl
         kubernetes-helm
