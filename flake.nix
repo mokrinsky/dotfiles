@@ -41,6 +41,9 @@
       url = "github:mokrinsky/nix-ctp";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    catppuccin-nix = {
+      url = "github:catppuccin/nix";
+    };
     sops = {
       url = "github:Mic92/sops-nix";
       inputs = {
@@ -88,6 +91,7 @@
     pre-commit-hooks,
     sops,
     yumi,
+    catppuccin-nix,
     ...
   }:
     flake-parts.lib.mkFlake {inherit inputs;} {
@@ -187,7 +191,7 @@
           #   inherit (prev) system;
           #   config.allowUnfree = true;
           # };
-          inherit (yumi.packages.${prev.system}) wireguard-tools fzf;
+          inherit (yumi.packages.${prev.system}) wireguard-tools;
         };
 
         homeConfigurations.placeholder = home-manager.lib.homeManagerConfiguration {
@@ -198,6 +202,7 @@
             yumi.homeManagerModules.default
             sops.homeManagerModules.sops
             self.homeManagerModules.bundle
+            catppuccin-nix.homeManagerModules.catppuccin
             ./users/yumi/include.nix
           ];
           extraSpecialArgs = {
