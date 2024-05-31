@@ -130,7 +130,7 @@ in {
               crust = ctp.crust.hex;
             };
             palette = "ctp";
-            format = "[](fg:red)$username$hostname$container$sudo$shlvl[](fg:red bg:peach)$git_branch$git_commit$git_state$git_status$git_metrics[](fg:peach bg:yellow)$cmd_duration[](fg:yellow bg:green)$java$kotlin$golang$helm$nodejs$python$rust[](fg:green bg:blue)$package$nix_shell[](fg:blue bg:mauve)$docker_context$kubernetes[](fg:mauve)$line_break$directory$shell$status$character";
+            format = "$git_branch$git_commit$git_state$git_status$git_metrics$java$kotlin$golang$helm$nodejs$python$package$nix_shell$docker_context$kubernetes$line_break$directory$shell$status$character";
             right_format = "";
             character = {
               success_symbol = "[>](bold green)";
@@ -150,79 +150,65 @@ in {
             golang = {
               symbol = " ";
               format = "[ $symbol$version ]($style)";
-              style = "fg:base bg:green";
             };
             helm = {
               symbol = "󰶓 ";
               format = "[ $symbol$version ]($style)";
-              style = "fg:base bg:green";
             };
             java = {
               symbol = " ";
-              style = "fg:base bg:green";
               format = "[ $symbol$version ]($style)";
             };
             kotlin = {
               symbol = " ";
-              style = "fg:base bg:green";
               format = "[ $symbol$version ]($style)";
             };
             nodejs = {
               symbol = " ";
-              style = "fg:base bg:green";
               format = "[ $symbol$version ]($style)";
-            };
-            rust = {
-              format = "[ $symbol$version ]($style)";
-              style = "fg:base bg:green";
-              symbol = "󱘗 ";
             };
             python = {
               format = "[ $symbol$pyenv_prefix($version)($virtualenv) ]($style)";
-              style = "fg:base bg:green";
               symbol = "󰌠 ";
             };
             package = {
               symbol = " ";
-              style = "fg:base bg:blue";
               format = "[ $symbol$version ]($style)";
             };
             kubernetes = {
               symbol = "󱃾 ";
               format = "[ $symbol$context ]($style)";
-              style = "fg:base bg:mauve";
               disabled = false;
             };
             nix_shell = {
               symbol = " ";
               format = "[ $symbol$state( \\($name\\)) ]($style)";
-              style = "fg:base bg:blue";
             };
             git_branch = {
-              symbol = " ";
-              format = "[ $symbol$branch ]($style)";
-              style = "fg:base bg:peach";
+              symbol = " ";
+              format = "[$symbol$branch(:$remote_branch)]($style) ";
             };
             git_status = {
-              format = "[$all_status ]($style)";
-              style = "fg:base bg:peach";
               conflicted = "=";
-              ahead = " $count";
-              behind = " $count";
-              diverged = " $ahead_count $behind_count";
-              up_to_date = "󰄬 ";
+              ahead = "↑$count";
+              behind = "↓$count";
+              diverged = "↑$ahead_count↓$behind_count";
+              up_to_date = "✓";
               untracked = "?$count";
               stashed = "󰏖 ";
               modified = "!$count";
               staged = "+$count";
               renamed = "»$count";
-              deleted = "✘$count";
+              deleted = "⨯$count";
             };
-            cmd_duration = {
-              min_time = 1;
-              format = "[  $duration ]($style)";
+            git_state = {
               disabled = false;
-              style = "fg:base bg:yellow";
+            };
+            git_status = {
+              disabled = false;
+            };
+            git_metrics = {
+              disabled = false;
             };
             status = {
               disabled = false;
