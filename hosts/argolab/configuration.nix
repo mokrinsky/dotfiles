@@ -87,13 +87,6 @@
             hosts {
               192.168.2.254 argocd.lab.kolya.it
               192.168.2.252 vm.lab.kolya.it
-              192.168.2.11 k1.lab.kolya.it
-              192.168.2.12 k2.lab.kolya.it
-              192.168.2.13 k3.lab.kolya.it
-              192.168.2.14 k4.lab.kolya.it
-              192.168.2.15 k5.lab.kolya.it
-              192.168.2.16 k6.lab.kolya.it
-              192.168.2.17 k7.lab.kolya.it
               ttl 60
               reload 15s
               fallthrough
