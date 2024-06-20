@@ -15,8 +15,7 @@ in {
         konfPath = "${config.home.homeDirectory}/.kube/konfs/store";
       in {
         "kubeconfig/argolab".path = "${konfPath}/argolab_default.yaml";
-        "kubeconfig/rlab".path = "${konfPath}/rlab_default.yaml";
-        "kubeconfig/lab".path = "${konfPath}/lab_default.yaml";
+        "kubeconfig/talos".path = "${konfPath}/admin@talos_talos.yaml";
       };
     };
 
@@ -27,9 +26,12 @@ in {
         dyff # diff for yaml
         jqp # playground for jq
         konf
+        krew
         kubectl
         kubernetes-helm
+        talosctl
         terraform
+        velero
       ];
     };
 
