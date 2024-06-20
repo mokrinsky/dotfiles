@@ -21,8 +21,8 @@ in {
 
     targets.darwin.defaults = {
       NSGlobalDomain = {
-        AppleLanguages = ["en-GB" "en-RU" "ru-RU" "en" "it"];
-        AppleLocale = "en_RU"; # dd/mm/yyyy - 3.14 - 10,000 - week starts on Monday
+        AppleLanguages = ["it" "en" "ru-RU"];
+        AppleLocale = "it"; # dd/mm/yyyy - 3.14 - 10,000 - week starts on Monday
         AppleMeasurementUnits = "Centimeters";
         AppleMetricUnits = true;
         AppleTemperatureUnit = "Celsius";
