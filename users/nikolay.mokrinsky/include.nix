@@ -48,6 +48,7 @@ in {
       withLazyVim = false;
       withSessionVariables = true;
     };
+    secure.enable = true;
     wezterm.enable = true;
   };
 

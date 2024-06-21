@@ -8,6 +8,7 @@ _: {
     ./k8s.nix
     ./neovim.nix
     ./python.nix
+    ./secure.nix
     ./sketchybar
     ./wezterm.nix
     ./yabai.nix

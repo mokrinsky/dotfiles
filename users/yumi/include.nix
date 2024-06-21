@@ -84,6 +84,7 @@ in {
       enable = true;
       withAnsible = true;
     };
+    secure.enable = true;
     sketchybar.enable = true;
     wezterm.enable = true;
     yabai = {
