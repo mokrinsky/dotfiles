@@ -66,6 +66,22 @@ in {
         };
         system = "aarch64-darwin";
       };
+      rc = myLib.mkConfiguration {
+        builder = darwin.lib.darwinSystem;
+        modules = [
+          ../users/nikolay.mokrinsky
+          home-manager.darwinModules.home-manager
+          self.darwinModules.extra
+          ({pkgs, ...}: {
+            nixpkgs.overlays = [self.overlays.default];
+          })
+        ];
+        name = "rc";
+        specialArgs = {
+          inherit inputs;
+        };
+        system = "aarch64-darwin";
+      };
     };
   };
 }
