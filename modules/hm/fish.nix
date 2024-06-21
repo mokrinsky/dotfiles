@@ -15,10 +15,21 @@ in {
 
   config = mkMerge [
     (mkIf cfg.enable {
+      sops = {
+        secrets = {
+          atuinKey.path = "${config.home.homeDirectory}/.local/share/atuin/key";
+        };
+      };
+
       programs = {
         atuin = {
           enable = true;
           flags = ["--disable-up-arrow"];
+          settings = {
+            auto_sync = true;
+            sync_frequency = "5m";
+            sync_address = "https://atuin.kolya.it";
+          };
         };
         bat = {
           enable = true;
