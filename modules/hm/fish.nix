@@ -29,6 +29,9 @@ in {
             auto_sync = true;
             sync_frequency = "5m";
             sync_address = "https://atuin.kolya.it";
+            sync = {
+              records = true;
+            };
           };
         };
         bat = {
